@@ -841,15 +841,18 @@
             </div>
           </div>
 
-          <!-- Useful Resources Card -->
-          <div class="glass-panel rounded-3xl p-5 space-y-2 text-xs">
+          <!-- Enlaces Útiles Card -->
+          <div class="glass-panel rounded-3xl p-5 space-y-3 text-xs">
             <h5 class="font-bold text-slate-700 flex items-center gap-1.5">
-              <i data-lucide="external-link" class="w-3.5 h-3.5 text-purple-500"></i> Enlaces Útiles de Coaching
+              <i data-lucide="external-link" class="w-3.5 h-3.5 text-purple-500"></i> Enlaces Útiles
             </h5>
-            <ul class="space-y-1.5 text-slate-600 pt-1">
-              <li>• <a href="https://www.proz.com" target="_blank" class="text-purple-600 hover:underline">ProZ.com</a> - Directorio global de agencias y tarifas</li>
-              <li>• <a href="https://www.translatorscafe.com" target="_blank" class="text-purple-600 hover:underline">TranslatorsCafe</a> - Comunidad de traductores independientes</li>
-              <li>• <a href="https://www.colegiodetraductores.org.pe/pdf/codigo_etica.pdf" target="_blank" class="text-purple-600 hover:underline font-semibold inline-flex items-center gap-1"><i data-lucide="file-text" class="w-3.5 h-3.5 text-purple-500"></i> Código de Ética - Colegio de Traductores del Perú (CTP)</a></li>
+            <ul class="space-y-2 text-slate-600 pt-1">
+              <li>
+                <a href="https://www.colegiodetraductores.org.pe/pdf/codigo_etica.pdf" target="_blank" class="p-2.5 rounded-2xl bg-purple-50/80 hover:bg-purple-100/90 border border-purple-200 text-purple-700 font-bold flex items-center gap-2 transition-all">
+                  <i data-lucide="file-text" class="w-4 h-4 text-purple-600 shrink-0"></i>
+                  <span class="leading-tight">Código de Ética - Colegio de Traductores del Perú (CTP)</span>
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -1627,18 +1630,16 @@
         <div>
           <label class="block font-semibold text-slate-700 mb-1">Tipo de Sesión de Coaching *</label>
           <select id="coaching-tipo" required class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
-            <option value="Job Coaching Grupal: Inducción, Formato ATS & Marca Personal">Job Coaching Grupal: Inducción, Formato ATS & Marca Personal</option>
-            <option value="Job Coaching Grupal: Optimización de LinkedIn & Portafolio CAT Tools">Job Coaching Grupal: Optimización de LinkedIn & Portafolio CAT Tools</option>
-            <option value="Job Coaching Grupal: Portafolio Profesional + IA">Job Coaching Grupal: Portafolio Profesional + IA (Coach: Melanie Almeyda)</option>
-            <option value="Job Coaching Grupal: Simulacro de Entrevistas (Mock Interviews)">Job Coaching Grupal: Simulacro de Entrevistas (Mock Interviews)</option>
-            <option value="Taller Técnico: CAT Tools, QA & Tarifas Internacionales">Taller Técnico: CAT Tools, QA & Tarifas Internacionales</option>
+            <option value="Job Coaching Grupal I: Inducción Profesional, CV, Formato ATS">Job Coaching Grupal I: Inducción Profesional, CV, Formato ATS</option>
+            <option value="Job Coaching Grupal II: Optimización de LinkedIn">Job Coaching Grupal II: Optimización de LinkedIn</option>
+            <option value="Job Coaching Grupal III: Portafolio Profesional + IA">Job Coaching Grupal III: Portafolio Profesional + IA</option>
           </select>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block font-semibold text-slate-700 mb-1">Coach / Mentor *</label>
-            <input type="text" id="coaching-coach" required value="Lic. Andrea Paz & Mg. Fernando Valenzuela" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+            <label class="block font-semibold text-slate-700 mb-1">Coach / Facilitadora *</label>
+            <input type="text" id="coaching-coach" required value="Melanie Almeyda" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
           </div>
           <div>
             <label class="block font-semibold text-slate-700 mb-1">Estado</label>

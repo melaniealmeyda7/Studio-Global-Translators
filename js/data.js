@@ -347,14 +347,14 @@ window.GT_DATA_INITIAL = {
       id: "cg-1",
       practicanteId: "all",
       practicanteNombre: "Todo el Equipo UNIFÉ (6 Practicantes)",
-      tipo: "Job Coaching Grupal I: Inducción Profesional, Formato ATS & Marca Personal",
-      coach: "Lic. Andrea Paz (Head of Talent) & Mg. Fernando Valenzuela",
+      tipo: "Job Coaching Grupal I: Inducción Profesional, CV, Formato ATS",
+      coach: "Melanie Almeyda",
       fecha: "2026-09-30",
       hora: "09:30",
       estado: "programada",
       modalidad: "Grupal (Todo el Equipo UNIFÉ)",
-      objetivo: "Estandarización de CVs en formato ATS para traducción e interpretación, revisión del perfil profesional y estrategias de posicionamiento para practicantes.",
-      acuerdos: "Todas las practicantes deben tener su CV estructurado en formato ATS y perfil de LinkedIn actualizado con sus especialidades lingüísticas.",
+      objetivo: "Inducción al programa de prácticas, estructura y redacción de CV profesional para traducción e interpretación en formato ATS, verbos de acción y presentación ante agencias.",
+      acuerdos: "Todas las practicantes deben tener su CV estructurado en formato ATS y preparado para revisión y auditoría.",
       enlaceSala: "https://meet.google.com/cei-stmz-drx",
       calificacion: null
     },
@@ -362,14 +362,14 @@ window.GT_DATA_INITIAL = {
       id: "cg-2",
       practicanteId: "all",
       practicanteNombre: "Todo el Equipo UNIFÉ (6 Practicantes)",
-      tipo: "Job Coaching Grupal II: Optimización de LinkedIn, Portafolio CAT Tools & Tarifas",
-      coach: "Lic. Andrea Paz (Head of Talent) & Mg. Fernando Valenzuela",
+      tipo: "Job Coaching Grupal II: Optimización de LinkedIn",
+      coach: "Melanie Almeyda",
       fecha: "2026-10-28",
       hora: "09:30",
       estado: "programada",
       modalidad: "Grupal (Todo el Equipo UNIFÉ)",
-      objetivo: "Auditoría de perfiles en ProZ y LinkedIn, construcción del portafolio digital de traducción con muestras de proyectos reales y fijación de tarifas internacionales.",
-      acuerdos: "Presentar muestras anonimizadas de traducción técnica/audiovisual y cálculo de tarifas por palabra/hora según estándares de la industria.",
+      objetivo: "Optimización estratégica de perfiles en LinkedIn: titular profesional, extracto bilingüe con palabras clave (keywords) de traducción e interpretación, sección de destacados y networking internacional.",
+      acuerdos: "Actualizar perfil de LinkedIn con especialidades, pares de idiomas certificados y muestras de trabajo autorizadas.",
       enlaceSala: "https://meet.google.com/cei-stmz-drx",
       calificacion: null
     },
@@ -383,19 +383,17 @@ window.GT_DATA_INITIAL = {
       hora: "09:30",
       estado: "programada",
       modalidad: "Grupal (Todo el Equipo UNIFÉ)",
-      objetivo: "Creación y estructuración del Portafolio Profesional para traductoras e intérpretes con integración de Inteligencia Artificial (IA), prompts especializados, post-edición (MTPE) y curaduría de muestras de traducción.",
-      acuerdos: "Desarrollar portafolio digital en formato web o PDF interactivo con muestras de proyectos y metodología ética asistida por IA.",
+      objetivo: "Creación y estructuración del Portafolio Profesional para traductoras con integración de Inteligencia Artificial (IA), prompts especializados, post-edición (MTPE) y curaduría de muestras de traducción.",
+      acuerdos: "Montar portafolio digital bilingüe con muestras autorizadas de proyectos y flujo de trabajo ético asistido por IA.",
       enlaceSala: "https://meet.google.com/cei-stmz-drx",
       calificacion: null
     }
   ],
 
   roadmapSteps: [
-    { id: "r1", titulo: "CV Formato Internacional ATS", desc: "Diseño limpio en inglés y español con verbos de acción.", hecho: true },
-    { id: "r2", titulo: "Perfil LinkedIn Bilingüe Optimizado", desc: "Titular estratégico, extracto con palabras clave y sección de destacados.", hecho: true },
-    { id: "r3", titulo: "Portafolio de Traducción con Muestras Limpias", desc: "Textos origen y meta autorizados demostrando precisión y estilo.", hecho: true },
-    { id: "r4", titulo: "Simulacro de Entrevista Técnica (Mock Interview)", desc: "Roleplay de resolución de imprevistos, plazos ajustados y pruebas de traducción.", hecho: false },
-    { id: "r5", titulo: "Estrategia de Prospección y Agencias Globales", desc: "Postulación a agencias en Proz, TranslatorsCafe y LinkedIn.", hecho: false }
+    { id: "r1", titulo: "Sesión 1: Inducción Profesional, CV & Formato ATS", desc: "Diseño y estructura de CV bilingüe sin tablas en formato ATS, optimizado para selección internacional.", hecho: true },
+    { id: "r2", titulo: "Sesión 2: Optimización de LinkedIn", desc: "Titular estratégico de traducción/interpretación, extracto bilingüe con keywords y red de contactos.", hecho: true },
+    { id: "r3", titulo: "Sesión 3: Portafolio Profesional + IA", desc: "Montaje de portafolio con muestras autorizadas y flujo de trabajo asistido éticamente con IA.", hecho: false }
   ],
 
   glosario: [

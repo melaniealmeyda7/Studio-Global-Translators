@@ -3,7 +3,7 @@
 
 class GlobalTranslatorsApp {
   constructor() {
-    this.storageKey = "GT_STUDIO_STORAGE_V4";
+    this.storageKey = "GT_STUDIO_STORAGE_V5";
     this.firebaseConfigKey = "GT_FIREBASE_CONFIG_V1";
     this.currentTab = "overview";
     this.cronogramaView = "kanban"; // 'kanban' | 'list'
@@ -56,7 +56,7 @@ class GlobalTranslatorsApp {
         const parsed = JSON.parse(saved);
         this.data = { ...window.GT_DATA_INITIAL, ...parsed };
 
-        // Auto-migración si el almacenamiento local tiene datos desactualizados o individuales
+        // Auto-migración si el almacenamiento local tiene datos desactualizados
         const needsUpdate = !parsed.practicantes || 
           parsed.practicantes.length < 6 || 
           parsed.practicantes.some(p => p.avatar && p.avatar.includes("unsplash.com")) ||
@@ -68,12 +68,15 @@ class GlobalTranslatorsApp {
           )) ||
           !parsed.coachingSessions ||
           parsed.coachingSessions.length === 0 ||
-          parsed.coachingSessions.some(c => c.id === "c1" || (c.enlaceSala && c.enlaceSala.includes("gts-coaching")) || (c.id === "cg-3" && c.coach !== "Melanie Almeyda"));
+          parsed.coachingSessions.some(c => c.coach !== "Melanie Almeyda") ||
+          !parsed.roadmapSteps ||
+          parsed.roadmapSteps.length !== 3;
 
         if (needsUpdate) {
           this.data.practicantes = JSON.parse(JSON.stringify(window.GT_DATA_INITIAL.practicantes));
           this.data.entregas = JSON.parse(JSON.stringify(window.GT_DATA_INITIAL.entregas));
           this.data.coachingSessions = JSON.parse(JSON.stringify(window.GT_DATA_INITIAL.coachingSessions));
+          this.data.roadmapSteps = JSON.parse(JSON.stringify(window.GT_DATA_INITIAL.roadmapSteps));
           this.data.excelTemplateData = JSON.parse(JSON.stringify(window.GT_DATA_INITIAL.excelTemplateData));
           this.saveState();
         }
@@ -1848,6 +1851,8 @@ class GlobalTranslatorsApp {
     if (h) h.value = "09:30";
     const l = document.getElementById("coaching-enlace");
     if (l) l.value = "https://meet.google.com/cei-stmz-drx";
+    const c = document.getElementById("coaching-coach");
+    if (c) c.value = "Melanie Almeyda";
     const p = document.getElementById("coaching-practicante-id");
     if (p) p.value = "all";
     this.openModal("modal-coaching");
@@ -1867,7 +1872,7 @@ class GlobalTranslatorsApp {
       practicanteId: pracId,
       practicanteNombre: pracNombre,
       tipo: document.getElementById("coaching-tipo").value,
-      coach: document.getElementById("coaching-coach").value.trim(),
+      coach: document.getElementById("coaching-coach").value.trim() || "Melanie Almeyda",
       fecha: document.getElementById("coaching-fecha").value,
       hora: document.getElementById("coaching-hora").value,
       estado: document.getElementById("coaching-estado").value,
