@@ -3,7 +3,7 @@
 
 class GlobalTranslatorsApp {
   constructor() {
-    this.storageKey = "GT_STUDIO_STORAGE_V2";
+    this.storageKey = "GT_STUDIO_STORAGE_V3";
     this.firebaseConfigKey = "GT_FIREBASE_CONFIG_V1";
     this.currentTab = "overview";
     this.cronogramaView = "kanban"; // 'kanban' | 'list'
@@ -56,7 +56,7 @@ class GlobalTranslatorsApp {
         const parsed = JSON.parse(saved);
         this.data = { ...window.GT_DATA_INITIAL, ...parsed };
 
-        // Auto-migración si el almacenamiento local tiene menos de 6 practicantes, fotos random de unsplash o nombres antiguos
+        // Auto-migración si el almacenamiento local tiene datos desactualizados o individuales
         const needsUpdate = !parsed.practicantes || 
           parsed.practicantes.length < 6 || 
           parsed.practicantes.some(p => p.avatar && p.avatar.includes("unsplash.com")) ||
@@ -65,7 +65,10 @@ class GlobalTranslatorsApp {
             p.nombre.includes("Camila") || 
             p.nombre.includes("Lucía Méndez") ||
             p.nombre.includes("Sofía Castillo")
-          ));
+          )) ||
+          !parsed.coachingSessions ||
+          parsed.coachingSessions.length === 0 ||
+          parsed.coachingSessions.some(c => c.id === "c1" || (c.enlaceSala && c.enlaceSala.includes("gts-coaching")));
 
         if (needsUpdate) {
           this.data.practicantes = JSON.parse(JSON.stringify(window.GT_DATA_INITIAL.practicantes));
@@ -269,12 +272,19 @@ class GlobalTranslatorsApp {
         cListEl.innerHTML = `<p class="text-xs text-slate-400 italic">No hay sesiones de coaching agendadas.</p>`;
       } else {
         cListEl.innerHTML = nextCoaching.map(c => `
-          <div class="p-2.5 bg-white/80 rounded-2xl border border-purple-100 text-xs space-y-1">
-            <div class="flex items-center justify-between font-bold text-slate-800">
-              <span class="truncate">${c.tipo}</span>
-              <span class="text-[10px] text-purple-700 bg-purple-100 px-2 py-0.5 rounded-full">${c.fecha}</span>
+          <div class="p-3 bg-white/90 rounded-2xl border border-purple-100 text-xs space-y-2 shadow-2xs hover:border-purple-200 transition-all">
+            <div class="flex items-start justify-between gap-1">
+              <span class="font-bold text-slate-800 leading-snug text-[11px] line-clamp-1">${c.tipo}</span>
+              <span class="text-[10px] font-black text-purple-700 bg-purple-50 px-2 py-0.5 rounded-lg shrink-0">
+                Miérc. ${c.fecha.slice(5)} • ${c.hora}
+              </span>
             </div>
-            <p class="text-[11px] text-slate-500">Practicante: <b>${c.practicanteNombre}</b></p>
+            <div class="flex items-center justify-between text-[11px] text-slate-500 pt-0.5">
+              <span>👥 <b>${c.practicanteNombre}</b></span>
+              <a href="${c.enlaceSala || 'https://meet.google.com/cei-stmz-drx'}" target="_blank" class="text-purple-600 hover:text-purple-800 font-bold inline-flex items-center gap-1 hover:underline">
+                <i data-lucide="video" class="w-3 h-3 text-purple-500"></i> Meet
+              </a>
+            </div>
           </div>
         `).join("");
       }
@@ -750,14 +760,21 @@ class GlobalTranslatorsApp {
 
     coaching.forEach(c => {
       html += `
-        <div class="p-3 bg-white/95 rounded-2xl border border-purple-100 text-xs space-y-1 shadow-2xs">
+        <div class="p-3.5 bg-white/95 rounded-2xl border border-purple-100 text-xs space-y-2 shadow-2xs">
           <div class="flex items-center justify-between">
-            <span class="pill-badge bg-purple-100 text-purple-700 text-[9px]">Job Coaching</span>
-            <span class="text-[10px] text-purple-600 font-bold">${c.hora}</span>
+            <span class="pill-badge bg-purple-100 text-purple-700 text-[10px] font-bold">👥 Coaching Grupal UNIFÉ</span>
+            <span class="text-xs text-purple-700 font-black bg-purple-50 px-2 py-0.5 rounded-lg">${c.hora || '09:30'} AM</span>
           </div>
           <h5 class="font-bold text-slate-800 leading-snug">${c.tipo}</h5>
-          <p class="text-[11px] text-slate-500">Coach: <b>${c.coach}</b></p>
-          <p class="text-[11px] text-slate-600">Practicante: <b>${c.practicanteNombre}</b></p>
+          <p class="text-[11px] text-slate-600">Participantes: <b class="text-purple-700">${c.practicanteNombre}</b></p>
+          <p class="text-[11px] text-slate-500">Coach / Facilitador: <b>${c.coach}</b></p>
+          ${c.objetivo ? `<div class="text-[10px] text-slate-500 bg-slate-50 p-2 rounded-xl"><b>Objetivo:</b> ${c.objetivo}</div>` : ''}
+          <div class="pt-1.5 flex items-center justify-between border-t border-slate-100">
+            <a href="${c.enlaceSala || 'https://meet.google.com/cei-stmz-drx'}" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-[11px] shadow-xs transition-all">
+              <i data-lucide="video" class="w-3.5 h-3.5"></i> Unirse a Google Meet
+            </a>
+            <span class="text-[10px] text-slate-400 font-mono">cei-stmz-drx</span>
+          </div>
         </div>
       `;
     });
@@ -975,55 +992,100 @@ class GlobalTranslatorsApp {
       if (this.data.coachingSessions.length === 0) {
         sessionsList.innerHTML = `<div class="text-center py-8 text-slate-400 text-xs">No hay sesiones de coaching registradas.</div>`;
       } else {
-        sessionsList.innerHTML = this.data.coachingSessions.map(c => `
-          <div class="p-4 rounded-2xl bg-white/90 border border-slate-100 hover:border-purple-200 transition-all space-y-2.5">
-            <div class="flex items-start justify-between gap-2">
-              <div>
-                <span class="pill-badge ${c.estado === 'completada' ? 'bg-emerald-100 text-emerald-800' : 'bg-purple-100 text-purple-800'} text-[10px]">
-                  ${c.estado === 'completada' ? 'Completada con éxito ✨' : 'Programada'}
-                </span>
-                <h4 class="font-heading font-bold text-sm text-slate-800 mt-1">${c.tipo}</h4>
+        sessionsList.innerHTML = this.data.coachingSessions.map(c => {
+          // Check if session is group
+          const isGroup = c.practicanteId === "all" || (c.practicanteNombre && c.practicanteNombre.toLowerCase().includes("equipo"));
+          const avatarsHtml = isGroup ? `
+            <div class="flex flex-wrap items-center gap-2 pt-1">
+              <div class="flex -space-x-2 overflow-hidden py-0.5">
+                ${this.data.practicantes.map(p => `
+                  <img src="${p.avatar}" alt="${p.nombre}" title="${p.nombre} (Practicante UNIFÉ)" class="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-xs hover:scale-110 hover:z-10 transition-transform">
+                `).join("")}
               </div>
-              <div class="text-right">
-                <span class="text-xs font-bold text-purple-700 bg-purple-50 px-2 py-1 rounded-lg">${c.fecha} • ${c.hora}</span>
+              <span class="text-xs font-bold text-purple-700 bg-purple-100/70 px-2.5 py-1 rounded-xl">
+                6 Practicantes UNIFÉ Convocadas
+              </span>
+            </div>
+          ` : `
+            <div class="text-xs text-slate-700"><b>Practicante:</b> ${c.practicanteNombre}</div>
+          `;
+
+          // Date formatting for Wednesday sessions
+          const dateParts = c.fecha.split("-");
+          const dateObj = new Date(parseInt(dateParts[0]), parseInt(dateParts[1]) - 1, parseInt(dateParts[2]));
+          const dayName = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"][dateObj.getDay()] || "Miércoles";
+          const monthName = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"][dateObj.getMonth()] || "";
+
+          return `
+          <div class="p-5 rounded-3xl bg-white/95 border border-purple-100 hover:border-purple-300 shadow-xs hover:shadow-md transition-all space-y-3.5">
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-2 border-b border-slate-100">
+              <div class="space-y-1.5">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="pill-badge bg-purple-100 text-purple-800 text-[10px] font-bold flex items-center gap-1">
+                    <i data-lucide="users" class="w-3 h-3 text-purple-600"></i> Modalidad Grupal
+                  </span>
+                  <span class="pill-badge ${c.estado === 'completada' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'} text-[10px] font-bold">
+                    ${c.estado === 'completada' ? 'Completada con éxito ✨' : 'Sesión Programada'}
+                  </span>
+                </div>
+                <h4 class="font-heading font-extrabold text-base text-slate-800 leading-snug">${c.tipo}</h4>
+              </div>
+              <div class="text-left sm:text-right shrink-0">
+                <span class="text-xs font-black text-purple-700 bg-purple-50 border border-purple-200 px-3 py-1.5 rounded-xl inline-block shadow-2xs">
+                  ${dayName} ${parseInt(dateParts[2])} de ${monthName}, ${dateParts[0]} • ${c.hora} AM
+                </span>
               </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600 bg-slate-50/70 p-2.5 rounded-xl">
-              <div><b>Practicante:</b> ${c.practicanteNombre}</div>
-              <div><b>Coach / Mentor:</b> ${c.coach}</div>
-              <div class="sm:col-span-2"><b>Objetivo:</b> ${c.objetivo || 'Asesoría de carrera y empleabilidad'}</div>
+            <!-- Participants & Mentors -->
+            <div class="bg-gradient-to-r from-purple-50/70 to-pink-50/50 p-3.5 rounded-2xl border border-purple-100 space-y-2">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-700">
+                <div><b>Coach / Facilitador:</b> ${c.coach}</div>
+                <div class="text-purple-700 font-bold bg-white/80 px-2 py-0.5 rounded-lg border border-purple-100 text-[11px]">
+                  ⏰ Miércoles 9:30 AM (Asistencia Puntual)
+                </div>
+              </div>
+              ${avatarsHtml}
+            </div>
+
+            <div class="text-xs text-slate-600 bg-slate-50/80 p-3 rounded-2xl border border-slate-100">
+              <b>Objetivo de la Sesión:</b> ${c.objetivo || 'Asesoría de empleabilidad, perfiles profesionales y traducción técnica.'}
             </div>
 
             ${c.acuerdos ? `
-              <div class="text-[11px] text-purple-900 bg-purple-50/60 p-2.5 rounded-xl border border-purple-100">
-                <b>Acuerdos & Tareas:</b> ${c.acuerdos}
+              <div class="text-[11px] text-purple-900 bg-purple-50/60 p-3 rounded-2xl border border-purple-100">
+                <b>📌 Acuerdos & Preparación Previa:</b> ${c.acuerdos}
               </div>
             ` : ''}
 
             ${c.calificacion ? `
-              <div class="text-[11px] text-emerald-800 bg-emerald-50/60 p-2 rounded-xl">
-                <b>Feedback del Coach:</b> ${c.calificacion}
+              <div class="text-[11px] text-emerald-800 bg-emerald-50/70 p-3 rounded-2xl border border-emerald-100">
+                <b>Feedback & Conclusiones:</b> ${c.calificacion}
               </div>
             ` : ''}
 
-            <div class="pt-2 flex items-center justify-between border-t border-slate-100 text-xs">
-              <a href="${c.enlaceSala || '#'}" target="_blank" class="text-purple-600 hover:underline font-bold flex items-center gap-1">
-                <i data-lucide="video" class="w-3.5 h-3.5"></i> Sala de Meet
-              </a>
+            <div class="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 text-xs">
+              <div class="flex items-center gap-2">
+                <a href="${c.enlaceSala || 'https://meet.google.com/cei-stmz-drx'}" target="_blank" class="px-4 py-2 rounded-2xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs flex items-center gap-2 shadow-sm shadow-purple-200 hover:shadow-md transition-all">
+                  <i data-lucide="video" class="w-4 h-4"></i>
+                  <span>Unirse a Google Meet</span>
+                </a>
+                <span class="text-xs text-slate-500 font-mono hidden sm:inline">meet.google.com/cei-stmz-drx</span>
+              </div>
               <div class="flex items-center gap-1.5">
                 ${c.estado !== 'completada' ? `
-                  <button onclick="app.completeCoachingSession('${c.id}')" class="px-2.5 py-1 rounded-xl bg-emerald-100 hover:bg-emerald-200 text-emerald-800 font-bold text-[11px]">
-                    Marcar Completada ✅
+                  <button onclick="app.completeCoachingSession('${c.id}')" class="px-3 py-1.5 rounded-xl bg-emerald-100 hover:bg-emerald-200 text-emerald-800 font-bold text-[11px] transition-all">
+                    Marcar Realizada ✅
                   </button>
                 ` : ''}
-                <button onclick="app.deleteCoachingSession('${c.id}')" class="p-1 text-slate-300 hover:text-rose-500">
-                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                <button onclick="app.deleteCoachingSession('${c.id}')" class="p-1.5 text-slate-300 hover:text-rose-500 transition-colors" title="Eliminar sesión">
+                  <i data-lucide="trash-2" class="w-4 h-4"></i>
                 </button>
               </div>
             </div>
           </div>
-        `).join("");
+          `;
+        }).join("");
       }
     }
 
@@ -1554,7 +1616,12 @@ class GlobalTranslatorsApp {
     const optionsHtml = this.data.practicantes.map(p => `<option value="${p.id}">${p.nombre} (${p.rol.split(" ")[0]})</option>`).join("");
 
     if (selEntrega) selEntrega.innerHTML = optionsHtml;
-    if (selCoaching) selCoaching.innerHTML = optionsHtml;
+    if (selCoaching) {
+      selCoaching.innerHTML = `
+        <option value="all" selected>👥 Todo el Equipo UNIFÉ (Sesión Grupal - 6 Practicantes)</option>
+        ${optionsHtml}
+      `;
+    }
     if (filterPrac) filterPrac.innerHTML = `<option value="">Todas las practicantes</option>` + optionsHtml;
   }
 
@@ -1741,26 +1808,37 @@ class GlobalTranslatorsApp {
     document.getElementById("form-coaching").reset();
     const d = document.getElementById("coaching-fecha");
     if (d) d.value = this.selectedCalendarDayStr || this.formatDate(new Date());
+    const h = document.getElementById("coaching-hora");
+    if (h) h.value = "09:30";
+    const l = document.getElementById("coaching-enlace");
+    if (l) l.value = "https://meet.google.com/cei-stmz-drx";
+    const p = document.getElementById("coaching-practicante-id");
+    if (p) p.value = "all";
     this.openModal("modal-coaching");
   }
 
   saveCoachingSession(e) {
     e.preventDefault();
     const pracId = document.getElementById("coaching-practicante-id").value;
-    const prac = this.data.practicantes.find(p => p.id === pracId);
+    let pracNombre = "Todo el Equipo UNIFÉ (6 Practicantes)";
+    if (pracId !== "all") {
+      const prac = this.data.practicantes.find(p => p.id === pracId);
+      pracNombre = prac ? prac.nombre : "Practicante";
+    }
 
     const newSession = {
-      id: "c" + Date.now(),
+      id: "cg-" + Date.now(),
       practicanteId: pracId,
-      practicanteNombre: prac ? prac.nombre : "Practicante",
+      practicanteNombre: pracNombre,
       tipo: document.getElementById("coaching-tipo").value,
       coach: document.getElementById("coaching-coach").value.trim(),
       fecha: document.getElementById("coaching-fecha").value,
       hora: document.getElementById("coaching-hora").value,
       estado: document.getElementById("coaching-estado").value,
+      modalidad: pracId === "all" ? "Grupal (Todo el Equipo UNIFÉ)" : "Individual",
       objetivo: document.getElementById("coaching-objetivo").value.trim(),
       acuerdos: document.getElementById("coaching-acuerdos").value.trim(),
-      enlaceSala: document.getElementById("coaching-enlace").value.trim() || "https://meet.google.com/gts-coaching"
+      enlaceSala: document.getElementById("coaching-enlace").value.trim() || "https://meet.google.com/cei-stmz-drx"
     };
 
     this.data.coachingSessions.push(newSession);
