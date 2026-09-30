@@ -303,4 +303,23 @@ h1, h2, h3, .font-heading {
   }
 }
 
+/* Security Gate & Shake Animation */
+@keyframes shakeGate {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+.animate-shake {
+  animation: shakeGate 0.4s ease-in-out;
+}
+
+#studio-main-content {
+  display: none;
+}
+.gt-authenticated #studio-main-content {
+  display: flex !important;
+}
+.gt-authenticated #security-gate-screen {
+  display: none !important;
+}
 
