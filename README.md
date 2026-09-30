@@ -1,64 +1,64 @@
-# Global Translators • Cute Intern Studio & Hub ✨
+# Global Translators • Intern Studio & Hub ✨
+### POWERED BY POLYGLOT MAP
 
-Espacio virtual interactivo de gestión integral para las practicantes de **Global Translators**, diseñado con estética **cute pastel**, dinamismo en tiempo real, cronograma de entregas, calendario interactivo, repositorio de CVs, módulo de **Job Coaching** y lector/gestor de hojas de cálculo de **Excel (.xlsx / .csv)**.
+Espacio virtual interactivo de gestión integral para las 7 practicantes de **Global Translators** (6 de UNIFÉ y 1 de UPC), diseñado con estética **cute pastel**, sincronización en vivo mediante **Firebase Realtime Database**, cronograma oficial sincronizado del proyecto **"Preservando historias – San Mateo"** (45,000 palabras mínimo), calendario interactivo, repositorio de perfiles profesionales y CVs interactivos, módulo de **Job Coaching Grupal** con la coach **Melanie Almeyda**, sala permanente de **Google Meet** y lector/gestor de hojas de cálculo de **Excel (.xlsx / .csv)**.
 
 ---
 
 ## 🌸 Características Principales
 
 1. **Dashboard & Resumen Dinámico:**
-   - Saludo inteligente según la hora del día y carrusel de frases motivacionales para traductoras.
-   - 4 métricas clave: Entregas activas, practicantes registradas, sesiones de coaching y promedio de horas de prácticas.
-   - Reproductor de **Lofi Zen Studio** (música ambiental relajante con acordes generados vía Web Audio API, 100% offline).
+   - Modo Activo: *Preservando Historias San Mateo* (ONG PRESERVANDO & POLYGLOT MAP, coordinado por Melanie Almeyda y Katherine Tiburcio).
+   - 4 métricas clave: Entregas activas, 7 practicantes registradas, sesiones de coaching grupal y meta de volumen oficial (45,000 palabras mínimas).
+   - Reproductor de **Lofi Zen Studio** (música ambiental relajante generada con Web Audio API, 100% offline).
 
-2. **📋 Cronograma de Entregas (Kanban & Lista):**
-   - 4 columnas de flujo: *Por Iniciar*, *En Traducción*, *Revisión & QA*, *Entregado ✨*.
-   - Botón de 1 clic para avanzar estados con animación de confeti.
-   - Filtros en vivo por texto, practicante y par de idiomas (`EN ➔ ES`, `FR ➔ ES`, `DE ➔ ES`, etc.).
-   - Prioridades (*Normal*, *Urgente*, *Express*), enlaces directos a Google Drive y notas de estilo.
+2. **📋 Cronograma Oficial de Entregas (6 Fases Oficiales + Kanban en Vivo):**
+   - Sincronizado directamente con el documento oficial *Cronograma - Traducir para Preservar (San Mateo)*:
+     - **Fase 1:** Introducción y análisis lingüístico del texto (AGO 26 – SEP 9).
+     - **Fase 2:** Investigación documental e intercultural (SEP 9 – SEP 23).
+     - **Fase 3:** Traducción y elaboración de glosario bilingüe (SEP 16 – NOV 18).
+     - **Fase 4:** Revisión cruzada entre traductoras y revisión senior (OCT 14 – NOV 25).
+     - **Fase 5:** Versión final validada (NOV 18 – DIC 2).
+     - **Fase 6:** Presentación de resultado y sustentación oral final (DIC 2 – DIC 9).
+   - **Arrastrar y soltar (Drag & Drop) en vivo:** Movimiento entre columnas sincronizado en tiempo real a través de **Firebase Realtime Database** sin recargar la página.
 
-3. **📅 Calendario Interactivo:**
-   - Vista mensual completa con navegación de meses.
-   - Marcadores visuales en colores pastel para entregas y sesiones de coaching.
-   - Panel lateral del día seleccionado con botón rápido para agendar entregas en esa fecha.
+3. **👩‍🎓 Directorio de 7 Practicantes (6 UNIFÉ • 1 UPC):**
+   - **Maria Fernanda Olivares Ramón** (UNIFÉ) — Audiovisual / Intérprete (EN/PT/ES).
+   - **Celine Lorena Bautista Ramos** (UNIFÉ) — Textos Especializados & Maquetación (EN/PT/ES).
+   - **Sophia Camila Cabrera Zarate** (UNIFÉ) — Traducción Académica / Científica (EN/FR/ES).
+   - **Landys Brunella Gonzales Torres** (UNIFÉ) — Interpretación Consecutiva & Ferias (EN/FR/ES).
+   - **Fatima Valentina Gallegos Tornero** (UNIFÉ) — Interpretación de Enlace (EN C2/FR C1).
+   - **Arihana Jelena Altamirano Guevara** (UNIFÉ) — Audiovisual & Subtitulaje (EN/FR/ES).
+   - **Gaylim Gonzales Ayala** (UPC) — Intérprete OPI/VRI & CAT tools (memoQ, Trados, Phrase).
+   - Fotografías reales y visor interactivo de perfil profesional, experiencia y habilidades.
 
-4. **👩‍🎓 Practicantes & Repositorio de CVs:**
-   - Fichas de perfil con avatar cute, universidad, ciclo, idiomas y CAT Tools dominadas.
-   - Barra de progreso interactiva de horas acumuladas vs. meta (480 hrs).
-   - Modal de visualización de CV con extracto profesional y enlace directo al documento en Drive o PDF.
+4. **🎯 Módulo de Job Coaching Grupal:**
+   - 3 sesiones grupales de mentoría laboral lideradas por la coach **Melanie Almeyda**:
+     - *Sesión 1:* Inducción Profesional, CV & Formato ATS (30 de Septiembre, 9:30 AM).
+     - *Sesión 2:* Optimización de LinkedIn (28 de Octubre, 9:30 AM).
+     - *Sesión 3:* Portafolio Profesional + IA (25 de Noviembre, 9:30 AM).
+   - Enlace directo a la sala oficial de Google Meet: `meet.google.com/cei-stmz-drx`.
 
-5. **🎯 Módulo de Job Coaching & Empleabilidad:**
-   - Agenda de sesiones 1 a 1 de asesoría laboral (Mock Interviews, optimización de CV formato ATS, auditoría de LinkedIn, negociación de tarifas).
-   - Roadmap interactivo de 5 hitos para graduarse como traductora profesional.
-   - Registro de feedback y acuerdos por sesión.
+5. **💬 Sala Abierta Meet (24/7):**
+   - Espacio permanente de Google Meet (`meet.google.com/ejp-yxsy-ufw`) para que las 7 practicantes se reúnan en equipo a co-traducir, resolver consultas terminológicas o coordinar en vivo con su gestora.
 
 6. **📊 Gestor & Visor de Excel (.xlsx / .csv):**
-   - Motor SheetJS integrado para arrastrar y soltar cualquier archivo Excel y visualizarlo en una tabla pastel interactiva.
-   - Búsqueda en tiempo real dentro de la hoja de cálculo.
-   - **Descarga directa de Plantilla Excel (.xlsx)** lista para rellenar con practicantes y entregas.
-   - **Exportación en un clic de todos los datos en vivo** a un libro de Excel con 3 hojas (*Practicantes*, *Entregas*, *Job_Coaching*).
+   - Motor SheetJS integrado para visualizar, buscar y exportar datos del equipo y proyectos.
+   - Plantilla descargable con las 7 practicantes registradas.
 
-7. **🛠️ Kit de Traductora & Notas Pastel:**
-   - Glosario terminológico colaborativo con filtro por especialidad (Jurídico, Médico, Audiovisual, Marketing).
-   - Contador de palabras y caracteres con estimador de tiempo de traducción (250 palabras/hora).
-   - Notas adhesivas pastel con guardado automático.
+7. **🛠️ Kit de Traductora & Enlaces Útiles:**
+   - Glosario terminológico colaborativo.
+   - Enlace oficial al **Código de Ética del Colegio de Traductores del Perú (CTP)**.
 
 ---
 
 ## 🚀 Cómo Ejecutar la Aplicación
 
-Puedes abrir `index.html` directamente en tu navegador o levantarlo con un servidor local de Python:
-
-```bash
-cd /Users/melaniealmeyda/.gemini/antigravity/scratch/global-translators-studio
-python3 -m http.server 8080
-```
-
-Luego abre en tu navegador:
-[http://localhost:8080](http://localhost:8080)
+Abre en tu navegador local:
+[http://localhost:8088](http://localhost:8088)
 
 ---
 
-## 💾 Persistencia de Datos
+## 💾 Persistencia y Sincronización en Tiempo Real
 
-Todos los registros y modificaciones se guardan de forma instantánea y persistente en el navegador (`localStorage`). Puedes respaldar o restaurar la información en cualquier momento usando el botón de base de datos en la barra superior.
+Todos los cambios se guardan localmente en el navegador y se sincronizan en vivo entre todos los miembros del equipo mediante **Firebase Realtime Database**.

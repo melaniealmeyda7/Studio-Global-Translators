@@ -3,7 +3,7 @@
 
 class GlobalTranslatorsApp {
   constructor() {
-    this.storageKey = "GT_STUDIO_STORAGE_V5";
+    this.storageKey = "GT_STUDIO_STORAGE_V6";
     this.firebaseConfigKey = "GT_FIREBASE_CONFIG_V1";
     this.currentTab = "overview";
     this.cronogramaView = "kanban"; // 'kanban' | 'list'
@@ -58,19 +58,14 @@ class GlobalTranslatorsApp {
 
         // Auto-migración si el almacenamiento local tiene datos desactualizados
         const needsUpdate = !parsed.practicantes || 
-          parsed.practicantes.length < 6 || 
-          parsed.practicantes.some(p => p.avatar && p.avatar.includes("unsplash.com")) ||
-          parsed.practicantes.some(p => p.nombre && (
-            p.nombre.includes("Valentina Morales") || 
-            p.nombre.includes("Camila") || 
-            p.nombre.includes("Lucía Méndez") ||
-            p.nombre.includes("Sofía Castillo")
-          )) ||
+          parsed.practicantes.length < 7 || 
+          !parsed.practicantes.some(p => p.nombre && p.nombre.includes("Gaylim")) ||
+          parsed.practicantes.some(p => p.horasMeta) ||
+          !parsed.entregas ||
+          parsed.entregas.length < 10 ||
+          !parsed.entregas.some(e => e.id === "ent-sm-f1") ||
           !parsed.coachingSessions ||
-          parsed.coachingSessions.length === 0 ||
-          parsed.coachingSessions.some(c => c.coach !== "Melanie Almeyda") ||
-          !parsed.roadmapSteps ||
-          parsed.roadmapSteps.length !== 3;
+          parsed.coachingSessions.length === 0;
 
         if (needsUpdate) {
           this.data.practicantes = JSON.parse(JSON.stringify(window.GT_DATA_INITIAL.practicantes));
@@ -231,18 +226,9 @@ class GlobalTranslatorsApp {
   /* ------------------------------------------------------------- */
   renderOverview() {
     // Stats calculation
-    const entregasActivas = this.data.entregas.filter(e => e.estado !== "entregado").length;
+    const entregasActivas = this.data.entregas.filter(e => e.estado !== "entregado" && e.estado !== "completada").length;
     const totalPracticantes = this.data.practicantes.length;
     const coachingActivas = this.data.coachingSessions.filter(c => c.estado === "programada").length;
-
-    // Average completed hours percentage
-    let totalHorasCompletadas = 0;
-    let totalHorasMeta = 0;
-    this.data.practicantes.forEach(p => {
-      totalHorasCompletadas += Number(p.horasCompletadas || 0);
-      totalHorasMeta += Number(p.horasMeta || 480);
-    });
-    const avgPct = totalHorasMeta > 0 ? Math.round((totalHorasCompletadas / totalHorasMeta) * 100) : 0;
 
     // Badges in header
     const bEnt = document.getElementById("badge-count-entregas");
@@ -258,7 +244,7 @@ class GlobalTranslatorsApp {
     const s3 = document.getElementById("stat-coaching-activas");
     if (s3) s3.textContent = coachingActivas;
     const s4 = document.getElementById("stat-promedio-horas");
-    if (s4) s4.textContent = `${avgPct}%`;
+    if (s4) s4.textContent = "45,000";
 
     // Overview list of upcoming urgent deliveries
     const listEl = document.getElementById("overview-entregas-list");
@@ -771,12 +757,9 @@ class GlobalTranslatorsApp {
 
     if (entregas.length === 0 && coaching.length === 0) {
       container.innerHTML = `
-        <div class="text-center py-8 text-slate-400 text-xs space-y-2">
+        <div class="text-center py-8 text-slate-400 text-xs space-y-1">
           <span>🌸</span>
           <p>Sin entregas ni sesiones programadas para este día.</p>
-          <button onclick="app.openNewEntregaModalWithDate()" class="text-purple-600 font-bold hover:underline">
-            + Agendar entrega en este día
-          </button>
         </div>
       `;
       return;
@@ -801,7 +784,7 @@ class GlobalTranslatorsApp {
       html += `
         <div class="p-3.5 bg-white/95 rounded-2xl border border-purple-100 text-xs space-y-2 shadow-2xs">
           <div class="flex items-center justify-between">
-            <span class="pill-badge bg-purple-100 text-purple-700 text-[10px] font-bold">👥 Coaching Grupal UNIFÉ</span>
+            <span class="pill-badge bg-purple-100 text-purple-700 text-[10px] font-bold">👥 Coaching Grupal (6 UNIFÉ • 1 UPC)</span>
             <span class="text-xs text-purple-700 font-black bg-purple-50 px-2 py-0.5 rounded-lg">${c.hora || '09:30'} AM</span>
           </div>
           <h5 class="font-bold text-slate-800 leading-snug">${c.tipo}</h5>
@@ -842,8 +825,6 @@ class GlobalTranslatorsApp {
     }
 
     grid.innerHTML = this.data.practicantes.map(p => {
-      const pct = Math.min(100, Math.round(((p.horasCompletadas || 0) / (p.horasMeta || 480)) * 100));
-
       const idiomasHtml = (p.idiomas || []).map(i => `
         <span class="bg-purple-50 text-purple-700 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-purple-100">${i}</span>
       `).join("");
@@ -852,24 +833,32 @@ class GlobalTranslatorsApp {
         <span class="bg-pink-50 text-rose-700 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-rose-100">${t}</span>
       `).join("");
 
+      const isUpc = p.universidad && p.universidad.includes("UPC");
+      const uniBadge = isUpc
+        ? `<span class="bg-rose-100 text-rose-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-rose-200">UPC</span>`
+        : `<span class="bg-purple-100 text-purple-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-purple-200">UNIFÉ</span>`;
+
       return `
         <div class="glass-panel p-5 sm:p-6 rounded-3xl space-y-4 border border-white/90 hover:shadow-md transition-all">
           <div class="flex items-start gap-4">
             <img src="${p.avatar || 'assets/avatars/avatar_p3.png'}" alt="${p.nombre}" class="w-16 h-16 rounded-2xl object-cover ring-2 ring-purple-200 shadow-sm shrink-0">
             <div class="flex-1 min-w-0">
-              <div class="flex items-center justify-between">
+              <div class="flex items-center justify-between gap-1">
                 <h4 class="font-heading font-extrabold text-base text-slate-800 truncate">${p.nombre}</h4>
-                <button onclick="app.deletePracticante('${p.id}')" class="text-slate-300 hover:text-rose-500 p-1" title="Eliminar registro">
-                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-                </button>
+                ${uniBadge}
               </div>
               <p class="text-xs font-semibold text-purple-700 leading-tight mt-0.5">${p.rol}</p>
-              <p class="text-[11px] text-slate-500 mt-1 flex items-center gap-2">
+              <p class="text-[11px] text-slate-500 mt-1 flex flex-wrap items-center gap-2">
                 <span>${p.universidad || 'UNIFÉ'} • ${p.semestre || ''}</span>
                 <span class="text-slate-300">•</span>
                 <span class="text-slate-500 flex items-center gap-0.5"><i data-lucide="map-pin" class="w-3 h-3 text-emerald-500"></i> ${p.ubicacion || 'Lima'}</span>
               </p>
             </div>
+          </div>
+
+          <!-- Academic & Professional Summary -->
+          <div class="bg-slate-50/80 p-3 rounded-2xl border border-slate-100 text-xs text-slate-600 line-clamp-2 leading-relaxed">
+            ${p.resumenCv || 'Practicante activa en el proyecto Preservando Historias - San Mateo.'}
           </div>
 
           <!-- Languages and tools pills -->
@@ -882,28 +871,12 @@ class GlobalTranslatorsApp {
             </div>
           </div>
 
-          <!-- Hours Progress Bar -->
-          <div class="bg-purple-50/60 p-3 rounded-2xl border border-purple-100/60 space-y-1.5">
-            <div class="flex items-center justify-between text-xs">
-              <span class="text-slate-600 font-medium">Horas de Prácticas:</span>
-              <span class="font-bold text-purple-800">${p.horasCompletadas || 0} / ${p.horasMeta || 480} hrs (${pct}%)</span>
-            </div>
-            <div class="w-full h-2 bg-white rounded-full overflow-hidden border border-purple-100">
-              <div class="h-full bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400 rounded-full transition-all duration-500" style="width: ${pct}%"></div>
-            </div>
-          </div>
-
-          <!-- Footer Actions -->
+          <!-- Footer Actions (No PDF download button, No 480 hrs bar) -->
           <div class="pt-2 flex items-center justify-between border-t border-slate-100">
             <span class="text-[11px] text-emerald-600 font-bold flex items-center gap-1">
-              <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Activa en Turno
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Activa en Proyecto
             </span>
             <div class="flex items-center gap-2">
-              ${p.cvUrl ? `
-                <a href="${p.cvUrl}" target="_blank" class="px-2.5 py-1.5 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 text-xs font-semibold transition-all flex items-center gap-1" title="Ver CV en PDF">
-                  <i data-lucide="file-down" class="w-3.5 h-3.5"></i> PDF
-                </a>
-              ` : ''}
               <button onclick="app.openCVModal('${p.id}')" class="px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-xs transition-all flex items-center gap-1.5">
                 <i data-lucide="file-badge" class="w-3.5 h-3.5"></i> Ver Perfil & CV
               </button>
@@ -976,7 +949,7 @@ class GlobalTranslatorsApp {
           </div>
         `).join("");
       } else {
-        eduEl.innerHTML = `<p class="text-xs text-slate-400 italic">UNIFÉ — Traducción e Interpretación</p>`;
+        eduEl.innerHTML = `<p class="text-xs text-slate-400 italic">${p.universidad || 'UNIFÉ'} — Traducción e Interpretación</p>`;
       }
     }
 
@@ -1002,22 +975,6 @@ class GlobalTranslatorsApp {
       aficEl.innerHTML = (p.aficiones || []).map(a => `<span class="bg-rose-50 text-rose-800 text-xs px-2.5 py-1 rounded-full font-semibold border border-rose-200">${a}</span>`).join("");
     }
 
-    // Horas y Progreso
-    const pct = Math.min(100, Math.round(((p.horasCompletadas || 0) / (p.horasMeta || 480)) * 100));
-    document.getElementById("cv-modal-horas-text").textContent = `${p.horasCompletadas || 0} / ${p.horasMeta || 480} hrs (${pct}%)`;
-    document.getElementById("cv-modal-horas-bar").style.width = `${pct}%`;
-
-    // Enlace a PDF
-    const extLink = document.getElementById("cv-modal-external-link");
-    if (extLink) {
-      if (p.cvUrl) {
-        extLink.href = p.cvUrl;
-        extLink.classList.remove("hidden");
-      } else {
-        extLink.classList.add("hidden");
-      }
-    }
-
     this.openModal("modal-cv-viewer");
     if (window.lucide) window.lucide.createIcons();
   }
@@ -1038,11 +995,11 @@ class GlobalTranslatorsApp {
             <div class="flex flex-wrap items-center gap-2 pt-1">
               <div class="flex -space-x-2 overflow-hidden py-0.5">
                 ${this.data.practicantes.map(p => `
-                  <img src="${p.avatar}" alt="${p.nombre}" title="${p.nombre} (Practicante UNIFÉ)" class="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-xs hover:scale-110 hover:z-10 transition-transform">
+                  <img src="${p.avatar}" alt="${p.nombre}" title="${p.nombre} (${p.universidad || 'UNIFÉ'})" class="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-xs hover:scale-110 hover:z-10 transition-transform">
                 `).join("")}
               </div>
               <span class="text-xs font-bold text-purple-700 bg-purple-100/70 px-2.5 py-1 rounded-xl">
-                6 Practicantes UNIFÉ Convocadas
+                7 Practicantes Convocadas (6 UNIFÉ • 1 UPC)
               </span>
             </div>
           ` : `
@@ -1336,74 +1293,79 @@ class GlobalTranslatorsApp {
       {
         "ID_Practicante": "PRAC-001",
         "Nombre": "Maria Fernanda Olivares Ramón",
+        "Universidad": "UNIFÉ",
         "Especialidad": "Audiovisual / Intérprete en Formación",
         "Idiomas": "ES (Nativo), EN (C1), PT (B2)",
-        "Horas_Completadas": 340,
-        "Meta_Horas": 480,
         "Estado_CV": "Aprobado (UNIFÉ)",
-        "Proximo_Job_Coaching": "Mock Interview en Inglés",
-        "Fecha_Coaching": "2026-10-03",
-        "Notas": "Preservando Historias San Mateo - Relatos Orales."
+        "Proximo_Job_Coaching": "Job Coaching Grupal I: Inducción, CV ATS",
+        "Fecha_Coaching": "2026-09-30",
+        "Notas": "Preservando Historias San Mateo - Fase 1."
       },
       {
         "ID_Practicante": "PRAC-002",
         "Nombre": "Celine Lorena Bautista Ramos",
+        "Universidad": "UNIFÉ",
         "Especialidad": "Textos Especializados & Maquetación",
         "Idiomas": "ES (Nativo), EN (B2), PT (B2)",
-        "Horas_Completadas": 410,
-        "Meta_Horas": 480,
         "Estado_CV": "Aprobado (UNIFÉ)",
-        "Proximo_Job_Coaching": "Portfolio Comunifé & ATS PT",
-        "Fecha_Coaching": "2026-10-05",
-        "Notas": "Traducción Comunifé y Teleperformance."
+        "Proximo_Job_Coaching": "Job Coaching Grupal I: Inducción, CV ATS",
+        "Fecha_Coaching": "2026-09-30",
+        "Notas": "Preservando Historias San Mateo - Bloque A."
       },
       {
         "ID_Practicante": "PRAC-003",
         "Nombre": "Sophia Camila Cabrera Zarate",
+        "Universidad": "UNIFÉ",
         "Especialidad": "Traducción Académica / Científica",
         "Idiomas": "ES (Nativo), EN (C1), FR (B2)",
-        "Horas_Completadas": 390,
-        "Meta_Horas": 480,
         "Estado_CV": "Aprobado (UNIFÉ)",
-        "Proximo_Job_Coaching": "LinkedIn Pro & Marca Personal",
-        "Fecha_Coaching": "2026-09-27",
-        "Notas": "Artículos sociopolíticos COVID-19 / Migración."
+        "Proximo_Job_Coaching": "Job Coaching Grupal I: Inducción, CV ATS",
+        "Fecha_Coaching": "2026-09-30",
+        "Notas": "Preservando Historias San Mateo - Bloque B."
       },
       {
         "ID_Practicante": "PRAC-004",
         "Nombre": "Landys Brunella Gonzales Torres",
+        "Universidad": "UNIFÉ",
         "Especialidad": "Interpretación Consecutiva & Ferias",
         "Idiomas": "ES (Nativo), EN (Intermedio), FR (Intermedio)",
-        "Horas_Completadas": 420,
-        "Meta_Horas": 480,
         "Estado_CV": "Aprobado (UNIFÉ)",
-        "Proximo_Job_Coaching": "Interpretación Expo Plast Perú",
-        "Fecha_Coaching": "2026-10-07",
-        "Notas": "Glosario San Mateo y Mediación Intercultural."
+        "Proximo_Job_Coaching": "Job Coaching Grupal I: Inducción, CV ATS",
+        "Fecha_Coaching": "2026-09-30",
+        "Notas": "Preservando Historias San Mateo - Fase 2 Investigación."
       },
       {
         "ID_Practicante": "PRAC-005",
         "Nombre": "Fatima Valentina Gallegos Tornero",
+        "Universidad": "UNIFÉ",
         "Especialidad": "Interpretación Enlace / EN C2 FR C1",
         "Idiomas": "ES (Nativo), EN (C2), FR (C1)",
-        "Horas_Completadas": 360,
-        "Meta_Horas": 480,
         "Estado_CV": "Aprobado (UNIFÉ)",
-        "Proximo_Job_Coaching": "Mock Interview C2 (09/10)",
-        "Fecha_Coaching": "2026-10-09",
-        "Notas": "Preservando Historias San Mateo - Protocolo Terminológico."
+        "Proximo_Job_Coaching": "Job Coaching Grupal I: Inducción, CV ATS",
+        "Fecha_Coaching": "2026-09-30",
+        "Notas": "Preservando Historias San Mateo - Bloque E."
       },
       {
         "ID_Practicante": "PRAC-006",
         "Nombre": "Arihana Jelena Altamirano Guevara",
+        "Universidad": "UNIFÉ",
         "Especialidad": "Audiovisual & Eventos Corporativos",
         "Idiomas": "ES (Nativo), EN (Intermedio), FR (Básico)",
-        "Horas_Completadas": 380,
-        "Meta_Horas": 480,
         "Estado_CV": "Aprobado (UNIFÉ)",
-        "Proximo_Job_Coaching": "Portfolio Subtitulado (10/10)",
-        "Fecha_Coaching": "2026-10-10",
-        "Notas": "Preservando Historias San Mateo - Subtitulado Testimonios."
+        "Proximo_Job_Coaching": "Job Coaching Grupal I: Inducción, CV ATS",
+        "Fecha_Coaching": "2026-09-30",
+        "Notas": "Preservando Historias San Mateo - Bloque D Subtitulaje."
+      },
+      {
+        "ID_Practicante": "PRAC-007",
+        "Nombre": "Gaylim Gonzales Ayala",
+        "Universidad": "UPC",
+        "Especialidad": "Intérprete OPI/VRI & CAT tools",
+        "Idiomas": "ES (Nativo), EN (Avanzado)",
+        "Estado_CV": "Aprobado (UPC)",
+        "Proximo_Job_Coaching": "Job Coaching Grupal I: Inducción, CV ATS",
+        "Fecha_Coaching": "2026-09-30",
+        "Notas": "Preservando Historias San Mateo - Bloque C."
       }
     ];
 
@@ -1427,9 +1389,7 @@ class GlobalTranslatorsApp {
       "Universidad": p.universidad,
       "Idiomas": (p.idiomas || []).join(", "),
       "CAT_Tools": (p.catTools || []).join(", "),
-      "Horas_Completadas": p.horasCompletadas,
-      "Horas_Meta": p.horasMeta,
-      "Enlace_CV": p.cvUrl || ""
+      "Ubicacion": p.ubicacion || ""
     }));
     const ws1 = window.XLSX.utils.json_to_sheet(pracData);
     window.XLSX.utils.book_append_sheet(wb, ws1, "Practicantes");
@@ -1813,12 +1773,12 @@ class GlobalTranslatorsApp {
       id: "p" + Date.now(),
       nombre: document.getElementById("prac-nombre").value.trim(),
       rol: document.getElementById("prac-rol").value.trim(),
-      universidad: document.getElementById("prac-universidad").value.trim() || "Universidad de Traducción",
+      universidad: document.getElementById("prac-universidad").value.trim() || "UNIFÉ",
       semestre: document.getElementById("prac-semestre").value.trim() || "Intern",
       idiomas: idiomasStr ? idiomasStr.split(",").map(s => s.trim()) : ["Inglés", "Español"],
       catTools: toolsStr ? toolsStr.split(",").map(s => s.trim()) : ["Trados Studio"],
-      horasCompletadas: parseInt(document.getElementById("prac-horas-actuales").value || "0", 10),
-      horasMeta: parseInt(document.getElementById("prac-horas-meta").value || "480", 10),
+      ubicacion: document.getElementById("prac-ubicacion")?.value.trim() || "Lima, Perú",
+      telefono: document.getElementById("prac-telefono")?.value.trim() || "(+51) 9XX XXX XXX",
       avatar: randAvatar,
       cvUrl: document.getElementById("prac-cv-url").value.trim(),
       resumenCv: document.getElementById("prac-resumen").value.trim() || "Practicante destacada del equipo de Global Translators."

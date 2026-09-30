@@ -110,17 +110,11 @@
         </button>
 
 
-        <!-- New Delivery Button -->
-        <button onclick="app.openNewEntregaModal()" class="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-pink-500 to-rose-400 hover:from-pink-600 hover:to-rose-500 text-white text-xs font-semibold shadow-md shadow-pink-200 transition-all transform hover:-translate-y-0.5">
-          <i data-lucide="plus-circle" class="w-4 h-4"></i>
-          <span>Nueva Entrega</span>
-        </button>
-
-        <!-- New Intern Button -->
-        <button onclick="app.openNewPracticanteModal()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-purple-100 hover:bg-purple-200 text-purple-800 text-xs font-semibold transition-all">
-          <i data-lucide="user-plus" class="w-4 h-4"></i>
-          <span class="hidden sm:inline">Nueva Practicante</span>
-        </button>
+        <!-- Team indicator badge -->
+        <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-purple-50 text-purple-700 text-xs font-bold border border-purple-200 shadow-2xs">
+          <i data-lucide="users" class="w-3.5 h-3.5 text-purple-600"></i>
+          <span>7 Practicantes (6 UNIFÉ • 1 UPC)</span>
+        </span>
       </div>
 
     </div>
@@ -308,8 +302,8 @@
               <!-- Quick Project Triggers -->
 
               <div class="grid grid-cols-2 gap-2 pt-1 text-center">
-                <button onclick="app.openNewEntregaModalWithProject('Preservando Historias San Mateo')" class="p-2.5 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 text-xs font-bold transition-all flex items-center justify-center gap-1.5">
-                  <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> + Entrega San Mateo
+                <button onclick="app.switchTab('cronograma')" class="p-2.5 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 text-xs font-bold transition-all flex items-center justify-center gap-1.5">
+                  <i data-lucide="kanban-square" class="w-3.5 h-3.5"></i> Cronograma Oficial
                 </button>
                 <button onclick="app.filterBySanMateo()" class="p-2.5 rounded-xl bg-pink-50 hover:bg-pink-100 text-pink-700 text-xs font-bold transition-all flex items-center justify-center gap-1.5">
                   <i data-lucide="filter" class="w-3.5 h-3.5"></i> Filtrar San Mateo
@@ -317,7 +311,7 @@
               </div>
 
               <div class="text-[11px] text-center text-slate-400 font-medium">
-                🏛️ Proyecto / Preservando Historias San Mateo • Archivo Oficial
+                🏛️ Preservando Historias – San Mateo • ONG PRESERVANDO & POLYGLOT MAP
               </div>
 
             </div>
@@ -367,15 +361,15 @@
           </div>
         </div>
 
-        <!-- Metric 4: Horas Globales -->
+        <!-- Metric 4: Meta de Palabras Proyecto -->
         <div class="glass-panel glass-panel-sky rounded-3xl p-4 sm:p-5 flex items-center justify-between">
           <div>
-            <p class="text-xs font-semibold text-sky-700 uppercase tracking-wider">Horas Prácticas</p>
-            <h3 id="stat-promedio-horas" class="text-2xl sm:text-3xl font-extrabold text-slate-800 mt-1">0%</h3>
-            <p class="text-[11px] text-sky-600 font-medium mt-0.5">Avance general a meta</p>
+            <p class="text-xs font-semibold text-sky-700 uppercase tracking-wider">Volumen Oficial</p>
+            <h3 id="stat-promedio-horas" class="text-2xl sm:text-3xl font-extrabold text-slate-800 mt-1">45,000</h3>
+            <p class="text-[11px] text-sky-600 font-medium mt-0.5">Palabras mínimas (San Mateo)</p>
           </div>
           <div class="w-12 h-12 rounded-2xl bg-white/90 text-sky-600 flex items-center justify-center shadow-sm">
-            <i data-lucide="hourglass" class="w-6 h-6"></i>
+            <i data-lucide="book-open" class="w-6 h-6"></i>
           </div>
         </div>
 
@@ -414,7 +408,7 @@
               </div>
               <span class="pill-badge bg-purple-200 text-purple-800 text-[10px]">Coaching Grupal</span>
             </div>
-            <p class="text-xs text-slate-600">Sesiones grupales para todo el equipo UNIFÉ los miércoles a las 9:30 AM vía Google Meet.</p>
+            <p class="text-xs text-slate-600">Sesiones grupales para todo el equipo (6 UNIFÉ • 1 UPC) los miércoles a las 9:30 AM vía Google Meet con Melanie Almeyda.</p>
             
             <div id="overview-coaching-list" class="space-y-2.5">
               <!-- Rendered by JS -->
@@ -435,14 +429,14 @@
                 <div>
                   <h3 class="font-heading font-extrabold text-base text-slate-800">Sala Abierta Meet 💬</h3>
                   <span class="text-[10px] text-emerald-700 font-bold flex items-center gap-1">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span> Equipo UNIFÉ & Gestora
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span> 7 Practicantes (6 UNIFÉ • 1 UPC) & Gestora
                   </span>
                 </div>
               </div>
               <span class="pill-badge bg-emerald-100 text-emerald-800 text-[10px] font-black">24/7 Abierta</span>
             </div>
             <p class="text-xs text-slate-600 leading-relaxed">
-              Sala permanente para que las practicantes se reúnan en equipo a co-traducir, resolver dudas de inmediato o coordinar en vivo con su gestora.
+              Sala permanente para que las 7 practicantes se reúnan en equipo a co-traducir, resolver dudas de inmediato o coordinar en vivo con su gestora.
             </p>
             <div class="flex flex-col sm:flex-row gap-2 pt-1">
               <a href="https://meet.google.com/ejp-yxsy-ufw" target="_blank" class="flex-1 py-2.5 px-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs font-bold shadow-md shadow-emerald-200 flex items-center justify-center gap-1.5 transition-all">
@@ -497,11 +491,11 @@
             <p class="text-xs text-slate-500 mt-1">Gestiona el flujo de trabajo de traducción desde la asignación hasta el QA y entrega final.</p>
           </div>
 
-          <!-- Action buttons -->
+          <!-- Official Project Badge -->
           <div class="flex items-center gap-2">
-            <button onclick="app.openNewEntregaModal()" class="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-pink-500 hover:bg-pink-600 text-white text-xs font-semibold shadow-md shadow-pink-200 transition-all">
-              <i data-lucide="plus" class="w-4 h-4"></i> Nueva Entrega
-            </button>
+            <span class="text-xs bg-purple-50 text-purple-700 font-bold px-3.5 py-1.5 rounded-2xl flex items-center gap-1.5 border border-purple-200 shadow-2xs">
+              <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-purple-600"></i> Cronograma Oficial Sincronizado
+            </span>
           </div>
         </div>
 
@@ -537,6 +531,131 @@
             <button id="btn-view-list" onclick="app.setCronogramaView('list')" class="flex-1 py-1.5 text-xs font-semibold rounded-lg text-slate-600 hover:text-purple-700 flex items-center justify-center gap-1">
               <i data-lucide="list" class="w-3.5 h-3.5"></i> Lista
             </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resumen Oficial del Cronograma: Traducir para Preservar (PDF 2) -->
+      <div class="glass-panel glass-panel-lavender rounded-3xl p-5 space-y-3.5 border border-purple-200/80">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-purple-100">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="pill-badge bg-purple-200 text-purple-900 text-[10px] font-black uppercase">Documento Oficial</span>
+              <span class="text-xs font-mono text-purple-700 font-bold">24/08/26 – 09/12/26</span>
+            </div>
+            <h3 class="text-lg font-heading font-extrabold text-slate-800 mt-1 flex items-center gap-2">
+              <span>CRONOGRAMA • Traducir para Preservar — San Mateo</span>
+            </h3>
+            <p class="text-xs text-slate-600 mt-0.5">
+              Entidades: <b>ONG PRESERVANDO & POLYGLOT MAP</b> • Responsables: <b>Melanie Almeyda y Katherine Tiburcio</b> • Distribución: <b>45,000 palabras (mínimo)</b>
+            </p>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <span class="text-xs font-black text-rose-700 bg-rose-50 border border-rose-200 px-3 py-1.5 rounded-xl shadow-2xs">
+              🎯 45,000 Palabras
+            </span>
+            <span class="text-xs font-black text-purple-700 bg-white border border-purple-200 px-3 py-1.5 rounded-xl shadow-2xs">
+              🗓️ 6 Fases de Trabajo
+            </span>
+          </div>
+        </div>
+
+        <!-- Fases Oficiales Visual Matrix -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+          <!-- Fase 1 -->
+          <div class="p-3 bg-white/90 rounded-2xl border border-amber-200/80 space-y-1.5 shadow-2xs">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-amber-800 flex items-center gap-1.5">
+                <span class="w-5 h-5 rounded-lg bg-amber-500 text-white flex items-center justify-center text-[10px] font-black">1</span>
+                Introducción & Análisis
+              </span>
+              <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">Completado</span>
+            </div>
+            <p class="text-[11px] text-slate-600 leading-snug">Presentación del proyecto, lectura general y análisis de características lingüísticas.</p>
+            <div class="text-[10px] font-mono text-slate-500 pt-1 border-t border-slate-100 flex justify-between">
+              <span>AGO 26 – SEP 9</span>
+              <span class="font-bold text-amber-700">5,000 palabras</span>
+            </div>
+          </div>
+
+          <!-- Fase 2 -->
+          <div class="p-3 bg-white/90 rounded-2xl border border-sky-200/80 space-y-1.5 shadow-2xs">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sky-800 flex items-center gap-1.5">
+                <span class="w-5 h-5 rounded-lg bg-sky-500 text-white flex items-center justify-center text-[10px] font-black">2</span>
+                Investigación Documental
+              </span>
+              <span class="text-[10px] font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded-full">En Revisión</span>
+            </div>
+            <p class="text-[11px] text-slate-600 leading-snug">Identificación de referencias culturales, búsqueda de textos paralelos y recopilación.</p>
+            <div class="text-[10px] font-mono text-slate-500 pt-1 border-t border-slate-100 flex justify-between">
+              <span>SEP 9 – SEP 23</span>
+              <span class="font-bold text-sky-700">6,500 palabras</span>
+            </div>
+          </div>
+
+          <!-- Fase 3 -->
+          <div class="p-3 bg-white/90 rounded-2xl border border-emerald-200/80 space-y-1.5 shadow-2xs">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-emerald-800 flex items-center gap-1.5">
+                <span class="w-5 h-5 rounded-lg bg-emerald-500 text-white flex items-center justify-center text-[10px] font-black">3</span>
+                Traducción & Glosario
+              </span>
+              <span class="text-[10px] font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded-full">En Traducción</span>
+            </div>
+            <p class="text-[11px] text-slate-600 leading-snug">División de bloques a traducir (7 practicantes) y registro en glosario bilingüe.</p>
+            <div class="text-[10px] font-mono text-slate-500 pt-1 border-t border-slate-100 flex justify-between">
+              <span>SEP 16 – NOV 18</span>
+              <span class="font-bold text-emerald-700">33,500 palabras</span>
+            </div>
+          </div>
+
+          <!-- Fase 4 -->
+          <div class="p-3 bg-white/90 rounded-2xl border border-purple-200/80 space-y-1.5 shadow-2xs">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-purple-800 flex items-center gap-1.5">
+                <span class="w-5 h-5 rounded-lg bg-purple-500 text-white flex items-center justify-center text-[10px] font-black">4</span>
+                Revisión de Traducción
+              </span>
+              <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">Programado</span>
+            </div>
+            <p class="text-[11px] text-slate-600 leading-snug">Revisión cruzada entre practicantes, mejoras estilísticas y revisión senior con sustentación.</p>
+            <div class="text-[10px] font-mono text-slate-500 pt-1 border-t border-slate-100 flex justify-between">
+              <span>OCT 14 – NOV 25</span>
+              <span class="font-bold text-purple-700">Todo el Equipo</span>
+            </div>
+          </div>
+
+          <!-- Fase 5 -->
+          <div class="p-3 bg-white/90 rounded-2xl border border-indigo-200/80 space-y-1.5 shadow-2xs">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-indigo-800 flex items-center gap-1.5">
+                <span class="w-5 h-5 rounded-lg bg-indigo-500 text-white flex items-center justify-center text-[10px] font-black">5</span>
+                Versión Final
+              </span>
+              <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">Programado</span>
+            </div>
+            <p class="text-[11px] text-slate-600 leading-snug">Corrección integral de observaciones y preparación de la versión final validada.</p>
+            <div class="text-[10px] font-mono text-slate-500 pt-1 border-t border-slate-100 flex justify-between">
+              <span>NOV 18 – DIC 2</span>
+              <span class="font-bold text-indigo-700">Validación Gestoras</span>
+            </div>
+          </div>
+
+          <!-- Fase 6 -->
+          <div class="p-3 bg-white/90 rounded-2xl border border-pink-200/80 space-y-1.5 shadow-2xs">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-pink-800 flex items-center gap-1.5">
+                <span class="w-5 h-5 rounded-lg bg-pink-500 text-white flex items-center justify-center text-[10px] font-black">6</span>
+                Presentación de Resultado
+              </span>
+              <span class="text-[10px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-full">Cierre de Proyecto</span>
+            </div>
+            <p class="text-[11px] text-slate-600 leading-snug">Análisis de dificultades y soluciones adoptadas, exposición oral final ante directivos.</p>
+            <div class="text-[10px] font-mono text-slate-500 pt-1 border-t border-slate-100 flex justify-between">
+              <span>DIC 2 – DIC 9</span>
+              <span class="font-bold text-pink-700">Presentación Oral</span>
+            </div>
           </div>
         </div>
       </div>
@@ -716,9 +835,6 @@
                 <p class="text-xs font-semibold text-rose-500 uppercase tracking-wider">Fecha Seleccionada</p>
                 <h4 id="calendar-selected-day-label" class="font-heading font-extrabold text-lg text-slate-800">Hoy</h4>
               </div>
-              <button onclick="app.openNewEntregaModalWithDate()" class="p-2 rounded-xl bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold transition-all shadow-sm" title="Agendar entrega para este día">
-                <i data-lucide="plus" class="w-4 h-4"></i>
-              </button>
             </div>
 
             <!-- List of events on this day -->
@@ -755,13 +871,12 @@
           <h2 class="text-xl sm:text-2xl font-heading font-bold text-slate-800 flex items-center gap-2">
             <span>👩‍🎓 Directorio de Practicantes & Repositorio de CVs</span>
           </h2>
-          <p class="text-xs text-slate-500 mt-1">Perfiles profesionales, especialidades, metas de horas de prácticas y acceso a CVs.</p>
+          <p class="text-xs text-slate-500 mt-1">Perfiles profesionales, especialidades, CAT Tools y acceso al perfil y CV de las 7 practicantes activas (6 UNIFÉ • 1 UPC).</p>
         </div>
 
-        <button onclick="app.openNewPracticanteModal()" class="flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white text-xs font-semibold shadow-md shadow-purple-200 transition-all">
-          <i data-lucide="user-plus" class="w-4 h-4"></i>
-          <span>Registrar Practicante</span>
-        </button>
+        <span class="pill-badge bg-purple-100 text-purple-800 text-xs font-bold px-3.5 py-2 rounded-2xl border border-purple-200 shadow-2xs">
+          👩‍🎓 7 Practicantes Activas (6 UNIFÉ • 1 UPC)
+        </span>
       </div>
 
       <!-- Practicantes Grid Cards -->
@@ -784,10 +899,10 @@
             <i data-lucide="award" class="w-3.5 h-3.5 text-purple-600"></i> Programa de Empleabilidad & Mentoría Grupal
           </div>
           <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-slate-800">
-            Job Coaching Grupal para Practicantes UNIFÉ 🎯
+            Job Coaching Grupal para Practicantes (6 UNIFÉ • 1 UPC) 🎯
           </h2>
           <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-            Acompañamos a nuestro equipo de 6 practicantes en su transición al mercado profesional internacional. Sesiones grupales interactivas los miércoles a las <b>9:30 AM</b> vía <b>Google Meet</b>: estandarización de CV formato ATS, simulacros de entrevista (Mock Interviews), optimización de LinkedIn y fijación de tarifas internacionales.
+            Acompañamos a nuestro equipo de 7 practicantes (6 de UNIFÉ y 1 de UPC) en su transición al mercado profesional internacional. Sesiones grupales interactivas los miércoles a las <b>9:30 AM</b> vía <b>Google Meet</b> dirigidas por la coach <b>Melanie Almeyda</b> (30 Septiembre, 28 Octubre y 25 Noviembre).
           </p>
         </div>
 
@@ -814,7 +929,7 @@
               <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
               <h3 class="font-heading font-bold text-lg text-slate-800">Sesiones Grupales Programadas</h3>
             </div>
-            <span class="text-xs text-purple-700 bg-purple-100 font-bold px-2.5 py-1 rounded-full">Modalidad Grupal • Todo el Equipo UNIFÉ</span>
+            <span class="text-xs text-purple-700 bg-purple-100 font-bold px-2.5 py-1 rounded-full">Modalidad Grupal • Todo el Equipo (6 UNIFÉ • 1 UPC)</span>
           </div>
 
           <div id="coaching-sessions-list" class="space-y-3">
@@ -880,7 +995,7 @@
             Sala Abierta Meet • Coworking & Gestoría 💬
           </h2>
           <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-            Bienvenidas a la sala de Google Meet oficial de <b>Global Translators</b>. Un espacio siempre abierto para que las practicantes de UNIFÉ se reúnan a trabajar en equipo, co-traducir proyectos en tiempo real, sincronizar avances con su gestora o resolver consultas de terminología y herramientas CAT de inmediato.
+            Bienvenidas a la sala de Google Meet oficial de <b>Global Translators</b>. Un espacio siempre abierto para que las 7 practicantes (6 de UNIFÉ y 1 de UPC) se reúnan a trabajar en equipo, co-traducir proyectos en tiempo real, sincronizar avances con su gestora o resolver consultas de terminología y herramientas CAT de inmediato.
           </p>
         </div>
 
@@ -932,10 +1047,10 @@
           </div>
           <div class="flex items-center justify-between">
             <h3 class="font-heading font-bold text-base text-slate-800">Coworking & Co-Traducción</h3>
-            <span class="pill-badge bg-teal-100 text-teal-800 text-[10px] font-bold">Equipo UNIFÉ</span>
+            <span class="pill-badge bg-teal-100 text-teal-800 text-[10px] font-bold">Equipo (6 UNIFÉ • 1 UPC)</span>
           </div>
           <p class="text-xs text-slate-600 leading-relaxed">
-            Las 6 practicantes pueden conectarse libremente para traducir en vivo, compartir pantalla de <b>Subtitle Edit</b> o <b>Trados Studio</b>, dividirse archivos extensos y realizar revisión cruzada por pares (Peer Review).
+            Las 7 practicantes pueden conectarse libremente para traducir en vivo, compartir pantalla de <b>memoQ</b>, <b>Subtitle Edit</b> o <b>Trados Studio</b>, dividirse bloques del proyecto San Mateo y realizar revisión cruzada por pares (Peer Review).
           </p>
           <ul class="text-[11px] text-slate-500 space-y-1.5 pt-1 border-t border-slate-100">
             <li class="flex items-center gap-1.5">• <span>Sincronización de tiempos y subtítulos</span></li>
@@ -1006,7 +1121,7 @@
             <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 space-y-1">
               <span class="text-[11px] font-semibold text-slate-400 uppercase">Convocadas</span>
               <div class="font-bold text-slate-700">
-                6 Practicantes UNIFÉ + Gestora
+                7 Practicantes (6 UNIFÉ • 1 UPC) + Gestora
               </div>
             </div>
           </div>
@@ -1019,7 +1134,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-600 text-[11px]">
               <div>• <b>Identificación</b>: Entra con tu cuenta institucional o con tu nombre completo.</div>
               <div>• <b>Micrófono</b>: Siléncialo mientras estés en coworking si hay ruido ambiental.</div>
-              <div>• <b>Compartir pantalla</b>: Si tienes dudas en Subtitle Edit o Trados, comparte tu ventana.</div>
+              <div>• <b>Compartir pantalla</b>: Si tienes dudas en Subtitle Edit, memoQ o Trados, comparte tu ventana.</div>
               <div>• <b>Chat de texto</b>: Úsalo para dejar links de glosarios o notas a la gestora.</div>
             </div>
           </div>
@@ -1045,16 +1160,19 @@
                 <i data-lucide="users" class="w-4 h-4 text-emerald-700"></i>
                 <h4 class="font-heading font-bold text-base text-slate-800">Equipo Convocado</h4>
               </div>
-              <span class="text-[11px] font-bold text-emerald-800 bg-white px-2.5 py-0.5 rounded-full shadow-2xs">6 Practicantes</span>
+              <span class="text-[11px] font-bold text-emerald-800 bg-white px-2.5 py-0.5 rounded-full shadow-2xs">7 Practicantes</span>
             </div>
 
-            <p class="text-xs text-slate-600">Integrantes del estudio de traducción autorizadas para uso de la sala:</p>
+            <p class="text-xs text-slate-600">Integrantes del estudio de traducción autorizadas para uso de la sala (6 UNIFÉ • 1 UPC):</p>
 
             <div class="space-y-2.5">
               <div class="flex items-center gap-2.5 p-2 bg-white/80 rounded-2xl border border-emerald-100">
                 <img src="assets/avatars/avatar_p1.png" alt="Maria Fernanda" class="w-8 h-8 rounded-full object-cover ring-2 ring-emerald-200">
                 <div class="flex-1 min-w-0">
-                  <h6 class="text-xs font-bold text-slate-800 truncate">Maria Fernanda Olivares</h6>
+                  <div class="flex items-center justify-between">
+                    <h6 class="text-xs font-bold text-slate-800 truncate">Maria Fernanda Olivares</h6>
+                    <span class="text-[9px] font-bold bg-purple-100 text-purple-800 px-1.5 rounded-full">UNIFÉ</span>
+                  </div>
                   <p class="text-[10px] text-slate-500">Audiovisual • Subtitle Edit</p>
                 </div>
               </div>
@@ -1062,7 +1180,10 @@
               <div class="flex items-center gap-2.5 p-2 bg-white/80 rounded-2xl border border-emerald-100">
                 <img src="assets/avatars/avatar_p2.png" alt="Celine Lorena" class="w-8 h-8 rounded-full object-cover ring-2 ring-emerald-200">
                 <div class="flex-1 min-w-0">
-                  <h6 class="text-xs font-bold text-slate-800 truncate">Celine Lorena Bautista</h6>
+                  <div class="flex items-center justify-between">
+                    <h6 class="text-xs font-bold text-slate-800 truncate">Celine Lorena Bautista</h6>
+                    <span class="text-[9px] font-bold bg-purple-100 text-purple-800 px-1.5 rounded-full">UNIFÉ</span>
+                  </div>
                   <p class="text-[10px] text-slate-500">Textos Especializados • Comunifé</p>
                 </div>
               </div>
@@ -1070,7 +1191,10 @@
               <div class="flex items-center gap-2.5 p-2 bg-white/80 rounded-2xl border border-emerald-100">
                 <img src="assets/avatars/avatar_p3.png" alt="Sophia Camila" class="w-8 h-8 rounded-full object-cover ring-2 ring-emerald-200">
                 <div class="flex-1 min-w-0">
-                  <h6 class="text-xs font-bold text-slate-800 truncate">Sophia Camila Cabrera</h6>
+                  <div class="flex items-center justify-between">
+                    <h6 class="text-xs font-bold text-slate-800 truncate">Sophia Camila Cabrera</h6>
+                    <span class="text-[9px] font-bold bg-purple-100 text-purple-800 px-1.5 rounded-full">UNIFÉ</span>
+                  </div>
                   <p class="text-[10px] text-slate-500">Traducción Académica • Trados</p>
                 </div>
               </div>
@@ -1078,7 +1202,10 @@
               <div class="flex items-center gap-2.5 p-2 bg-white/80 rounded-2xl border border-emerald-100">
                 <img src="assets/avatars/avatar_p4.png" alt="Landys Brunella" class="w-8 h-8 rounded-full object-cover ring-2 ring-emerald-200">
                 <div class="flex-1 min-w-0">
-                  <h6 class="text-xs font-bold text-slate-800 truncate">Landys Brunella Gonzales</h6>
+                  <div class="flex items-center justify-between">
+                    <h6 class="text-xs font-bold text-slate-800 truncate">Landys Brunella Gonzales</h6>
+                    <span class="text-[9px] font-bold bg-purple-100 text-purple-800 px-1.5 rounded-full">UNIFÉ</span>
+                  </div>
                   <p class="text-[10px] text-slate-500">Interpretación Consecutiva</p>
                 </div>
               </div>
@@ -1086,7 +1213,10 @@
               <div class="flex items-center gap-2.5 p-2 bg-white/80 rounded-2xl border border-emerald-100">
                 <img src="assets/avatars/avatar_p5.png" alt="Fatima Valentina" class="w-8 h-8 rounded-full object-cover ring-2 ring-emerald-200">
                 <div class="flex-1 min-w-0">
-                  <h6 class="text-xs font-bold text-slate-800 truncate">Fatima Valentina Gallegos</h6>
+                  <div class="flex items-center justify-between">
+                    <h6 class="text-xs font-bold text-slate-800 truncate">Fatima Valentina Gallegos</h6>
+                    <span class="text-[9px] font-bold bg-purple-100 text-purple-800 px-1.5 rounded-full">UNIFÉ</span>
+                  </div>
                   <p class="text-[10px] text-slate-500">Interpretación de Enlace (EN C2/FR C1)</p>
                 </div>
               </div>
@@ -1094,8 +1224,22 @@
               <div class="flex items-center gap-2.5 p-2 bg-white/80 rounded-2xl border border-emerald-100">
                 <img src="assets/avatars/avatar_p6.png" alt="Arihana Jelena" class="w-8 h-8 rounded-full object-cover ring-2 ring-emerald-200">
                 <div class="flex-1 min-w-0">
-                  <h6 class="text-xs font-bold text-slate-800 truncate">Arihana Jelena Altamirano</h6>
-                  <p class="text-[10px] text-slate-500">Audiovisual & Doblaje</p>
+                  <div class="flex items-center justify-between">
+                    <h6 class="text-xs font-bold text-slate-800 truncate">Arihana Jelena Altamirano</h6>
+                    <span class="text-[9px] font-bold bg-purple-100 text-purple-800 px-1.5 rounded-full">UNIFÉ</span>
+                  </div>
+                  <p class="text-[10px] text-slate-500">Audiovisual & Subtitulaje</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2.5 p-2 bg-white/80 rounded-2xl border border-emerald-100">
+                <img src="assets/avatars/avatar_p7.png" alt="Gaylim Gonzales" class="w-8 h-8 rounded-full object-cover ring-2 ring-emerald-200">
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between">
+                    <h6 class="text-xs font-bold text-slate-800 truncate">Gaylim Gonzales Ayala</h6>
+                    <span class="text-[9px] font-bold bg-rose-100 text-rose-800 px-1.5 rounded-full">UPC</span>
+                  </div>
+                  <p class="text-[10px] text-slate-500">Intérprete OPI/VRI • memoQ</p>
                 </div>
               </div>
             </div>
@@ -1447,12 +1591,12 @@
 
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block font-semibold text-slate-700 mb-1">Horas Actuales</label>
-            <input type="number" id="prac-horas-actuales" value="0" min="0" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+            <label class="block font-semibold text-slate-700 mb-1">Ubicación</label>
+            <input type="text" id="prac-ubicacion" placeholder="Lima, Perú" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
           </div>
           <div>
-            <label class="block font-semibold text-slate-700 mb-1">Meta de Horas</label>
-            <input type="number" id="prac-horas-meta" value="480" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+            <label class="block font-semibold text-slate-700 mb-1">Teléfono de Contacto</label>
+            <input type="text" id="prac-telefono" placeholder="(+51) 9XX XXX XXX" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
           </div>
         </div>
 
@@ -1578,30 +1722,16 @@
         </div>
       </div>
 
-      <!-- Hours progress -->
-      <div class="bg-pink-50/80 p-4 rounded-2xl border border-pink-100 space-y-2">
-        <div class="flex items-center justify-between text-xs font-bold">
-          <span class="text-rose-700">Acreditación de Prácticas Pre-Profesionales (480 hrs)</span>
-          <span id="cv-modal-horas-text" class="text-rose-600">0 / 480 hrs</span>
-        </div>
-        <div class="w-full h-2.5 bg-white rounded-full overflow-hidden p-0.5 border border-pink-200">
-          <div id="cv-modal-horas-bar" class="h-full bg-gradient-to-r from-pink-400 to-rose-400 rounded-full transition-all duration-500" style="width: 0%"></div>
-        </div>
-      </div>
-
       <!-- Actions -->
       <div class="pt-2 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100">
         <div class="text-xs text-slate-400">
-          Global Translators Talent Program • UNIFÉ
+          Global Translators Talent Program • UNIFÉ & UPC
         </div>
         <div class="flex items-center gap-2">
-          <a id="cv-modal-external-link" href="#" target="_blank" class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all">
-            <i data-lucide="file-down" class="w-3.5 h-3.5"></i> Ver / Descargar CV Oficial (PDF)
-          </a>
           <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-semibold flex items-center gap-1.5 shadow-xs">
             <i data-lucide="printer" class="w-3.5 h-3.5"></i> Imprimir Ficha
           </button>
-          <button onclick="app.closeModal('modal-cv-viewer')" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold">Cerrar</button>
+          <button onclick="app.closeModal('modal-cv-viewer')" class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold">Cerrar</button>
         </div>
       </div>
 
