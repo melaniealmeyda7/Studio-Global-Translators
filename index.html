@@ -206,9 +206,9 @@
         </button>
 
         <button onclick="app.switchTab('coaching')" class="nav-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-purple-700 hover:bg-purple-50 transition-all" data-tab="coaching">
-          <i data-lucide="target" class="w-4 h-4 text-purple-600"></i>
-          <span>Job Coaching & Empleabilidad</span>
-          <span class="bg-purple-100 text-purple-700 text-[10px] px-1.5 py-0.2 rounded-full font-bold">Grupal 🎯</span>
+          <i data-lucide="graduation-cap" class="w-4 h-4 text-purple-600"></i>
+          <span>Micro-learning & Cursos</span>
+          <span class="bg-purple-100 text-purple-700 text-[10px] px-1.5 py-0.2 rounded-full font-bold">2 Módulos 📚</span>
         </button>
 
         <button onclick="app.switchTab('meet')" class="nav-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-emerald-700 hover:bg-emerald-50 transition-all" data-tab="meet">
@@ -293,8 +293,8 @@
               </button>
 
               <button onclick="app.switchTab('coaching')" class="px-4 py-3 rounded-2xl bg-white hover:bg-purple-50 text-purple-700 text-xs font-bold border border-purple-200 shadow-sm transition-all flex items-center gap-2">
-                <i data-lucide="target" class="w-4 h-4 text-purple-600"></i>
-                <span>Sesiones de Coaching</span>
+                <i data-lucide="graduation-cap" class="w-4 h-4 text-purple-600"></i>
+                <span>Micro-learning & Cursos</span>
               </button>
             </div>
 
@@ -407,9 +407,9 @@
         <!-- Metric 3: Coaching Sessions -->
         <div class="glass-panel glass-panel-mint rounded-3xl p-4 sm:p-5 flex items-center justify-between">
           <div>
-            <p class="text-xs font-semibold text-emerald-700 uppercase tracking-wider">Job Coaching</p>
-            <h3 id="stat-coaching-activas" class="text-2xl sm:text-3xl font-extrabold text-slate-800 mt-1">0</h3>
-            <p class="text-[11px] text-emerald-600 font-medium mt-0.5">Sesiones agendadas</p>
+            <p class="text-xs font-semibold text-emerald-700 uppercase tracking-wider">Cursos & Coaching</p>
+            <h3 id="stat-coaching-activas" class="text-2xl sm:text-3xl font-extrabold text-slate-800 mt-1">6</h3>
+            <p class="text-[11px] text-emerald-600 font-medium mt-0.5">Sesiones & Clases</p>
           </div>
           <div class="w-12 h-12 rounded-2xl bg-white/90 text-emerald-600 flex items-center justify-center shadow-sm">
             <i data-lucide="sparkle" class="w-6 h-6"></i>
@@ -515,19 +515,19 @@
           <div class="glass-panel glass-panel-lavender rounded-3xl p-6 space-y-4">
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2">
-                <i data-lucide="target" class="w-5 h-5 text-purple-600"></i>
-                <h3 class="font-heading font-bold text-base text-slate-800">Job Coaching Radar</h3>
+                <i data-lucide="graduation-cap" class="w-5 h-5 text-purple-600"></i>
+                <h3 class="font-heading font-bold text-base text-slate-800">Micro-learning & Coaching Radar</h3>
               </div>
-              <span class="pill-badge bg-purple-200 text-purple-800 text-[10px]">Coaching Grupal</span>
+              <span class="pill-badge bg-purple-200 text-purple-800 text-[10px]">Cursos & Coaching</span>
             </div>
-            <p class="text-xs text-slate-600">Sesiones grupales para todo el equipo (6 UNIFÉ • 1 UPC) los miércoles a las 9:30 AM vía Google Meet con Melanie Almeyda.</p>
+            <p class="text-xs text-slate-600">Sesiones grupales para todo el equipo (6 UNIFÉ • 1 UPC) los miércoles a las 9:30 AM vía Google Meet con Melanie Almeyda y clases especializadas.</p>
             
             <div id="overview-coaching-list" class="space-y-2.5">
               <!-- Rendered by JS -->
             </div>
 
             <button onclick="app.switchTab('coaching')" class="w-full py-2.5 rounded-2xl bg-white text-purple-700 hover:bg-purple-50 text-xs font-bold border border-purple-200 shadow-sm flex items-center justify-center gap-1.5 transition-all">
-              <i data-lucide="calendar" class="w-3.5 h-3.5"></i> Ver Agenda de Coaching
+              <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i> Ver Micro-learning & Cursos
             </button>
           </div>
 
@@ -779,55 +779,86 @@
 
 
     <!-- ========================================== -->
-    <!-- TAB 5: JOB COACHING & EMPLEABILIDAD        -->
+    <!-- TAB 5: MICRO-LEARNING & CURSOS             -->
     <!-- ========================================== -->
     <div id="section-coaching" class="hidden space-y-6">
 
-      <!-- Coaching Hero Banner -->
+      <!-- Hero Banner -->
       <div class="glass-panel glass-panel-lavender rounded-3xl p-6 sm:p-8 space-y-3 relative overflow-hidden">
         <div class="max-w-2xl space-y-2">
           <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-purple-700 text-xs font-bold shadow-xs">
-            <i data-lucide="award" class="w-3.5 h-3.5 text-purple-600"></i> Programa de Empleabilidad & Mentoría Grupal
+            <i data-lucide="graduation-cap" class="w-3.5 h-3.5 text-purple-600"></i> Micro-learning & Cursos Especializados
           </div>
           <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-slate-800">
-            Job Coaching Grupal para Practicantes (6 UNIFÉ • 1 UPC) 🎯
+            Micro-learning & Cursos para Practicantes 🎓
           </h2>
           <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-            Acompañamos a nuestro equipo de 7 practicantes (6 de UNIFÉ y 1 de UPC) en su transición al mercado profesional internacional. Sesiones grupales interactivas los miércoles a las <b>9:30 AM</b> vía <b>Google Meet</b> dirigidas por la coach <b>Melanie Almeyda</b> (30 Septiembre, 28 Octubre y 25 Noviembre).
+            Plataforma formativa de alto rendimiento para el equipo de 7 practicantes (6 UNIFÉ • 1 UPC). Explora las sesiones interactivas de <b>Job Coaching Grupal</b> dirigidas por la coach <b>Melanie Almeyda</b> (miércoles 9:30 AM) y las <b>Clases de Idiomas & Herramientas CAT</b> (Inglés & Portugués) para fortalecer tus competencias profesionales.
           </p>
         </div>
 
-        <!-- Direct Meet link -->
+        <!-- Direct Meet link & Quick Info -->
         <div class="pt-2 flex flex-wrap items-center gap-3">
-          <a href="https://meet.google.com/cei-stmz-drx" target="_blank" class="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-md shadow-purple-200 transition-all">
+          <a href="https://meet.google.com/cei-stmz-drx" target="_blank" class="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-xs font-bold shadow-md shadow-purple-200 transition-all">
             <i data-lucide="video" class="w-4 h-4"></i>
             <span>Sala Google Meet Oficial (meet.google.com/cei-stmz-drx)</span>
           </a>
+          <span class="text-xs font-bold text-purple-700 bg-white/90 border border-purple-200 px-3 py-2 rounded-2xl shadow-2xs flex items-center gap-1.5">
+            <i data-lucide="users" class="w-3.5 h-3.5 text-purple-600"></i> 7 Practicantes Convocadas (6 UNIFÉ • 1 UPC)
+          </span>
         </div>
       </div>
 
-      <!-- ROADMAP & UPCOMING SESSIONS -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- LOVABLE-STYLE SEARCH & SUBTABS TOOLBAR -->
+      <div class="glass-panel rounded-3xl p-3 sm:p-4 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-sm border border-slate-200/80">
         
-        <!-- Left 2 Cols: Sesiones de Coaching Activas / Pasadas -->
-        <div class="lg:col-span-2 glass-panel rounded-3xl p-6 space-y-4">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
-              <h3 class="font-heading font-bold text-lg text-slate-800">Sesiones Grupales Programadas</h3>
-            </div>
-            <span class="text-xs text-purple-700 bg-purple-100 font-bold px-2.5 py-1 rounded-full">Modalidad Grupal • Todo el Equipo (6 UNIFÉ • 1 UPC)</span>
-          </div>
-
-          <div id="coaching-sessions-list" class="space-y-3">
-            <!-- Rendered by JS -->
-          </div>
+        <!-- Search Input (Career AI Style) -->
+        <div class="relative flex-1 min-w-[280px]">
+          <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+          <input type="text" id="microlearning-search" oninput="app.filterMicrolearning()" placeholder="Busca por curso, habilidad o palabra clave (ej. ATS, LinkedIn, Inglés, CAT)..." class="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-slate-50/80 hover:bg-white focus:bg-white border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all shadow-inner">
         </div>
 
-        <!-- Right 1 Col: Roadmap de Empleabilidad (Modo Informativo) -->
-        <div class="space-y-4">
+        <!-- Sub-tabs Switcher (Segmented Control) -->
+        <div class="flex items-center gap-1.5 p-1.5 bg-slate-100/90 rounded-2xl border border-slate-200 shrink-0">
+          <button id="subtab-btn-coaching" onclick="app.setMicrolearningSubtab('coaching')" class="subtab-btn flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-extrabold transition-all bg-white text-purple-700 shadow-xs">
+            <i data-lucide="target" class="w-3.5 h-3.5 text-purple-600"></i>
+            <span>Job Coaching Grupal</span>
+            <span id="badge-count-coaching" class="bg-purple-100 text-purple-700 text-[10px] px-1.5 py-0.2 rounded-full font-bold">3</span>
+          </button>
+
+          <button id="subtab-btn-idiomas" onclick="app.setMicrolearningSubtab('idiomas')" class="subtab-btn flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-purple-700 transition-all">
+            <i data-lucide="languages" class="w-3.5 h-3.5 text-slate-500"></i>
+            <span>Clases de Inglés & Portugués</span>
+            <span id="badge-count-idiomas" class="bg-slate-200 text-slate-700 text-[10px] px-1.5 py-0.2 rounded-full font-bold">3</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- VIEW 1: SUB-PESTAÑA JOB COACHING -->
+      <div id="microlearning-view-coaching" class="space-y-6">
+        
+        <div class="flex items-center justify-between">
+          <div class="space-y-0.5">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
+              <h3 class="font-heading font-extrabold text-lg sm:text-xl text-slate-800">Job Coaching Grupal con Melanie Almeyda</h3>
+            </div>
+            <p class="text-xs text-slate-500">3 Sesiones interactivas de empleabilidad los miércoles 9:30 AM para las 7 practicantes.</p>
+          </div>
+          <span class="text-xs text-purple-700 bg-purple-100 font-bold px-3 py-1 rounded-full hidden sm:inline-block">Modalidad Grupal • En Vivo</span>
+        </div>
+
+        <!-- Grid de tarjetas Lovable-style -->
+        <div id="coaching-sessions-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Rendered dynamically by app.js -->
+        </div>
+
+        <!-- ROADMAP INFORMATIVO & ENLACES ÚTILES (DEBAJO DE LAS TARJETAS) -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-4">
           
-          <div class="glass-panel glass-panel-pink rounded-3xl p-6 space-y-4">
+          <!-- Roadmap de Empleabilidad (Modo Informativo) -->
+          <div class="lg:col-span-2 glass-panel glass-panel-pink rounded-3xl p-6 space-y-4">
             <div class="flex items-center justify-between pb-2 border-b border-pink-200">
               <div class="flex items-center gap-2">
                 <i data-lucide="compass" class="w-4 h-4 text-rose-600"></i>
@@ -838,26 +869,48 @@
             
             <p class="text-xs text-slate-600">Ruta formativa y de empleabilidad que las 7 practicantes completarán con la coach <b>Melanie Almeyda</b>:</p>
 
-            <div id="roadmap-steps-container" class="space-y-2.5">
+            <div id="roadmap-steps-container" class="grid grid-cols-1 md:grid-cols-3 gap-3">
               <!-- Rendered by JS (modo informativo, sin tachar) -->
             </div>
           </div>
 
           <!-- Enlaces Útiles Card -->
-          <div class="glass-panel rounded-3xl p-5 space-y-3 text-xs">
-            <h5 class="font-bold text-slate-700 flex items-center gap-1.5">
-              <i data-lucide="external-link" class="w-3.5 h-3.5 text-purple-500"></i> Enlaces Útiles
-            </h5>
-            <ul class="space-y-2 text-slate-600 pt-1">
-              <li>
-                <a href="https://www.colegiodetraductores.org.pe/pdf/codigo_etica.pdf" target="_blank" class="p-2.5 rounded-2xl bg-purple-50/80 hover:bg-purple-100/90 border border-purple-200 text-purple-700 font-bold flex items-center gap-2 transition-all">
-                  <i data-lucide="file-text" class="w-4 h-4 text-purple-600 shrink-0"></i>
-                  <span class="leading-tight">Código de Ética - Colegio de Traductores del Perú (CTP)</span>
-                </a>
-              </li>
-            </ul>
+          <div class="glass-panel rounded-3xl p-6 space-y-3.5 text-xs flex flex-col justify-between">
+            <div class="space-y-2">
+              <h5 class="font-bold text-slate-700 flex items-center gap-1.5">
+                <i data-lucide="file-check-2" class="w-4 h-4 text-purple-600"></i> Documento Oficial de Referencia
+              </h5>
+              <p class="text-[11px] text-slate-500 leading-relaxed">
+                Marco deontológico y estándares de buenas prácticas para las traductoras del equipo:
+              </p>
+            </div>
+            <a href="https://www.colegiodetraductores.org.pe/pdf/codigo_etica.pdf" target="_blank" class="p-3 rounded-2xl bg-purple-50/90 hover:bg-purple-100 border border-purple-200 text-purple-700 font-bold flex items-center gap-2.5 transition-all shadow-2xs">
+              <i data-lucide="file-text" class="w-4 h-4 text-purple-600 shrink-0"></i>
+              <span class="leading-tight">Código de Ética - Colegio de Traductores del Perú (CTP)</span>
+            </a>
           </div>
 
+        </div>
+
+      </div>
+
+      <!-- VIEW 2: SUB-PESTAÑA CLASES DE IDIOMAS & PORTUGUÉS -->
+      <div id="microlearning-view-idiomas" class="hidden space-y-6">
+        
+        <div class="flex items-center justify-between">
+          <div class="space-y-0.5">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+              <h3 class="font-heading font-extrabold text-lg sm:text-xl text-slate-800">Clases de Inglés, Portugués & Herramientas CAT</h3>
+            </div>
+            <p class="text-xs text-slate-500">Formación lingüística aplicada, traducción jurídica, audiovisual y post-edición con IA.</p>
+          </div>
+          <span class="text-xs text-emerald-800 bg-emerald-100 font-bold px-3 py-1 rounded-full hidden sm:inline-block">Especialización Lingüística</span>
+        </div>
+
+        <!-- Grid de tarjetas Lovable-style de Idiomas -->
+        <div id="language-courses-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Rendered dynamically by app.js -->
         </div>
 
       </div>
@@ -899,8 +952,8 @@
           </button>
 
           <button onclick="app.switchTab('coaching')" class="flex items-center gap-2 px-4 py-3 rounded-2xl bg-purple-50 hover:bg-purple-100 text-purple-700 text-xs font-bold border border-purple-200 shadow-xs transition-all">
-            <i data-lucide="calendar" class="w-4 h-4"></i>
-            <span>Ver Job Coaching Grupal</span>
+            <i data-lucide="graduation-cap" class="w-4 h-4 text-purple-600"></i>
+            <span>Ver Micro-learning & Cursos</span>
           </button>
         </div>
       </div>

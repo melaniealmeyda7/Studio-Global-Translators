@@ -41,6 +41,10 @@ class GlobalTranslatorsApp {
     this.excelFilteredRows = [];
     this.excelHeaders = [];
 
+    // Microlearning subtab state
+    this.microlearningSubtab = "coaching"; // 'coaching' o 'idiomas'
+    this.microlearningSearchQuery = "";
+
     // Initialize state & load data
     this.loadState();
     this.initExcelData();
@@ -65,12 +69,16 @@ class GlobalTranslatorsApp {
           parsed.entregas.length < 10 ||
           !parsed.entregas.some(e => e.id === "ent-sm-f1") ||
           !parsed.coachingSessions ||
-          parsed.coachingSessions.length === 0;
+          parsed.coachingSessions.length === 0 ||
+          !parsed.coachingSessions[0].imagen ||
+          !parsed.languageCourses ||
+          parsed.languageCourses.length === 0;
 
         if (needsUpdate) {
           this.data.practicantes = JSON.parse(JSON.stringify(window.GT_DATA_INITIAL.practicantes));
           this.data.entregas = JSON.parse(JSON.stringify(window.GT_DATA_INITIAL.entregas));
           this.data.coachingSessions = JSON.parse(JSON.stringify(window.GT_DATA_INITIAL.coachingSessions));
+          this.data.languageCourses = JSON.parse(JSON.stringify(window.GT_DATA_INITIAL.languageCourses));
           this.data.roadmapSteps = JSON.parse(JSON.stringify(window.GT_DATA_INITIAL.roadmapSteps));
           this.data.excelTemplateData = JSON.parse(JSON.stringify(window.GT_DATA_INITIAL.excelTemplateData));
           this.saveState();
@@ -224,7 +232,7 @@ class GlobalTranslatorsApp {
     // Stats calculation
     const entregasActivas = this.data.entregas.filter(e => e.estado !== "entregado" && e.estado !== "completada").length;
     const totalPracticantes = this.data.practicantes.length;
-    const coachingActivas = this.data.coachingSessions.filter(c => c.estado === "programada").length;
+    const coachingActivas = (this.data.coachingSessions || []).filter(c => c.estado === "programada").length + (this.data.languageCourses || []).length;
 
     // Badges in header
     const bEnt = document.getElementById("badge-count-entregas");
@@ -976,108 +984,257 @@ class GlobalTranslatorsApp {
   }
 
   /* ------------------------------------------------------------- */
-  /* JOB COACHING & EMPLEABILIDAD                                  */
+  /* MICRO-LEARNING & CURSOS (JOB COACHING & IDIOMAS)              */
   /* ------------------------------------------------------------- */
-  renderCoaching() {
-    const sessionsList = document.getElementById("coaching-sessions-list");
-    if (sessionsList) {
-      if (this.data.coachingSessions.length === 0) {
-        sessionsList.innerHTML = `<div class="text-center py-8 text-slate-400 text-xs">No hay sesiones de coaching registradas.</div>`;
-      } else {
-        sessionsList.innerHTML = this.data.coachingSessions.map(c => {
-          // Check if session is group
-          const isGroup = c.practicanteId === "all" || (c.practicanteNombre && c.practicanteNombre.toLowerCase().includes("equipo"));
-          const avatarsHtml = isGroup ? `
-            <div class="flex flex-wrap items-center gap-2 pt-1">
-              <div class="flex -space-x-2 overflow-hidden py-0.5">
-                ${this.data.practicantes.map(p => `
-                  <img src="${p.avatar}" alt="${p.nombre}" title="${p.nombre} (${p.universidad || 'UNIFÉ'})" class="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-xs hover:scale-110 hover:z-10 transition-transform">
-                `).join("")}
+  setMicrolearningSubtab(subtab) {
+    this.microlearningSubtab = subtab;
+    const viewCoaching = document.getElementById("microlearning-view-coaching");
+    const viewIdiomas = document.getElementById("microlearning-view-idiomas");
+    const btnCoaching = document.getElementById("subtab-btn-coaching");
+    const btnIdiomas = document.getElementById("subtab-btn-idiomas");
+
+    if (subtab === "coaching") {
+      if (viewCoaching) viewCoaching.classList.remove("hidden");
+      if (viewIdiomas) viewIdiomas.classList.add("hidden");
+
+      if (btnCoaching) {
+        btnCoaching.className = "subtab-btn flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-extrabold transition-all bg-white text-purple-700 shadow-xs";
+      }
+      if (btnIdiomas) {
+        btnIdiomas.className = "subtab-btn flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-purple-700 transition-all";
+      }
+    } else {
+      if (viewCoaching) viewCoaching.classList.add("hidden");
+      if (viewIdiomas) viewIdiomas.classList.remove("hidden");
+
+      if (btnIdiomas) {
+        btnIdiomas.className = "subtab-btn flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-extrabold transition-all bg-white text-emerald-700 shadow-xs";
+      }
+      if (btnCoaching) {
+        btnCoaching.className = "subtab-btn flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-purple-700 transition-all";
+      }
+    }
+    if (window.lucide) window.lucide.createIcons();
+  }
+
+  filterMicrolearning() {
+    const input = document.getElementById("microlearning-search");
+    this.microlearningSearchQuery = (input ? input.value : "").trim().toLowerCase();
+    this.renderCoaching();
+  }
+
+  renderMicrolearningCard(item, type) {
+    const isCoaching = type === 'coaching';
+    const isGroup = isCoaching && (item.practicanteId === "all" || (item.practicanteNombre && item.practicanteNombre.toLowerCase().includes("equipo")));
+
+    // Horario formateado
+    let scheduleText = "";
+    if (isCoaching && item.fecha) {
+      const dateParts = item.fecha.split("-");
+      const dateObj = new Date(parseInt(dateParts[0]), parseInt(dateParts[1]) - 1, parseInt(dateParts[2]));
+      const dayName = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"][dateObj.getDay()] || "Mié";
+      const monthName = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Set", "Oct", "Nov", "Dic"][dateObj.getMonth()] || "";
+      scheduleText = `${dayName} ${parseInt(dateParts[2])} ${monthName} • ${item.hora || '09:30'} AM`;
+    } else {
+      scheduleText = item.horario || "Semanal • En Vivo";
+    }
+
+    const catBadge = item.categoriaBadge || (isCoaching ? "📄 JOB COACHING" : "🇬🇧 IDIOMAS");
+    const accessBadge = item.tipoAcceso || "Acceso Libre";
+    const coachName = item.coach || "Melanie Almeyda";
+    const coachRole = item.coachRol || (coachName.includes("Melanie") ? "CEO & Coach" : "Directora & Gestora");
+    const coachInitials = coachName.split(" ").map(w => w[0]).filter(Boolean).slice(0, 2).join("").toUpperCase();
+
+    // 7 practicantes convocadas
+    const avatarsHtml = (isGroup || !isCoaching) ? `
+      <div class="flex items-center justify-between pt-2 border-t border-slate-100">
+        <div class="flex -space-x-2 overflow-hidden py-0.5">
+          ${this.data.practicantes.map(p => `
+            <img src="${p.avatar}" alt="${p.nombre}" title="${p.nombre} (${p.universidad || 'UNIFÉ'})" class="inline-block h-6 w-6 rounded-full ring-2 ring-white object-cover shadow-2xs hover:scale-125 hover:z-20 transition-transform">
+          `).join("")}
+        </div>
+        <span class="text-[10px] font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded-lg border border-purple-100">
+          7 Practicantes Convocadas
+        </span>
+      </div>
+    ` : '';
+
+    // Tags
+    const tags = Array.isArray(item.tags) ? item.tags : [];
+    const tagsHtml = tags.map(tag => `
+      <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-semibold">#${tag}</span>
+    `).join("");
+
+    return `
+      <div class="group rounded-3xl overflow-hidden bg-white/95 border border-slate-200/80 hover:border-purple-300 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+        
+        <!-- CARD HEADER IMAGE & BADGES (LOVABLE CAREER AI FORMAT) -->
+        <div class="relative h-44 w-full overflow-hidden bg-slate-900 shrink-0">
+          <img src="${item.imagen || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=80'}" alt="${item.tipo || item.titulo}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-black/25 to-black/30 pointer-events-none"></div>
+
+          <!-- Top-Left Category Badge -->
+          <div class="absolute top-3 left-3 px-2.5 py-1 rounded-xl text-[10px] font-black tracking-wider uppercase shadow-md flex items-center gap-1.5 backdrop-blur-md bg-slate-900/80 text-white border border-white/20">
+            ${catBadge}
+          </div>
+
+          <!-- Top-Right Access / Live Badge -->
+          <div class="absolute top-3 right-3 px-2.5 py-1 rounded-xl text-[10px] font-bold shadow-md flex items-center gap-1.5 backdrop-blur-md bg-emerald-600/90 text-white border border-white/20">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-200 animate-pulse"></span>
+            <span>${accessBadge}</span>
+          </div>
+
+          <!-- Bottom bar inside image (Schedule & Duration) -->
+          <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-[11px] font-bold">
+            <span class="bg-black/50 backdrop-blur-sm px-2.5 py-0.5 rounded-lg border border-white/10 flex items-center gap-1">
+              <i data-lucide="calendar" class="w-3 h-3 text-purple-300"></i> ${scheduleText}
+            </span>
+            <span class="bg-black/50 backdrop-blur-sm px-2.5 py-0.5 rounded-lg border border-white/10 flex items-center gap-1">
+              <i data-lucide="clock" class="w-3 h-3 text-amber-300"></i> ${item.duracion || '45 minutos'}
+            </span>
+          </div>
+        </div>
+
+        <!-- CARD BODY -->
+        <div class="p-5 flex-1 flex flex-col justify-between space-y-3.5">
+          
+          <div class="space-y-2.5">
+            <!-- Title -->
+            <h3 class="font-heading font-extrabold text-sm sm:text-base text-slate-800 leading-snug group-hover:text-purple-700 transition-colors">
+              ${item.tipo || item.titulo}
+            </h3>
+
+            <!-- Facilitator info -->
+            <div class="flex items-center gap-2.5">
+              <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 text-white font-black text-[11px] flex items-center justify-center shadow-2xs shrink-0">
+                ${coachInitials}
               </div>
-              <span class="text-xs font-bold text-purple-700 bg-purple-100/70 px-2.5 py-1 rounded-xl">
-                7 Practicantes Convocadas (6 UNIFÉ • 1 UPC)
-              </span>
+              <div class="min-w-0">
+                <p class="text-xs font-bold text-slate-800 leading-none truncate">${coachName}</p>
+                <p class="text-[10px] text-slate-500 font-medium mt-0.5">${coachRole}</p>
+              </div>
             </div>
-          ` : `
-            <div class="text-xs text-slate-700"><b>Practicante:</b> ${c.practicanteNombre}</div>
-          `;
 
-          // Date formatting for Wednesday sessions
-          const dateParts = c.fecha.split("-");
-          const dateObj = new Date(parseInt(dateParts[0]), parseInt(dateParts[1]) - 1, parseInt(dateParts[2]));
-          const dayName = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"][dateObj.getDay()] || "Miércoles";
-          const monthName = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"][dateObj.getMonth()] || "";
+            <!-- Description -->
+            <p class="text-xs text-slate-600 leading-relaxed line-clamp-3">
+              ${item.objetivo || item.descripcion}
+            </p>
+          </div>
 
-          return `
-          <div class="p-5 rounded-3xl bg-white/95 border border-purple-100 hover:border-purple-300 shadow-xs hover:shadow-md transition-all space-y-3.5">
-            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-2 border-b border-slate-100">
-              <div class="space-y-1.5">
-                <div class="flex flex-wrap items-center gap-2">
-                  <span class="pill-badge bg-purple-100 text-purple-800 text-[10px] font-bold flex items-center gap-1">
-                    <i data-lucide="users" class="w-3 h-3 text-purple-600"></i> Modalidad Grupal
-                  </span>
-                  <span class="pill-badge ${c.estado === 'completada' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'} text-[10px] font-bold">
-                    ${c.estado === 'completada' ? 'Completada con éxito ✨' : 'Sesión Programada'}
-                  </span>
-                </div>
-                <h4 class="font-heading font-extrabold text-base text-slate-800 leading-snug">${c.tipo}</h4>
+          <!-- Modules and Material Box (Career AI Format) -->
+          <div class="space-y-2.5">
+            <div class="p-2.5 rounded-2xl bg-slate-50/90 border border-slate-200/70 flex items-center justify-between text-xs">
+              <div class="flex items-center gap-1.5 text-slate-700 font-semibold text-[11px]">
+                <i data-lucide="book-open" class="w-3.5 h-3.5 text-purple-600 shrink-0"></i>
+                <span>${item.modulos || '3 Módulos Teóricos'}</span>
               </div>
-              <div class="text-left sm:text-right shrink-0">
-                <span class="text-xs font-black text-purple-700 bg-purple-50 border border-purple-200 px-3 py-1.5 rounded-xl inline-block shadow-2xs">
-                  ${dayName} ${parseInt(dateParts[2])} de ${monthName}, ${dateParts[0]} • ${c.hora} AM
-                </span>
+              <div class="text-amber-700 font-black text-[11px] bg-amber-50 px-2 py-0.5 rounded-lg border border-amber-200/60">
+                ${item.material || '+ Material / Plantilla'}
               </div>
             </div>
 
-            <!-- Participants & Mentors -->
-            <div class="bg-gradient-to-r from-purple-50/70 to-pink-50/50 p-3.5 rounded-2xl border border-purple-100 space-y-2">
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-700">
-                <div><b>Coach / Facilitador:</b> ${c.coach}</div>
-                <div class="text-purple-700 font-bold bg-white/80 px-2 py-0.5 rounded-lg border border-purple-100 text-[11px]">
-                  ⏰ Miércoles 9:30 AM (Asistencia Puntual)
-                </div>
-              </div>
-              ${avatarsHtml}
-            </div>
+            <!-- Practicantes 7 Convocadas -->
+            ${avatarsHtml}
 
-            <div class="text-xs text-slate-600 bg-slate-50/80 p-3 rounded-2xl border border-slate-100">
-              <b>Objetivo de la Sesión:</b> ${c.objetivo || 'Asesoría de empleabilidad, perfiles profesionales y traducción técnica.'}
-            </div>
-
-            ${c.acuerdos ? `
-              <div class="text-[11px] text-purple-900 bg-purple-50/60 p-3 rounded-2xl border border-purple-100">
-                <b>📌 Acuerdos & Preparación Previa:</b> ${c.acuerdos}
-              </div>
-            ` : ''}
-
-            ${c.calificacion ? `
-              <div class="text-[11px] text-emerald-800 bg-emerald-50/70 p-3 rounded-2xl border border-emerald-100">
-                <b>Feedback & Conclusiones:</b> ${c.calificacion}
-              </div>
-            ` : ''}
-
-            <div class="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 text-xs">
-              <div class="flex items-center gap-2">
-                <a href="${c.enlaceSala || 'https://meet.google.com/cei-stmz-drx'}" target="_blank" class="px-4 py-2 rounded-2xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs flex items-center gap-2 shadow-sm shadow-purple-200 hover:shadow-md transition-all">
-                  <i data-lucide="video" class="w-4 h-4"></i>
-                  <span>Unirse a Google Meet</span>
-                </a>
-                <span class="text-xs text-slate-500 font-mono hidden sm:inline">meet.google.com/cei-stmz-drx</span>
-              </div>
-              <div class="flex items-center gap-1.5">
-                ${c.estado !== 'completada' ? `
-                  <button onclick="app.completeCoachingSession('${c.id}')" class="px-3 py-1.5 rounded-xl bg-emerald-100 hover:bg-emerald-200 text-emerald-800 font-bold text-[11px] transition-all">
-                    Marcar Realizada ✅
-                  </button>
-                ` : ''}
-                <button onclick="app.deleteCoachingSession('${c.id}')" class="p-1.5 text-slate-300 hover:text-rose-500 transition-colors" title="Eliminar sesión">
-                  <i data-lucide="trash-2" class="w-4 h-4"></i>
-                </button>
-              </div>
+            <!-- Tags -->
+            <div class="flex flex-wrap items-center gap-1.5">
+              ${tagsHtml}
             </div>
           </div>
-          `;
-        }).join("");
+
+          <!-- ACTION BUTTONS: GOOGLE MEET DIRECT ACCESS -->
+          <div class="pt-2 border-t border-slate-100 flex flex-col gap-2">
+            <a href="${item.enlaceSala || 'https://meet.google.com/cei-stmz-drx'}" target="_blank" class="w-full py-2.5 px-4 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-xs font-bold shadow-md shadow-purple-200 hover:shadow-lg flex items-center justify-center gap-2 transition-all transform hover:-translate-y-0.5">
+              <i data-lucide="video" class="w-4 h-4"></i>
+              <span>Ingresar a la Sala Meet</span>
+            </a>
+
+            ${isCoaching ? `
+              <div class="flex items-center justify-between text-[11px] pt-0.5">
+                ${item.estado !== 'completada' ? `
+                  <button onclick="app.completeCoachingSession('${item.id}')" class="text-emerald-700 hover:text-emerald-800 font-bold flex items-center gap-1">
+                    <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Marcar Realizada
+                  </button>
+                ` : `
+                  <span class="text-emerald-600 font-bold flex items-center gap-1">
+                    <i data-lucide="check-check" class="w-3.5 h-3.5"></i> Sesión Completada ✨
+                  </span>
+                `}
+                <button onclick="app.deleteCoachingSession('${item.id}')" class="text-slate-300 hover:text-rose-500 transition-colors p-1" title="Eliminar sesión">
+                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            ` : `
+              <div class="flex items-center justify-between text-[11px] text-slate-500 pt-0.5">
+                <span class="font-medium text-[10px] text-slate-500">Modalidad: Virtual Asistida</span>
+                <span class="text-[10px] text-purple-600 font-semibold">meet.google.com/cei-stmz-drx</span>
+              </div>
+            `}
+          </div>
+
+        </div>
+
+      </div>
+    `;
+  }
+
+  renderCoaching() {
+    const query = this.microlearningSearchQuery || "";
+
+    // 1. Filter Coaching Sessions
+    let coachingList = this.data.coachingSessions || [];
+    if (query) {
+      coachingList = coachingList.filter(c => {
+        const text = `${c.tipo || ''} ${c.objetivo || ''} ${c.coach || ''} ${(c.tags || []).join(' ')} ${c.categoriaBadge || ''}`.toLowerCase();
+        return text.includes(query);
+      });
+    }
+
+    // 2. Filter Language Courses
+    let languageList = this.data.languageCourses || [];
+    if (query) {
+      languageList = languageList.filter(l => {
+        const text = `${l.titulo || ''} ${l.descripcion || ''} ${l.coach || ''} ${(l.tags || []).join(' ')} ${l.categoriaBadge || ''}`.toLowerCase();
+        return text.includes(query);
+      });
+    }
+
+    // Update counts in badges
+    const badgeCoaching = document.getElementById("badge-count-coaching");
+    if (badgeCoaching) badgeCoaching.textContent = coachingList.length;
+
+    const badgeIdiomas = document.getElementById("badge-count-idiomas");
+    if (badgeIdiomas) badgeIdiomas.textContent = languageList.length;
+
+    // Render Coaching Grid
+    const coachingGrid = document.getElementById("coaching-sessions-grid");
+    if (coachingGrid) {
+      if (coachingList.length === 0) {
+        coachingGrid.innerHTML = `
+          <div class="col-span-full py-12 text-center space-y-2 bg-white/70 rounded-3xl border border-dashed border-slate-200">
+            <i data-lucide="search-x" class="w-8 h-8 text-slate-400 mx-auto"></i>
+            <p class="text-sm font-bold text-slate-700">No se encontraron sesiones de Job Coaching con ese filtro</p>
+            <p class="text-xs text-slate-400">Intenta buscando por "CV", "LinkedIn", "ATS" o "Portafolio".</p>
+          </div>
+        `;
+      } else {
+        coachingGrid.innerHTML = coachingList.map(c => this.renderMicrolearningCard(c, 'coaching')).join("");
+      }
+    }
+
+    // Render Language Courses Grid
+    const languageGrid = document.getElementById("language-courses-grid");
+    if (languageGrid) {
+      if (languageList.length === 0) {
+        languageGrid.innerHTML = `
+          <div class="col-span-full py-12 text-center space-y-2 bg-white/70 rounded-3xl border border-dashed border-slate-200">
+            <i data-lucide="search-x" class="w-8 h-8 text-slate-400 mx-auto"></i>
+            <p class="text-sm font-bold text-slate-700">No se encontraron clases de idiomas con ese filtro</p>
+            <p class="text-xs text-slate-400">Intenta buscando por "Inglés", "Portugués" o "CAT Tools".</p>
+          </div>
+        `;
+      } else {
+        languageGrid.innerHTML = languageList.map(l => this.renderMicrolearningCard(l, 'idioma')).join("");
       }
     }
 
@@ -1088,13 +1245,13 @@ class GlobalTranslatorsApp {
       if (badge) badge.textContent = `${this.data.roadmapSteps.length} Hitos`;
 
       roadmapContainer.innerHTML = this.data.roadmapSteps.map((step, idx) => `
-        <div class="flex items-start gap-3 p-3 rounded-2xl border border-pink-100 bg-white/90 shadow-2xs transition-all">
-          <div class="w-6 h-6 rounded-xl bg-gradient-to-tr from-pink-400 to-purple-500 text-white flex items-center justify-center text-xs font-black shrink-0 mt-0.5 shadow-2xs">
+        <div class="flex items-start gap-3 p-3.5 rounded-2xl border border-pink-100 bg-white/90 shadow-2xs transition-all">
+          <div class="w-7 h-7 rounded-xl bg-gradient-to-tr from-pink-400 to-purple-500 text-white flex items-center justify-center text-xs font-black shrink-0 mt-0.5 shadow-2xs">
             ${idx + 1}
           </div>
           <div class="flex-1 min-w-0">
             <h5 class="text-xs font-bold text-slate-800 leading-snug">${step.titulo}</h5>
-            <p class="text-[11px] text-slate-500 leading-relaxed mt-0.5">${step.desc}</p>
+            <p class="text-[11px] text-slate-500 leading-relaxed mt-1">${step.desc}</p>
           </div>
         </div>
       `).join("");
