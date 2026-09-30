@@ -151,7 +151,7 @@ class GlobalTranslatorsApp {
     this.currentTab = tabId;
 
     // Hide all tab sections
-    const tabs = ["overview", "cronograma", "calendario", "practicantes", "coaching", "meet", "excel", "toolkit"];
+    const tabs = ["overview", "cronograma", "practicantes", "coaching", "meet", "excel", "toolkit"];
     tabs.forEach(t => {
       const sec = document.getElementById(`section-${t}`);
       if (sec) sec.classList.add("hidden");
@@ -173,7 +173,6 @@ class GlobalTranslatorsApp {
     });
 
     // Re-render specific tab if needed
-    if (tabId === "calendario") this.renderCalendar();
     if (tabId === "cronograma") this.renderCronograma();
     if (tabId === "excel") this.renderExcelTable();
     if (tabId === "coaching") this.renderCoaching();
