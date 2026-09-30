@@ -3,7 +3,7 @@
 
 class GlobalTranslatorsApp {
   constructor() {
-    this.storageKey = "GT_STUDIO_STORAGE_V3";
+    this.storageKey = "GT_STUDIO_STORAGE_V4";
     this.firebaseConfigKey = "GT_FIREBASE_CONFIG_V1";
     this.currentTab = "overview";
     this.cronogramaView = "kanban"; // 'kanban' | 'list'
@@ -68,7 +68,7 @@ class GlobalTranslatorsApp {
           )) ||
           !parsed.coachingSessions ||
           parsed.coachingSessions.length === 0 ||
-          parsed.coachingSessions.some(c => c.id === "c1" || (c.enlaceSala && c.enlaceSala.includes("gts-coaching")));
+          parsed.coachingSessions.some(c => c.id === "c1" || (c.enlaceSala && c.enlaceSala.includes("gts-coaching")) || (c.id === "cg-3" && c.coach !== "Melanie Almeyda"));
 
         if (needsUpdate) {
           this.data.practicantes = JSON.parse(JSON.stringify(window.GT_DATA_INITIAL.practicantes));

@@ -377,14 +377,14 @@ window.GT_DATA_INITIAL = {
       id: "cg-3",
       practicanteId: "all",
       practicanteNombre: "Todo el Equipo UNIFÉ (6 Practicantes)",
-      tipo: "Job Coaching Grupal III: Simulacro de Entrevistas (Mock Interviews) & Transición a Agencias",
-      coach: "Lic. Andrea Paz (Head of Talent) & Mg. Fernando Valenzuela",
+      tipo: "Job Coaching Grupal III: Portafolio Profesional + IA",
+      coach: "Melanie Almeyda",
       fecha: "2026-11-25",
       hora: "09:30",
       estado: "programada",
       modalidad: "Grupal (Todo el Equipo UNIFÉ)",
-      objetivo: "Simulacros grupales de entrevistas técnicas en inglés, francés y portugués para agencias internacionales de localización y subtitulaje.",
-      acuerdos: "Preparación de elevator pitch profesional de 2 minutos y resolución de pruebas de traducción cronometradas.",
+      objetivo: "Creación y estructuración del Portafolio Profesional para traductoras e intérpretes con integración de Inteligencia Artificial (IA), prompts especializados, post-edición (MTPE) y curaduría de muestras de traducción.",
+      acuerdos: "Desarrollar portafolio digital en formato web o PDF interactivo con muestras de proyectos y metodología ética asistida por IA.",
       enlaceSala: "https://meet.google.com/cei-stmz-drx",
       calificacion: null
     }
