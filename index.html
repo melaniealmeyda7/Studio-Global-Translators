@@ -199,11 +199,9 @@
         </button>
 
         <button onclick="app.switchTab('cronograma')" class="nav-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-purple-700 hover:bg-purple-50 transition-all" data-tab="cronograma">
-          <i data-lucide="kanban-square" class="w-4 h-4"></i>
-          <span>Cronograma & Entregas</span>
-          <span id="badge-count-entregas" class="bg-pink-100 text-pink-700 text-[10px] px-1.5 py-0.2 rounded-full font-bold">0</span>
+          <i data-lucide="calendar-range" class="w-4 h-4"></i>
+          <span>Cronograma & Fases</span>
         </button>
-
 
         <button onclick="app.switchTab('practicantes')" class="nav-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-purple-700 hover:bg-purple-50 transition-all" data-tab="practicantes">
           <i data-lucide="users" class="w-4 h-4"></i>
@@ -225,15 +223,10 @@
           </span>
         </button>
 
-        <button onclick="app.switchTab('excel')" class="nav-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-purple-700 hover:bg-purple-50 transition-all" data-tab="excel">
-          <i data-lucide="file-spreadsheet" class="w-4 h-4 text-emerald-600"></i>
-          <span>Gestor de Excel (.xlsx)</span>
-          <span class="bg-emerald-100 text-emerald-700 text-[10px] px-1.5 py-0.2 rounded-full font-bold">Activo 📊</span>
-        </button>
-
         <button onclick="app.switchTab('toolkit')" class="nav-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-purple-700 hover:bg-purple-50 transition-all" data-tab="toolkit">
-          <i data-lucide="book-marked" class="w-4 h-4"></i>
-          <span>Kit de Traductora & Notas</span>
+          <i data-lucide="folder-archive" class="w-4 h-4 text-purple-600"></i>
+          <span>Kit del Traductor & Entregables</span>
+          <span class="bg-purple-100 text-purple-700 text-[10px] px-1.5 py-0.2 rounded-full font-bold">Carpetas 📁</span>
         </button>
 
       </div>
@@ -294,13 +287,13 @@
             <!-- Call to Actions Bar (Potente y Colorido) -->
             <div class="flex flex-wrap items-center gap-3 pt-1">
               <button onclick="app.switchTab('cronograma')" class="shimmer-btn px-5 py-3 rounded-2xl bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white text-xs font-bold shadow-lg shadow-pink-200 hover:shadow-xl hover:shadow-pink-300 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
-                <i data-lucide="kanban-square" class="w-4 h-4"></i>
-                <span>Explorar Cronograma de Entregas</span>
+                <i data-lucide="calendar-range" class="w-4 h-4"></i>
+                <span>Explorar Cronograma & Fases</span>
               </button>
 
-              <button onclick="app.switchTab('excel')" class="px-4 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-md shadow-emerald-200 transition-all flex items-center gap-2">
-                <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
-                <span>Cargar Mi Excel (.xlsx)</span>
+              <button onclick="app.switchTab('toolkit')" class="px-4 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-md shadow-indigo-200 transition-all flex items-center gap-2">
+                <i data-lucide="folder-archive" class="w-4 h-4"></i>
+                <span>Entregables & Plantilla 📂</span>
               </button>
 
               <button onclick="app.switchTab('coaching')" class="px-4 py-3 rounded-2xl bg-white hover:bg-purple-50 text-purple-700 text-xs font-bold border border-purple-200 shadow-sm transition-all flex items-center gap-2">
@@ -520,17 +513,17 @@
             </div>
           </div>
 
-          <!-- Excel Hub Quick Card -->
-          <div class="glass-panel glass-panel-mint rounded-3xl p-6 space-y-3">
+          <!-- Kit del Traductor & Entregables Quick Card -->
+          <div class="glass-panel glass-panel-lavender rounded-3xl p-6 space-y-3">
             <div class="flex items-center gap-2">
-              <i data-lucide="file-spreadsheet" class="w-5 h-5 text-emerald-600"></i>
-              <h3 class="font-heading font-bold text-base text-slate-800">Espacio de Archivo Excel</h3>
+              <i data-lucide="folder-archive" class="w-5 h-5 text-purple-600"></i>
+              <h3 class="font-heading font-bold text-base text-slate-800">Carpetas de Entregables & Plantilla</h3>
             </div>
             <p class="text-xs text-slate-600">
-              Arrastra tu archivo Excel (.xlsx) o utiliza la plantilla oficial de Global Translators para auditar horas, estados y notas.
+              Accede a la Plantilla de evidencia oficial en Google Docs y a los repositorios de carpetas para las Fases 1, 2 y 3.
             </p>
-            <button onclick="app.switchTab('excel')" class="w-full py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-md shadow-emerald-200 flex items-center justify-center gap-1.5 transition-all">
-              <i data-lucide="upload" class="w-3.5 h-3.5"></i> Cargar o Ver mi Excel
+            <button onclick="app.switchTab('toolkit')" class="w-full py-2.5 rounded-2xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-md shadow-purple-200 flex items-center justify-center gap-1.5 transition-all">
+              <i data-lucide="folder-open" class="w-3.5 h-3.5"></i> Ver Entregables & Carpetas
             </button>
           </div>
 
@@ -546,15 +539,14 @@
     <!-- ========================================== -->
     <div id="section-cronograma" class="hidden space-y-6">
 
-      <!-- Header & Filter Bar -->
+      <!-- Header -->
       <div class="glass-panel rounded-3xl p-5 sm:p-6 space-y-4">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <h2 class="text-xl sm:text-2xl font-heading font-bold text-slate-800 flex items-center gap-2">
-              <span>📋 Cronograma Dinámico de Entregas</span>
-              <span class="text-xs bg-pink-100 text-pink-700 font-semibold px-2 py-0.5 rounded-full">Kanban & Lista</span>
+              <span>📋 Cronograma Oficial & Fases del Proyecto</span>
             </h2>
-            <p class="text-xs text-slate-500 mt-1">Gestiona el flujo de trabajo de traducción desde la asignación hasta el QA y entrega final.</p>
+            <p class="text-xs text-slate-500 mt-1">Planificación integral, fases del proyecto y seguimiento en vivo de avances y entregas de las 7 practicantes.</p>
           </div>
 
           <!-- Official Project Badge -->
@@ -562,41 +554,6 @@
             <span class="text-xs bg-purple-50 text-purple-700 font-bold px-3.5 py-1.5 rounded-2xl flex items-center gap-1.5 border border-purple-200 shadow-2xs">
               <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-purple-600"></i> Cronograma Oficial Sincronizado
             </span>
-          </div>
-        </div>
-
-        <!-- Filter Controls -->
-        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 pt-2 border-t border-slate-100">
-          <!-- Search input -->
-          <div class="relative sm:col-span-1">
-            <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
-            <input type="text" id="filter-entrega-search" oninput="app.renderCronograma()" placeholder="Buscar proyecto o cliente..." class="w-full pl-9 pr-3 py-2 bg-slate-50 rounded-xl text-xs border border-slate-200 focus:outline-none focus:ring-2 focus:ring-pink-300">
-          </div>
-
-          <!-- Practicante selector -->
-          <select id="filter-entrega-practicante" onchange="app.renderCronograma()" class="bg-slate-50 rounded-xl text-xs py-2 px-3 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-pink-300">
-            <option value="">Todas las practicantes</option>
-            <!-- Injected by JS -->
-          </select>
-
-          <!-- Idiomas selector -->
-          <select id="filter-entrega-idioma" onchange="app.renderCronograma()" class="bg-slate-50 rounded-xl text-xs py-2 px-3 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-pink-300">
-            <option value="">Todos los pares de idiomas</option>
-            <option value="EN ➔ ES">EN ➔ ES</option>
-            <option value="ES ➔ EN">ES ➔ EN</option>
-            <option value="FR ➔ ES">FR ➔ ES</option>
-            <option value="DE ➔ ES">DE ➔ ES</option>
-            <option value="PT ➔ ES">PT ➔ ES</option>
-          </select>
-
-          <!-- View Mode (Kanban / Table) -->
-          <div class="flex items-center bg-slate-100 p-1 rounded-xl">
-            <button id="btn-view-kanban" onclick="app.setCronogramaView('kanban')" class="flex-1 py-1.5 text-xs font-semibold rounded-lg bg-white text-purple-700 shadow-xs flex items-center justify-center gap-1">
-              <i data-lucide="columns-3" class="w-3.5 h-3.5"></i> Kanban
-            </button>
-            <button id="btn-view-list" onclick="app.setCronogramaView('list')" class="flex-1 py-1.5 text-xs font-semibold rounded-lg text-slate-600 hover:text-purple-700 flex items-center justify-center gap-1">
-              <i data-lucide="list" class="w-3.5 h-3.5"></i> Lista
-            </button>
           </div>
         </div>
       </div>
@@ -735,101 +692,7 @@
         </div>
       </div>
 
-      <!-- Realtime Drag & Drop Tip Banner -->
-      <div class="flex items-center justify-between text-xs text-purple-900 bg-purple-50/80 px-4 py-2.5 rounded-2xl border border-purple-200/60 shadow-2xs">
-        <div class="flex items-center gap-2">
-          <i data-lucide="sparkles" class="w-4 h-4 text-purple-600 shrink-0"></i>
-          <span class="font-medium">
-            <b>Drag & Drop en Vivo:</b> Arrastra y suelta las tarjetas entre columnas. Los cambios se actualizan e imprimen en tiempo real con <b>Firebase Realtime Database</b> en las pantallas de todo el equipo simultáneamente sin recargar la página.
-          </span>
-        </div>
-        <span class="pill-badge bg-emerald-100 text-emerald-800 text-[10px] font-bold shrink-0">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Sincronizado
-        </span>
-      </div>
 
-      <!-- KANBAN BOARD CONTAINER -->
-      <div id="cronograma-kanban-view" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-start">
-        
-        <!-- Column 1: Por Iniciar -->
-        <div id="kanban-col-pendiente" ondragover="app.handleDragOver(event, 'pendiente')" ondragleave="app.handleDragLeave(event, 'pendiente')" ondrop="app.handleDrop(event, 'pendiente')" class="kanban-column bg-slate-50/90 rounded-3xl p-4 border border-slate-200/70 space-y-3 transition-all duration-200">
-          <div class="flex items-center justify-between pb-2 border-b border-slate-200 pointer-events-none">
-            <div class="flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full bg-slate-300"></span>
-              <h4 class="font-heading font-bold text-xs uppercase tracking-wider text-slate-700">Por Iniciar</h4>
-            </div>
-            <span id="col-count-pendiente" class="text-xs bg-slate-200 text-slate-700 font-bold px-2 py-0.5 rounded-full">0</span>
-          </div>
-          <div id="col-cards-pendiente" class="space-y-3 min-h-[140px]">
-            <!-- Rendered by JS -->
-          </div>
-        </div>
-
-        <!-- Column 2: En Proceso / Traducción -->
-        <div id="kanban-col-en-progreso" ondragover="app.handleDragOver(event, 'en-progreso')" ondragleave="app.handleDragLeave(event, 'en-progreso')" ondrop="app.handleDrop(event, 'en-progreso')" class="kanban-column bg-sky-50/60 rounded-3xl p-4 border border-sky-200/70 space-y-3 transition-all duration-200">
-          <div class="flex items-center justify-between pb-2 border-b border-sky-200 pointer-events-none">
-            <div class="flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full bg-sky-400"></span>
-              <h4 class="font-heading font-bold text-xs uppercase tracking-wider text-sky-800">En Traducción</h4>
-            </div>
-            <span id="col-count-en-progreso" class="text-xs bg-sky-100 text-sky-700 font-bold px-2 py-0.5 rounded-full">0</span>
-          </div>
-          <div id="col-cards-en-progreso" class="space-y-3 min-h-[140px]">
-            <!-- Rendered by JS -->
-          </div>
-        </div>
-
-        <!-- Column 3: En Revisión / QA -->
-        <div id="kanban-col-revision" ondragover="app.handleDragOver(event, 'revision')" ondragleave="app.handleDragLeave(event, 'revision')" ondrop="app.handleDrop(event, 'revision')" class="kanban-column bg-purple-50/60 rounded-3xl p-4 border border-purple-200/70 space-y-3 transition-all duration-200">
-          <div class="flex items-center justify-between pb-2 border-b border-purple-200 pointer-events-none">
-            <div class="flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full bg-purple-400"></span>
-              <h4 class="font-heading font-bold text-xs uppercase tracking-wider text-purple-800">Revisión & QA</h4>
-            </div>
-            <span id="col-count-revision" class="text-xs bg-purple-100 text-purple-700 font-bold px-2 py-0.5 rounded-full">0</span>
-          </div>
-          <div id="col-cards-revision" class="space-y-3 min-h-[140px]">
-            <!-- Rendered by JS -->
-          </div>
-        </div>
-
-        <!-- Column 4: Entregado / Aprobado -->
-        <div id="kanban-col-entregado" ondragover="app.handleDragOver(event, 'entregado')" ondragleave="app.handleDragLeave(event, 'entregado')" ondrop="app.handleDrop(event, 'entregado')" class="kanban-column bg-emerald-50/60 rounded-3xl p-4 border border-emerald-200/70 space-y-3 transition-all duration-200">
-          <div class="flex items-center justify-between pb-2 border-b border-emerald-200 pointer-events-none">
-            <div class="flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
-              <h4 class="font-heading font-bold text-xs uppercase tracking-wider text-emerald-800">Entregado ✨</h4>
-            </div>
-            <span id="col-count-entregado" class="text-xs bg-emerald-100 text-emerald-700 font-bold px-2 py-0.5 rounded-full">0</span>
-          </div>
-          <div id="col-cards-entregado" class="space-y-3 min-h-[140px]">
-            <!-- Rendered by JS -->
-          </div>
-        </div>
-
-      </div>
-
-
-      <!-- LIST VIEW CONTAINER -->
-      <div id="cronograma-list-view" class="hidden glass-panel rounded-3xl p-6 overflow-x-auto">
-        <table class="w-full text-left text-xs">
-          <thead>
-            <tr class="border-b border-slate-200 text-slate-500 font-semibold uppercase tracking-wider">
-              <th class="py-3 px-3">Proyecto / Título</th>
-              <th class="py-3 px-3">Practicante</th>
-              <th class="py-3 px-3">Par de Idiomas</th>
-              <th class="py-3 px-3">Fecha Límite</th>
-              <th class="py-3 px-3">Prioridad</th>
-              <th class="py-3 px-3">Progreso</th>
-              <th class="py-3 px-3">Estado</th>
-              <th class="py-3 px-3 text-right">Acciones</th>
-            </tr>
-          </thead>
-          <tbody id="cronograma-table-body" class="divide-y divide-slate-100">
-            <!-- Rendered by JS -->
-          </tbody>
-        </table>
-      </div>
 
     </div>
 
@@ -1223,103 +1086,190 @@
     </div>
 
 
-    <!-- ========================================== -->
-    <!-- TAB 6: GESTOR & VISOR DE EXCEL (.XLSX)     -->
-    <!-- ========================================== -->
-    <div id="section-excel" class="hidden space-y-6">
-
-      <!-- Header & Tools Bar -->
-      <div class="glass-panel glass-panel-mint rounded-3xl p-6 space-y-4">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div class="space-y-1">
-            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold">
-              <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5 text-emerald-600"></i>
-              SheetJS Engine Integrado
-            </div>
-            <h2 class="text-xl sm:text-2xl font-heading font-extrabold text-slate-800">
-              Gestor & Visor de Excel (.xlsx / .csv) 📊
-            </h2>
-            <p class="text-xs text-slate-600">
-              Sube tus hojas de cálculo de seguimiento, audita entregas y notas de coaching en una tabla interactiva en tiempo real.
-            </p>
-          </div>
-
-          <!-- Excel Action Buttons -->
-          <div class="flex flex-wrap items-center gap-2">
-            <!-- Descargar Plantilla -->
-            <button onclick="app.downloadExcelTemplate()" class="flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-white hover:bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-300 shadow-sm transition-all">
-              <i data-lucide="download" class="w-4 h-4 text-emerald-600"></i>
-              <span>Descargar Plantilla Excel</span>
-            </button>
-
-            <!-- Exportar datos actuales a Excel -->
-            <button onclick="app.exportCurrentDataToExcel()" class="flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-md shadow-emerald-200 transition-all">
-              <i data-lucide="file-up" class="w-4 h-4"></i>
-              <span>Exportar Todo a Excel</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- DRAG AND DROP ZONE -->
-        <div id="excel-dropzone" class="border-2 border-dashed border-emerald-300 hover:border-emerald-500 rounded-3xl p-6 text-center bg-white/70 backdrop-blur transition-all cursor-pointer">
-          <input type="file" id="excel-file-input" accept=".xlsx, .xls, .csv" class="hidden" onchange="app.handleExcelFileUpload(event)">
-          <div onclick="document.getElementById('excel-file-input').click()" class="space-y-2">
-            <div class="w-12 h-12 mx-auto rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center">
-              <i data-lucide="upload-cloud" class="w-6 h-6"></i>
-            </div>
-            <p class="text-xs font-bold text-slate-700">
-              Haz clic para seleccionar o arrastra aquí tu archivo <span class="text-emerald-700 font-extrabold">.xlsx</span>, <span class="text-emerald-700 font-extrabold">.xls</span> o <span class="text-emerald-700 font-extrabold">.csv</span>
-            </p>
-            <p class="text-[11px] text-slate-500">
-              Lectura y análisis 100% privado en tu navegador sin enviar datos a servidores externos.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- SPREADSHEET TABLE VIEWER -->
-      <div class="glass-panel rounded-3xl p-6 space-y-4">
-        
-        <!-- Table Control Bar -->
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
-          <div class="flex items-center gap-2">
-            <span id="excel-active-filename" class="font-heading font-bold text-sm text-slate-800 flex items-center gap-1.5">
-              <i data-lucide="table" class="w-4 h-4 text-emerald-600"></i>
-              Plantilla_Global_Translators_Coaching.xlsx
-            </span>
-            <span id="excel-rows-count" class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-bold">4 registros</span>
-          </div>
-
-          <!-- Search inside table -->
-          <div class="relative w-full sm:w-64">
-            <i data-lucide="search" class="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400"></i>
-            <input type="text" id="excel-table-search" oninput="app.filterExcelTable()" placeholder="Buscar en la hoja..." class="w-full pl-8 pr-3 py-1.5 bg-slate-50 rounded-xl text-xs border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-300">
-          </div>
-        </div>
-
-        <!-- Rendered Excel Table Container -->
-        <div class="overflow-x-auto max-h-[500px] rounded-2xl border border-slate-200/80">
-          <table id="excel-rendered-table" class="w-full text-left text-xs divide-y divide-slate-100">
-            <!-- Injected by JS -->
-          </table>
-        </div>
-
-        <div class="flex items-center justify-between text-[11px] text-slate-400 pt-2">
-          <span>Vista interactiva estilo pastel • SheetJS</span>
-          <button onclick="app.resetExcelToSample()" class="text-purple-600 hover:underline font-semibold">
-            Restaurar datos de muestra
-          </button>
-        </div>
-
-      </div>
-
-    </div>
-
 
     <!-- ========================================== -->
-    <!-- TAB 7: KIT DE TRADUCTORA & NOTAS           -->
+    <!-- TAB 6: KIT DEL TRADUCTOR & ENTREGABLES     -->
     <!-- ========================================== -->
     <div id="section-toolkit" class="hidden space-y-6">
+
+      <!-- Header -->
+      <div class="glass-panel rounded-3xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border border-purple-200/80 shadow-md">
+        <div>
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-100 text-purple-800 text-xs font-bold mb-1.5">
+            <i data-lucide="folder-archive" class="w-3.5 h-3.5 text-purple-600"></i>
+            Repositorio Oficial • Carpetas & Plantillas
+          </div>
+          <h2 class="text-xl sm:text-2xl font-heading font-extrabold text-slate-800 flex items-center gap-2">
+            <span>Kit del Traductor & Carpetas de Entregables 📂</span>
+          </h2>
+          <p class="text-xs text-slate-600 mt-1">
+            Acceso directo a la plantilla oficial de evidencias y a las carpetas de entregables para las Fases 1, 2 y 3 del proyecto <b>Preservando Historias — San Mateo</b>.
+          </p>
+        </div>
+      </div>
+
+      <!-- CARPETAS MODO BOTÓN (GRID DE DOCUMENTOS Y ENTREGABLES) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        
+        <!-- Carpeta 1: Plantilla de evidencia -->
+        <div class="glass-panel glass-panel-pink rounded-3xl p-5 border-2 border-rose-200/80 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden">
+          <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-rose-200/40 rounded-full blur-xl pointer-events-none"></div>
+          
+          <div class="space-y-3.5">
+            <div class="flex items-start justify-between">
+              <div class="w-12 h-12 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center shadow-xs group-hover:scale-110 transition-transform">
+                <i data-lucide="file-text" class="w-6 h-6"></i>
+              </div>
+              <span class="text-[10px] font-bold bg-white text-rose-700 px-2.5 py-1 rounded-full border border-rose-200 shadow-2xs">
+                Google Docs 📄
+              </span>
+            </div>
+
+            <div>
+              <h3 class="font-heading font-extrabold text-base text-slate-800 group-hover:text-rose-700 transition-colors">
+                Plantilla de evidencia
+              </h3>
+              <p class="text-[11px] text-slate-600 mt-1 leading-relaxed">
+                Documento oficial para redactar y sustentar las evidencias de avance y entregas de traducción.
+              </p>
+            </div>
+          </div>
+
+          <div class="pt-4 mt-3 border-t border-rose-100">
+            <a href="https://docs.google.com/document/d/19n2zvWybxiRWQo_wF55Ayfev4n8iaIx2/edit?usp=sharing&ouid=102136920450697544185&rtpof=true&sd=true" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="w-full py-2.5 px-3 rounded-2xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-md shadow-rose-200 flex items-center justify-center gap-1.5 transition-all">
+              <span>Plantilla de evidencia</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Carpeta 2: ENTREGABLE / FASE 1 -->
+        <div class="glass-panel rounded-3xl p-5 border-2 border-amber-200/80 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden bg-gradient-to-br from-amber-50/70 to-orange-50/40">
+          <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-amber-200/40 rounded-full blur-xl pointer-events-none"></div>
+
+          <div class="space-y-3.5">
+            <div class="flex items-start justify-between">
+              <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center shadow-xs group-hover:scale-110 transition-transform">
+                <i data-lucide="folder" class="w-6 h-6"></i>
+              </div>
+              <div class="flex items-center gap-1">
+                <span class="text-[10px] font-bold bg-white text-amber-800 px-2.5 py-1 rounded-full border border-amber-200 shadow-2xs">
+                  Fase 1 • Drive 📁
+                </span>
+                <button onclick="app.editFolderLink('fase1', event)" title="Editar enlace de Google Drive" class="p-1 rounded-lg text-slate-400 hover:text-amber-700 hover:bg-amber-100 transition-all">
+                  <i data-lucide="settings" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-heading font-extrabold text-base text-slate-800 group-hover:text-amber-800 transition-colors">
+                ENTREGABLE / FASE 1
+              </h3>
+              <p class="text-[11px] text-slate-600 mt-1 leading-relaxed">
+                Carpeta de trabajo: Introducción, lectura general y análisis de características lingüísticas y dialectales.
+              </p>
+            </div>
+          </div>
+
+          <div class="pt-4 mt-3 border-t border-amber-100">
+            <a id="link-entregable-fase1" 
+               href="https://drive.google.com/drive/folders/sample-san-mateo-fase-1-analisis" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="w-full py-2.5 px-3 rounded-2xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-md shadow-amber-200 flex items-center justify-center gap-1.5 transition-all">
+              <span>ENTREGABLE / FASE 1</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Carpeta 3: ENTREGABLE FASE 2 -->
+        <div class="glass-panel rounded-3xl p-5 border-2 border-sky-200/80 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden bg-gradient-to-br from-sky-50/70 to-blue-50/40">
+          <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-sky-200/40 rounded-full blur-xl pointer-events-none"></div>
+
+          <div class="space-y-3.5">
+            <div class="flex items-start justify-between">
+              <div class="w-12 h-12 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center shadow-xs group-hover:scale-110 transition-transform">
+                <i data-lucide="folder-search" class="w-6 h-6"></i>
+              </div>
+              <div class="flex items-center gap-1">
+                <span class="text-[10px] font-bold bg-white text-sky-800 px-2.5 py-1 rounded-full border border-sky-200 shadow-2xs">
+                  Fase 2 • Drive 📁
+                </span>
+                <button onclick="app.editFolderLink('fase2', event)" title="Editar enlace de Google Drive" class="p-1 rounded-lg text-slate-400 hover:text-sky-700 hover:bg-sky-100 transition-all">
+                  <i data-lucide="settings" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-heading font-extrabold text-base text-slate-800 group-hover:text-sky-800 transition-colors">
+                ENTREGABLE FASE 2
+              </h3>
+              <p class="text-[11px] text-slate-600 mt-1 leading-relaxed">
+                Carpeta de trabajo: Investigación documental, textos paralelos e identificación de referencias culturales.
+              </p>
+            </div>
+          </div>
+
+          <div class="pt-4 mt-3 border-t border-sky-100">
+            <a id="link-entregable-fase2" 
+               href="https://drive.google.com/drive/folders/sample-san-mateo-fase-2-investigacion" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="w-full py-2.5 px-3 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-md shadow-sky-200 flex items-center justify-center gap-1.5 transition-all">
+              <span>ENTREGABLE FASE 2</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Carpeta 4: ENTREGABLE FASE 3 -->
+        <div class="glass-panel rounded-3xl p-5 border-2 border-purple-200/80 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden bg-gradient-to-br from-purple-50/70 to-pink-50/40">
+          <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-purple-200/40 rounded-full blur-xl pointer-events-none"></div>
+
+          <div class="space-y-3.5">
+            <div class="flex items-start justify-between">
+              <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center shadow-xs group-hover:scale-110 transition-transform">
+                <i data-lucide="folder-heart" class="w-6 h-6"></i>
+              </div>
+              <div class="flex items-center gap-1">
+                <span class="text-[10px] font-bold bg-white text-purple-800 px-2.5 py-1 rounded-full border border-purple-200 shadow-2xs">
+                  Fase 3 • Drive 📁
+                </span>
+                <button onclick="app.editFolderLink('fase3', event)" title="Editar enlace de Google Drive" class="p-1 rounded-lg text-slate-400 hover:text-purple-700 hover:bg-purple-100 transition-all">
+                  <i data-lucide="settings" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-heading font-extrabold text-base text-slate-800 group-hover:text-purple-800 transition-colors">
+                ENTREGABLE FASE 3
+              </h3>
+              <p class="text-[11px] text-slate-600 mt-1 leading-relaxed">
+                Carpeta de trabajo: Traducción por bloques de las 7 practicantes y glosario bilingüe San Mateo.
+              </p>
+            </div>
+          </div>
+
+          <div class="pt-4 mt-3 border-t border-purple-100">
+            <a id="link-entregable-fase3" 
+               href="https://drive.google.com/drive/folders/sample-san-mateo-fase-3-traduccion" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="w-full py-2.5 px-3 rounded-2xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow-md shadow-purple-200 flex items-center justify-center gap-1.5 transition-all">
+              <span>ENTREGABLE FASE 3</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         

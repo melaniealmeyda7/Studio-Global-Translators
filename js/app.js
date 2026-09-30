@@ -105,13 +105,11 @@ class GlobalTranslatorsApp {
 
     // Render all initial modules
     this.renderOverview();
-    this.renderCronograma();
-    this.renderCalendar();
     this.renderPracticantes();
     this.renderCoaching();
-    this.renderExcelTable();
     this.renderGlosario();
     this.renderStickyNotes();
+    this.initFolderLinks();
 
     // Refresh icons
     if (window.lucide) {
@@ -151,7 +149,7 @@ class GlobalTranslatorsApp {
     this.currentTab = tabId;
 
     // Hide all tab sections
-    const tabs = ["overview", "cronograma", "practicantes", "coaching", "meet", "excel", "toolkit"];
+    const tabs = ["overview", "cronograma", "practicantes", "coaching", "meet", "toolkit"];
     tabs.forEach(t => {
       const sec = document.getElementById(`section-${t}`);
       if (sec) sec.classList.add("hidden");
@@ -173,10 +171,9 @@ class GlobalTranslatorsApp {
     });
 
     // Re-render specific tab if needed
-    if (tabId === "cronograma") this.renderCronograma();
-    if (tabId === "excel") this.renderExcelTable();
     if (tabId === "coaching") this.renderCoaching();
     if (tabId === "overview") this.renderOverview();
+    if (tabId === "toolkit") this.initFolderLinks();
 
     if (window.lucide) {
       window.lucide.createIcons();
@@ -2086,6 +2083,46 @@ class GlobalTranslatorsApp {
     const m = String(date.getMonth() + 1).padStart(2, '0');
     const d = String(date.getDate()).padStart(2, '0');
     return `${y}-${m}-${d}`;
+  }
+
+  /* ------------------------------------------------------------- */
+  /* CARPETAS Y ENTREGABLES (KIT DEL TRADUCTOR)                   */
+  /* ------------------------------------------------------------- */
+
+  initFolderLinks() {
+    const defaults = {
+      fase1: "https://drive.google.com/drive/folders/sample-san-mateo-fase-1-analisis",
+      fase2: "https://drive.google.com/drive/folders/sample-san-mateo-fase-2-investigacion",
+      fase3: "https://drive.google.com/drive/folders/sample-san-mateo-fase-3-traduccion"
+    };
+    
+    ['fase1', 'fase2', 'fase3'].forEach(key => {
+      const saved = localStorage.getItem(`folder_link_${key}`) || defaults[key];
+      const linkEl = document.getElementById(`link-entregable-${key}`);
+      if (linkEl) {
+        linkEl.href = saved;
+      }
+    });
+  }
+
+  editFolderLink(key, event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    const names = {
+      fase1: "ENTREGABLE / FASE 1",
+      fase2: "ENTREGABLE FASE 2",
+      fase3: "ENTREGABLE FASE 3"
+    };
+    const current = localStorage.getItem(`folder_link_${key}`) || "";
+    const newUrl = prompt(`Ingresa o actualiza el enlace de Google Drive para ${names[key] || key}:`, current);
+    if (newUrl !== null && newUrl.trim() !== "") {
+      localStorage.setItem(`folder_link_${key}`, newUrl.trim());
+      const linkEl = document.getElementById(`link-entregable-${key}`);
+      if (linkEl) linkEl.href = newUrl.trim();
+      alert(`¡Enlace actualizado con éxito para ${names[key]}! ✨`);
+    }
   }
 }
 
