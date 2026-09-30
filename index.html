@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Global Translators • Intern Studio & Hub ✨</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              pink: '#fda4af',
+              pinkSoft: '#fff1f2',
+              pinkHover: '#f43f5e',
+              lavender: '#c4b5fd',
+              lavenderSoft: '#f5f3ff',
+              lavenderHover: '#8b5cf6',
+              mint: '#6ee7b7',
+              mintSoft: '#ecfdf5',
+              mintHover: '#10b981',
+              sky: '#93c5fd',
+              skySoft: '#f0f9ff',
+              peach: '#fdba74',
+              peachSoft: '#fff7ed',
+              cream: '#fefce8'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <!-- SheetJS (XLSX) para carga, lectura y descarga de Excel -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  
+  <!-- Firebase Realtime Database SDK (Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="min-h-screen text-slate-700 flex flex-col antialiased selection:bg-pink-200 selection:text-pink-900">
+
+  <!-- TOP DECORATIVE STRIP -->
+  <div class="h-2 bg-gradient-to-r from-pink-300 via-purple-300 via-sky-300 to-emerald-300 w-full"></div>
+
+  <!-- NAVIGATION & HEADER -->
+  <header class="sticky top-0 z-40 glass-panel border-b border-purple-100/60 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      
+      <!-- Brand & Tagline -->
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-pink-400 via-purple-400 to-indigo-400 flex items-center justify-center text-white shadow-md shadow-pink-200 animate-float">
+          <i data-lucide="sparkles" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-heading font-extrabold text-xl tracking-tight bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+              Global Translators
+            </span>
+            <span class="bg-pink-100 text-pink-700 text-xs px-2.5 py-0.5 rounded-full font-semibold border border-pink-200 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-pink-500 animate-ping"></span>
+              Intern Studio ✨
+            </span>
+          </div>
+          <p class="text-xs font-extrabold tracking-wider bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-transparent uppercase">POWERED BY POLYGLOT MAP</p>
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons & Ambient Audio -->
+      <div class="flex items-center flex-wrap gap-2.5">
+        
+        <!-- Firebase Realtime Sync Status Badge -->
+        <button id="btn-firebase-status" onclick="app.openFirebaseModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-200 transition-all shadow-xs" title="Estado de sincronización en tiempo real">
+          <span id="firebase-status-dot" class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span id="firebase-status-text">Firebase: En Vivo</span>
+        </button>
+
+        <!-- Ambient Lofi Player Toggle -->
+        <button id="btn-lofi-toggle" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-50 hover:bg-purple-100 text-purple-700 text-xs font-medium border border-purple-200 transition-all shadow-sm" title="Activar/Pausar música ambiental lofi">
+          <i data-lucide="headphones" class="w-3.5 h-3.5 text-purple-600"></i>
+          <span id="lofi-status-text">Lofi Zen Studio</span>
+          <span id="lofi-wave-anim" class="hidden flex gap-0.5 items-end h-3">
+            <span class="w-0.5 h-2 bg-purple-500 animate-pulse"></span>
+            <span class="w-0.5 h-3 bg-purple-600 animate-pulse"></span>
+            <span class="w-0.5 h-1.5 bg-purple-400 animate-pulse"></span>
+          </span>
+        </button>
+
+        <!-- Backup Data Modal Trigger -->
+        <button onclick="app.openBackupModal()" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs transition-colors" title="Exportar / Importar Datos">
+          <i data-lucide="database" class="w-4 h-4"></i>
+        </button>
+
+
+        <!-- New Delivery Button -->
+        <button onclick="app.openNewEntregaModal()" class="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-pink-500 to-rose-400 hover:from-pink-600 hover:to-rose-500 text-white text-xs font-semibold shadow-md shadow-pink-200 transition-all transform hover:-translate-y-0.5">
+          <i data-lucide="plus-circle" class="w-4 h-4"></i>
+          <span>Nueva Entrega</span>
+        </button>
+
+        <!-- New Intern Button -->
+        <button onclick="app.openNewPracticanteModal()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-purple-100 hover:bg-purple-200 text-purple-800 text-xs font-semibold transition-all">
+          <i data-lucide="user-plus" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">Nueva Practicante</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- MAIN NAVIGATION TABS -->
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-auto no-scrollbar">
+      <div class="flex items-center gap-1.5 pb-2 pt-1 border-t border-purple-50/80 min-w-max">
+        
+        <button onclick="app.switchTab('overview')" class="nav-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-purple-700 hover:bg-purple-50 transition-all nav-tab-active" data-tab="overview">
+          <i data-lucide="home" class="w-4 h-4"></i>
+          <span>Inicio & Resumen</span>
+        </button>
+
+        <button onclick="app.switchTab('cronograma')" class="nav-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-purple-700 hover:bg-purple-50 transition-all" data-tab="cronograma">
+          <i data-lucide="kanban-square" class="w-4 h-4"></i>
+          <span>Cronograma & Entregas</span>
+          <span id="badge-count-entregas" class="bg-pink-100 text-pink-700 text-[10px] px-1.5 py-0.2 rounded-full font-bold">0</span>
+        </button>
+
+        <button onclick="app.switchTab('calendario')" class="nav-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-purple-700 hover:bg-purple-50 transition-all" data-tab="calendario">
+          <i data-lucide="calendar-heart" class="w-4 h-4"></i>
+          <span>Calendario Cute</span>
+        </button>
+
+        <button onclick="app.switchTab('practicantes')" class="nav-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-purple-700 hover:bg-purple-50 transition-all" data-tab="practicantes">
+          <i data-lucide="users" class="w-4 h-4"></i>
+          <span>Practicantes & CVs</span>
+          <span id="badge-count-practicantes" class="bg-purple-100 text-purple-700 text-[10px] px-1.5 py-0.2 rounded-full font-bold">0</span>
+        </button>
+
+        <button onclick="app.switchTab('coaching')" class="nav-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-purple-700 hover:bg-purple-50 transition-all" data-tab="coaching">
+          <i data-lucide="target" class="w-4 h-4 text-rose-500"></i>
+          <span>Job Coaching & Empleabilidad</span>
+          <span class="bg-rose-100 text-rose-700 text-[10px] px-1.5 py-0.2 rounded-full font-bold">Nuevo ✨</span>
+        </button>
+
+        <button onclick="app.switchTab('excel')" class="nav-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-purple-700 hover:bg-purple-50 transition-all" data-tab="excel">
+          <i data-lucide="file-spreadsheet" class="w-4 h-4 text-emerald-600"></i>
+          <span>Gestor de Excel (.xlsx)</span>
+          <span class="bg-emerald-100 text-emerald-700 text-[10px] px-1.5 py-0.2 rounded-full font-bold">Activo 📊</span>
+        </button>
+
+        <button onclick="app.switchTab('toolkit')" class="nav-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-purple-700 hover:bg-purple-50 transition-all" data-tab="toolkit">
+          <i data-lucide="book-marked" class="w-4 h-4"></i>
+          <span>Kit de Traductora & Notas</span>
+        </button>
+
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN WRAPPER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- ========================================== -->
+    <!-- TAB 1: OVERVIEW / LANDING DASHBOARD        -->
+    <!-- ========================================== -->
+    <div id="section-overview" class="space-y-6">
+
+      <!-- HERO POTENTE DE BIENVENIDA (Aesthetic Cute & Interactivo) -->
+      <div class="relative overflow-hidden rounded-3xl p-6 sm:p-10 hero-gradient-mesh border-2 border-white/90 shadow-xl shadow-purple-100/70 transition-all">
+        
+        <!-- Decorative Background Glows & Floating Kawaii Emojis -->
+        <div class="absolute -top-12 -left-12 w-64 h-64 bg-pink-300/30 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-16 -right-16 w-80 h-80 bg-purple-300/35 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/2 right-1/4 w-56 h-56 bg-emerald-200/25 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="absolute top-6 right-8 text-3xl opacity-60 animate-float pointer-events-none select-none hidden sm:block">🌸</div>
+        <div class="absolute bottom-6 left-1/3 text-2xl opacity-60 animate-float-slow pointer-events-none select-none hidden sm:block">✨</div>
+        <div class="absolute top-1/3 right-10 text-2xl opacity-50 animate-float-delayed pointer-events-none select-none hidden sm:block">☕</div>
+
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <!-- LEFT COLUMN: Potente Titular, Propuesta de Valor & Acciones Clave (7 cols) -->
+          <div class="lg:col-span-7 space-y-5">
+            
+            <!-- Badges Row -->
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/90 backdrop-blur text-purple-700 text-xs font-bold shadow-xs border border-purple-200/60">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                <span>Estudio Virtual Activo</span>
+              </span>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-100/90 text-pink-700 text-xs font-bold border border-pink-200/70 shadow-xs">
+                <span>🌸</span>
+                <span>Programa de Practicantes 2026</span>
+              </span>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-100/90 text-sky-700 text-xs font-bold border border-sky-200/70 shadow-xs">
+                <span>🎯</span>
+                <span>Job Coaching Integrado</span>
+              </span>
+            </div>
+
+            <!-- Main Power Headline -->
+            <div class="space-y-2">
+              <h1 id="hero-greeting" class="text-3xl sm:text-5xl font-heading font-extrabold text-slate-800 tracking-tight leading-tight sm:leading-none">
+                ¡Bienvenidas al <span class="bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">Studio Global Translators</span>! ✨
+              </h1>
+              <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-normal pt-1">
+                El espacio dinámico donde las futuras líderes de la traducción internacional gestionan sus entregas, coordinan sus sesiones de <b>Job Coaching</b>, dominan herramientas CAT, auditan sus métricas en Excel y construyen su perfil profesional para el mundo.
+              </p>
+            </div>
+
+            <!-- Call to Actions Bar (Potente y Colorido) -->
+            <div class="flex flex-wrap items-center gap-3 pt-1">
+              <button onclick="app.switchTab('cronograma')" class="shimmer-btn px-5 py-3 rounded-2xl bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white text-xs font-bold shadow-lg shadow-pink-200 hover:shadow-xl hover:shadow-pink-300 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                <i data-lucide="kanban-square" class="w-4 h-4"></i>
+                <span>Explorar Cronograma de Entregas</span>
+              </button>
+
+              <button onclick="app.switchTab('excel')" class="px-4 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-md shadow-emerald-200 transition-all flex items-center gap-2">
+                <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
+                <span>Cargar Mi Excel (.xlsx)</span>
+              </button>
+
+              <button onclick="app.switchTab('coaching')" class="px-4 py-3 rounded-2xl bg-white hover:bg-purple-50 text-purple-700 text-xs font-bold border border-purple-200 shadow-sm transition-all flex items-center gap-2">
+                <i data-lucide="target" class="w-4 h-4 text-purple-600"></i>
+                <span>Sesiones de Coaching</span>
+              </button>
+            </div>
+
+            <!-- Motivational Quote Banner -->
+            <div class="flex items-start gap-2.5 text-xs text-purple-900 bg-white/70 backdrop-blur rounded-2xl p-3 border border-purple-200/60 shadow-xs">
+              <i data-lucide="quote" class="w-4 h-4 text-purple-500 shrink-0 mt-0.5"></i>
+              <div class="flex-1">
+                <span id="motivational-quote" class="font-medium italic">"Traducir es tender puentes entre mundos; cada palabra que eligen con precisión transforma una historia."</span>
+                <button onclick="app.nextQuote()" class="ml-2 font-bold underline hover:text-purple-950 text-[11px] text-purple-600">Siguiente frase ✨</button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT COLUMN: Modo Proyecto / Preservando Historias San Mateo (5 cols) -->
+          <div class="lg:col-span-5">
+            <div class="glass-card-tilt glass-panel p-6 rounded-3xl space-y-4 border-2 border-white/95">
+              
+              <!-- Window style Header -->
+              <div class="flex items-center justify-between pb-3 border-b border-purple-100">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-3 h-3 rounded-full bg-rose-400"></span>
+                  <span class="w-3 h-3 rounded-full bg-amber-300"></span>
+                  <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+                </div>
+                <span class="text-xs font-extrabold text-purple-900 tracking-wide flex items-center gap-1.5">
+                  <i data-lucide="folder-heart" class="w-4 h-4 text-pink-500"></i> Proyecto / Preservando Historias San Mateo
+                </span>
+              </div>
+
+              <!-- Project Overview Card -->
+              <div class="p-3.5 rounded-2xl bg-gradient-to-r from-pink-100/90 via-purple-100/80 to-amber-100/80 border border-pink-200/90 space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="pill-badge bg-white/95 text-purple-800 text-[10px] font-extrabold shadow-xs">
+                    🏛️ Memoria & Tradición Oral
+                  </span>
+                  <span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full border border-emerald-200 flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Modo Activo
+                  </span>
+                </div>
+                <h4 class="font-heading font-extrabold text-sm text-slate-800">
+                  Preservando Historias San Mateo
+                </h4>
+                <p class="text-[11px] text-slate-600 leading-relaxed font-medium">
+                  Iniciativa de rescate cultural, traducción testimonial, transcripción comunitaria y archivo audiovisual de las memorias vivas de San Mateo.
+                </p>
+              </div>
+
+              <!-- Language & Work Axis Cloud -->
+              <div class="space-y-1.5">
+                <span class="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider">Ejes de Traducción & Registro:</span>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="pill-badge bg-rose-50 text-rose-800 border border-rose-200 text-[10px]">🎙️ Relatos de Ancianos San Mateo</span>
+                  <span class="pill-badge bg-purple-50 text-purple-800 border border-purple-200 text-[10px]">📖 Quechua / Español ➔ Inglés</span>
+                  <span class="pill-badge bg-amber-50 text-amber-800 border border-amber-200 text-[10px]">📜 Glosario Toponímico Comunitario</span>
+                </div>
+              </div>
+
+              <!-- Quick Project Triggers -->
+
+              <div class="grid grid-cols-2 gap-2 pt-1 text-center">
+                <button onclick="app.openNewEntregaModalWithProject('Preservando Historias San Mateo')" class="p-2.5 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 text-xs font-bold transition-all flex items-center justify-center gap-1.5">
+                  <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> + Entrega San Mateo
+                </button>
+                <button onclick="app.filterBySanMateo()" class="p-2.5 rounded-xl bg-pink-50 hover:bg-pink-100 text-pink-700 text-xs font-bold transition-all flex items-center justify-center gap-1.5">
+                  <i data-lucide="filter" class="w-3.5 h-3.5"></i> Filtrar San Mateo
+                </button>
+              </div>
+
+              <div class="text-[11px] text-center text-slate-400 font-medium">
+                🏛️ Proyecto / Preservando Historias San Mateo • Archivo Oficial
+              </div>
+
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+
+      <!-- KEY METRICS ROW -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <!-- Metric 1: Proyectos Activos -->
+        <div class="glass-panel glass-panel-pink rounded-3xl p-4 sm:p-5 flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-rose-600 uppercase tracking-wider">Entregas Activas</p>
+            <h3 id="stat-entregas-activas" class="text-2xl sm:text-3xl font-extrabold text-slate-800 mt-1">0</h3>
+            <p class="text-[11px] text-rose-500 font-medium mt-0.5">En proceso & revisión</p>
+          </div>
+          <div class="w-12 h-12 rounded-2xl bg-white/90 text-rose-500 flex items-center justify-center shadow-sm">
+            <i data-lucide="clipboard-list" class="w-6 h-6"></i>
+          </div>
+        </div>
+
+        <!-- Metric 2: Practicantes -->
+        <div class="glass-panel glass-panel-lavender rounded-3xl p-4 sm:p-5 flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-purple-600 uppercase tracking-wider">Practicantes</p>
+            <h3 id="stat-total-practicantes" class="text-2xl sm:text-3xl font-extrabold text-slate-800 mt-1">0</h3>
+            <p class="text-[11px] text-purple-500 font-medium mt-0.5">En el equipo actual</p>
+          </div>
+          <div class="w-12 h-12 rounded-2xl bg-white/90 text-purple-600 flex items-center justify-center shadow-sm">
+            <i data-lucide="users-2" class="w-6 h-6"></i>
+          </div>
+        </div>
+
+        <!-- Metric 3: Coaching Sessions -->
+        <div class="glass-panel glass-panel-mint rounded-3xl p-4 sm:p-5 flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-emerald-700 uppercase tracking-wider">Job Coaching</p>
+            <h3 id="stat-coaching-activas" class="text-2xl sm:text-3xl font-extrabold text-slate-800 mt-1">0</h3>
+            <p class="text-[11px] text-emerald-600 font-medium mt-0.5">Sesiones agendadas</p>
+          </div>
+          <div class="w-12 h-12 rounded-2xl bg-white/90 text-emerald-600 flex items-center justify-center shadow-sm">
+            <i data-lucide="sparkle" class="w-6 h-6"></i>
+          </div>
+        </div>
+
+        <!-- Metric 4: Horas Globales -->
+        <div class="glass-panel glass-panel-sky rounded-3xl p-4 sm:p-5 flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-sky-700 uppercase tracking-wider">Horas Prácticas</p>
+            <h3 id="stat-promedio-horas" class="text-2xl sm:text-3xl font-extrabold text-slate-800 mt-1">0%</h3>
+            <p class="text-[11px] text-sky-600 font-medium mt-0.5">Avance general a meta</p>
+          </div>
+          <div class="w-12 h-12 rounded-2xl bg-white/90 text-sky-600 flex items-center justify-center shadow-sm">
+            <i data-lucide="hourglass" class="w-6 h-6"></i>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- TWO COLUMNS: QUICK RECENT DELIVERIES & COACHING RADAR -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Left: Entregas próximas prioritarias (2 cols) -->
+        <div class="lg:col-span-2 glass-panel rounded-3xl p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-pink-500"></span>
+              <h3 class="font-heading font-bold text-lg text-slate-800">Próximas Entregas Urgentes</h3>
+            </div>
+            <button onclick="app.switchTab('cronograma')" class="text-xs font-semibold text-purple-600 hover:text-purple-800 flex items-center gap-1">
+              Ver cronograma completo <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+          <!-- Dynamic list container -->
+          <div id="overview-entregas-list" class="space-y-3">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Right: Job Coaching & Quick Actions (1 col) -->
+        <div class="space-y-6">
+          
+          <!-- Job Coaching Alert Card -->
+          <div class="glass-panel glass-panel-lavender rounded-3xl p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <i data-lucide="target" class="w-5 h-5 text-purple-600"></i>
+                <h3 class="font-heading font-bold text-base text-slate-800">Job Coaching Radar</h3>
+              </div>
+              <span class="pill-badge bg-purple-200 text-purple-800 text-[10px]">1:1 Career</span>
+            </div>
+            <p class="text-xs text-slate-600">Sesiones de empleabilidad, feedback de CV y simulacros para agencias internacionales.</p>
+            
+            <div id="overview-coaching-list" class="space-y-2.5">
+              <!-- Rendered by JS -->
+            </div>
+
+            <button onclick="app.switchTab('coaching')" class="w-full py-2.5 rounded-2xl bg-white text-purple-700 hover:bg-purple-50 text-xs font-bold border border-purple-200 shadow-sm flex items-center justify-center gap-1.5 transition-all">
+              <i data-lucide="calendar" class="w-3.5 h-3.5"></i> Ver Agenda de Coaching
+            </button>
+          </div>
+
+          <!-- Excel Hub Quick Card -->
+          <div class="glass-panel glass-panel-mint rounded-3xl p-6 space-y-3">
+            <div class="flex items-center gap-2">
+              <i data-lucide="file-spreadsheet" class="w-5 h-5 text-emerald-600"></i>
+              <h3 class="font-heading font-bold text-base text-slate-800">Espacio de Archivo Excel</h3>
+            </div>
+            <p class="text-xs text-slate-600">
+              Arrastra tu archivo Excel (.xlsx) o utiliza la plantilla oficial de Global Translators para auditar horas, estados y notas.
+            </p>
+            <button onclick="app.switchTab('excel')" class="w-full py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-md shadow-emerald-200 flex items-center justify-center gap-1.5 transition-all">
+              <i data-lucide="upload" class="w-3.5 h-3.5"></i> Cargar o Ver mi Excel
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 2: CRONOGRAMA & ENTREGAS               -->
+    <!-- ========================================== -->
+    <div id="section-cronograma" class="hidden space-y-6">
+
+      <!-- Header & Filter Bar -->
+      <div class="glass-panel rounded-3xl p-5 sm:p-6 space-y-4">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-xl sm:text-2xl font-heading font-bold text-slate-800 flex items-center gap-2">
+              <span>📋 Cronograma Dinámico de Entregas</span>
+              <span class="text-xs bg-pink-100 text-pink-700 font-semibold px-2 py-0.5 rounded-full">Kanban & Lista</span>
+            </h2>
+            <p class="text-xs text-slate-500 mt-1">Gestiona el flujo de trabajo de traducción desde la asignación hasta el QA y entrega final.</p>
+          </div>
+
+          <!-- Action buttons -->
+          <div class="flex items-center gap-2">
+            <button onclick="app.openNewEntregaModal()" class="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-pink-500 hover:bg-pink-600 text-white text-xs font-semibold shadow-md shadow-pink-200 transition-all">
+              <i data-lucide="plus" class="w-4 h-4"></i> Nueva Entrega
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 pt-2 border-t border-slate-100">
+          <!-- Search input -->
+          <div class="relative sm:col-span-1">
+            <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
+            <input type="text" id="filter-entrega-search" oninput="app.renderCronograma()" placeholder="Buscar proyecto o cliente..." class="w-full pl-9 pr-3 py-2 bg-slate-50 rounded-xl text-xs border border-slate-200 focus:outline-none focus:ring-2 focus:ring-pink-300">
+          </div>
+
+          <!-- Practicante selector -->
+          <select id="filter-entrega-practicante" onchange="app.renderCronograma()" class="bg-slate-50 rounded-xl text-xs py-2 px-3 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-pink-300">
+            <option value="">Todas las practicantes</option>
+            <!-- Injected by JS -->
+          </select>
+
+          <!-- Idiomas selector -->
+          <select id="filter-entrega-idioma" onchange="app.renderCronograma()" class="bg-slate-50 rounded-xl text-xs py-2 px-3 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-pink-300">
+            <option value="">Todos los pares de idiomas</option>
+            <option value="EN ➔ ES">EN ➔ ES</option>
+            <option value="ES ➔ EN">ES ➔ EN</option>
+            <option value="FR ➔ ES">FR ➔ ES</option>
+            <option value="DE ➔ ES">DE ➔ ES</option>
+            <option value="PT ➔ ES">PT ➔ ES</option>
+          </select>
+
+          <!-- View Mode (Kanban / Table) -->
+          <div class="flex items-center bg-slate-100 p-1 rounded-xl">
+            <button id="btn-view-kanban" onclick="app.setCronogramaView('kanban')" class="flex-1 py-1.5 text-xs font-semibold rounded-lg bg-white text-purple-700 shadow-xs flex items-center justify-center gap-1">
+              <i data-lucide="columns-3" class="w-3.5 h-3.5"></i> Kanban
+            </button>
+            <button id="btn-view-list" onclick="app.setCronogramaView('list')" class="flex-1 py-1.5 text-xs font-semibold rounded-lg text-slate-600 hover:text-purple-700 flex items-center justify-center gap-1">
+              <i data-lucide="list" class="w-3.5 h-3.5"></i> Lista
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Realtime Drag & Drop Tip Banner -->
+      <div class="flex items-center justify-between text-xs text-purple-900 bg-purple-50/80 px-4 py-2.5 rounded-2xl border border-purple-200/60 shadow-2xs">
+        <div class="flex items-center gap-2">
+          <i data-lucide="sparkles" class="w-4 h-4 text-purple-600 shrink-0"></i>
+          <span class="font-medium">
+            <b>Drag & Drop en Vivo:</b> Arrastra y suelta las tarjetas entre columnas. Los cambios se actualizan e imprimen en tiempo real con <b>Firebase Realtime Database</b> en las pantallas de todo el equipo simultáneamente sin recargar la página.
+          </span>
+        </div>
+        <span class="pill-badge bg-emerald-100 text-emerald-800 text-[10px] font-bold shrink-0">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Sincronizado
+        </span>
+      </div>
+
+      <!-- KANBAN BOARD CONTAINER -->
+      <div id="cronograma-kanban-view" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-start">
+        
+        <!-- Column 1: Por Iniciar -->
+        <div id="kanban-col-pendiente" ondragover="app.handleDragOver(event, 'pendiente')" ondragleave="app.handleDragLeave(event, 'pendiente')" ondrop="app.handleDrop(event, 'pendiente')" class="kanban-column bg-slate-50/90 rounded-3xl p-4 border border-slate-200/70 space-y-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-200 pointer-events-none">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-slate-300"></span>
+              <h4 class="font-heading font-bold text-xs uppercase tracking-wider text-slate-700">Por Iniciar</h4>
+            </div>
+            <span id="col-count-pendiente" class="text-xs bg-slate-200 text-slate-700 font-bold px-2 py-0.5 rounded-full">0</span>
+          </div>
+          <div id="col-cards-pendiente" class="space-y-3 min-h-[140px]">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Column 2: En Proceso / Traducción -->
+        <div id="kanban-col-en-progreso" ondragover="app.handleDragOver(event, 'en-progreso')" ondragleave="app.handleDragLeave(event, 'en-progreso')" ondrop="app.handleDrop(event, 'en-progreso')" class="kanban-column bg-sky-50/60 rounded-3xl p-4 border border-sky-200/70 space-y-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-2 border-b border-sky-200 pointer-events-none">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-sky-400"></span>
+              <h4 class="font-heading font-bold text-xs uppercase tracking-wider text-sky-800">En Traducción</h4>
+            </div>
+            <span id="col-count-en-progreso" class="text-xs bg-sky-100 text-sky-700 font-bold px-2 py-0.5 rounded-full">0</span>
+          </div>
+          <div id="col-cards-en-progreso" class="space-y-3 min-h-[140px]">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Column 3: En Revisión / QA -->
+        <div id="kanban-col-revision" ondragover="app.handleDragOver(event, 'revision')" ondragleave="app.handleDragLeave(event, 'revision')" ondrop="app.handleDrop(event, 'revision')" class="kanban-column bg-purple-50/60 rounded-3xl p-4 border border-purple-200/70 space-y-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-2 border-b border-purple-200 pointer-events-none">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-purple-400"></span>
+              <h4 class="font-heading font-bold text-xs uppercase tracking-wider text-purple-800">Revisión & QA</h4>
+            </div>
+            <span id="col-count-revision" class="text-xs bg-purple-100 text-purple-700 font-bold px-2 py-0.5 rounded-full">0</span>
+          </div>
+          <div id="col-cards-revision" class="space-y-3 min-h-[140px]">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Column 4: Entregado / Aprobado -->
+        <div id="kanban-col-entregado" ondragover="app.handleDragOver(event, 'entregado')" ondragleave="app.handleDragLeave(event, 'entregado')" ondrop="app.handleDrop(event, 'entregado')" class="kanban-column bg-emerald-50/60 rounded-3xl p-4 border border-emerald-200/70 space-y-3 transition-all duration-200">
+          <div class="flex items-center justify-between pb-2 border-b border-emerald-200 pointer-events-none">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+              <h4 class="font-heading font-bold text-xs uppercase tracking-wider text-emerald-800">Entregado ✨</h4>
+            </div>
+            <span id="col-count-entregado" class="text-xs bg-emerald-100 text-emerald-700 font-bold px-2 py-0.5 rounded-full">0</span>
+          </div>
+          <div id="col-cards-entregado" class="space-y-3 min-h-[140px]">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- LIST VIEW CONTAINER -->
+      <div id="cronograma-list-view" class="hidden glass-panel rounded-3xl p-6 overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead>
+            <tr class="border-b border-slate-200 text-slate-500 font-semibold uppercase tracking-wider">
+              <th class="py-3 px-3">Proyecto / Título</th>
+              <th class="py-3 px-3">Practicante</th>
+              <th class="py-3 px-3">Par de Idiomas</th>
+              <th class="py-3 px-3">Fecha Límite</th>
+              <th class="py-3 px-3">Prioridad</th>
+              <th class="py-3 px-3">Progreso</th>
+              <th class="py-3 px-3">Estado</th>
+              <th class="py-3 px-3 text-right">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="cronograma-table-body" class="divide-y divide-slate-100">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 3: CALENDARIO INTERACTIVO CUTE         -->
+    <!-- ========================================== -->
+    <div id="section-calendario" class="hidden space-y-6">
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Left: Calendario Mensual (2 cols) -->
+        <div class="lg:col-span-2 glass-panel rounded-3xl p-6 space-y-4">
+          
+          <!-- Month Header & Controls -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-pink-100 text-pink-600 flex items-center justify-center">
+                <i data-lucide="calendar" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h3 id="calendar-month-year" class="font-heading font-extrabold text-xl text-slate-800">Octubre 2026</h3>
+                <p class="text-xs text-slate-500">Haz clic en cualquier día para ver sus entregas o agendar una</p>
+              </div>
+            </div>
+
+            <!-- Month navigation -->
+            <div class="flex items-center gap-1.5 bg-slate-100 p-1 rounded-2xl">
+              <button onclick="app.prevMonth()" class="p-2 rounded-xl hover:bg-white text-slate-600 transition-all" title="Mes anterior">
+                <i data-lucide="chevron-left" class="w-4 h-4"></i>
+              </button>
+              <button onclick="app.currentMonthToday()" class="px-2.5 py-1 text-xs font-semibold rounded-xl hover:bg-white text-purple-700 transition-all">
+                Hoy
+              </button>
+              <button onclick="app.nextMonth()" class="p-2 rounded-xl hover:bg-white text-slate-600 transition-all" title="Mes siguiente">
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Days of Week Header -->
+          <div class="grid grid-cols-7 gap-1 text-center font-bold text-xs text-purple-700/80 py-2 border-b border-purple-100">
+            <div>Dom</div>
+            <div>Lun</div>
+            <div>Mar</div>
+            <div>Mié</div>
+            <div>Jue</div>
+            <div>Vie</div>
+            <div>Sáb</div>
+          </div>
+
+          <!-- Calendar Days Grid -->
+          <div id="calendar-days-grid" class="grid grid-cols-7 gap-1.5 min-h-[360px]">
+            <!-- Rendered by JS -->
+          </div>
+
+          <!-- Legend -->
+          <div class="flex flex-wrap items-center gap-4 pt-3 border-t border-slate-100 text-[11px] text-slate-500 font-medium">
+            <span class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span> Entrega de Traducción
+            </span>
+            <span class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-purple-400"></span> Sesión Job Coaching
+            </span>
+            <span class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span> Entregado
+            </span>
+          </div>
+
+        </div>
+
+        <!-- Right: Day Details & Quick Add (1 col) -->
+        <div class="space-y-4">
+          
+          <div class="glass-panel glass-panel-pink rounded-3xl p-6 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-pink-200">
+              <div>
+                <p class="text-xs font-semibold text-rose-500 uppercase tracking-wider">Fecha Seleccionada</p>
+                <h4 id="calendar-selected-day-label" class="font-heading font-extrabold text-lg text-slate-800">Hoy</h4>
+              </div>
+              <button onclick="app.openNewEntregaModalWithDate()" class="p-2 rounded-xl bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold transition-all shadow-sm" title="Agendar entrega para este día">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+              </button>
+            </div>
+
+            <!-- List of events on this day -->
+            <div id="calendar-selected-day-events" class="space-y-2.5 min-h-[220px]">
+              <!-- Injected by JS -->
+            </div>
+          </div>
+
+          <!-- Cute advice card -->
+          <div class="glass-panel glass-panel-mint rounded-3xl p-5 space-y-2 text-xs">
+            <div class="flex items-center gap-2 font-bold text-emerald-800">
+              <span>🌿</span> Tip de Productividad
+            </div>
+            <p class="text-emerald-900/80 leading-relaxed">
+              Distribuye tus revisiones de control de calidad (QA) con al menos 4 horas de descanso visual respecto a la fase de traducción. ¡Tus ojos detectarán inconsistencias mucho más rápido!
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 4: PRACTICANTES & REPOSITORIO DE CVS   -->
+    <!-- ========================================== -->
+    <div id="section-practicantes" class="hidden space-y-6">
+
+      <!-- Header -->
+      <div class="glass-panel rounded-3xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-heading font-bold text-slate-800 flex items-center gap-2">
+            <span>👩‍🎓 Directorio de Practicantes & Repositorio de CVs</span>
+          </h2>
+          <p class="text-xs text-slate-500 mt-1">Perfiles profesionales, especialidades, metas de horas de prácticas y acceso a CVs.</p>
+        </div>
+
+        <button onclick="app.openNewPracticanteModal()" class="flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white text-xs font-semibold shadow-md shadow-purple-200 transition-all">
+          <i data-lucide="user-plus" class="w-4 h-4"></i>
+          <span>Registrar Practicante</span>
+        </button>
+      </div>
+
+      <!-- Practicantes Grid Cards -->
+      <div id="practicantes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+        <!-- Rendered by JS -->
+      </div>
+
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 5: JOB COACHING & EMPLEABILIDAD        -->
+    <!-- ========================================== -->
+    <div id="section-coaching" class="hidden space-y-6">
+
+      <!-- Coaching Hero Banner -->
+      <div class="glass-panel glass-panel-lavender rounded-3xl p-6 sm:p-8 space-y-3 relative overflow-hidden">
+        <div class="max-w-2xl space-y-2">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-purple-700 text-xs font-bold shadow-xs">
+            <i data-lucide="award" class="w-3.5 h-3.5 text-purple-600"></i> Programa de Empleabilidad & Mentoría
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-slate-800">
+            Job Coaching para Traductoras Globales 🎯
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Acompañamos a nuestras practicantes en la transición al mercado profesional internacional. Sesiones personalizadas de revisión de CV formato ATS, simulacros de entrevista (Mock Interviews) en lengua extranjera, auditoría de LinkedIn y fijación de tarifas.
+          </p>
+        </div>
+
+        <!-- Add coaching session button -->
+        <div class="pt-2">
+          <button onclick="app.openNewCoachingModal()" class="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-md shadow-purple-200 transition-all">
+            <i data-lucide="calendar-plus" class="w-4 h-4"></i>
+            <span>Agendar Nueva Sesión de Coaching</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ROADMAP CHECKLIST & UPCOMING SESSIONS -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Left 2 Cols: Sesiones de Coaching Activas / Pasadas -->
+        <div class="lg:col-span-2 glass-panel rounded-3xl p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
+              <h3 class="font-heading font-bold text-lg text-slate-800">Sesiones Programadas & Historial</h3>
+            </div>
+            <span class="text-xs text-slate-400 font-medium">Asesorías 1:1</span>
+          </div>
+
+          <div id="coaching-sessions-list" class="space-y-3">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Right 1 Col: Roadmap de Empleabilidad -->
+        <div class="space-y-4">
+          
+          <div class="glass-panel glass-panel-pink rounded-3xl p-6 space-y-4">
+            <div class="flex items-center justify-between pb-2 border-b border-pink-200">
+              <div class="flex items-center gap-2">
+                <i data-lucide="check-check" class="w-4 h-4 text-rose-600"></i>
+                <h4 class="font-heading font-bold text-base text-slate-800">Roadmap de Graduación</h4>
+              </div>
+              <span id="roadmap-progress-badge" class="text-[11px] font-bold text-rose-600 bg-white px-2 py-0.5 rounded-full">0/5</span>
+            </div>
+            
+            <p class="text-xs text-slate-600">Hitos clave que toda practicante debe completar antes de finalizar su periodo de prácticas:</p>
+
+            <div id="roadmap-steps-container" class="space-y-2.5">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+          <!-- Useful Resources Card -->
+          <div class="glass-panel rounded-3xl p-5 space-y-2 text-xs">
+            <h5 class="font-bold text-slate-700 flex items-center gap-1.5">
+              <i data-lucide="external-link" class="w-3.5 h-3.5 text-purple-500"></i> Enlaces Útiles de Coaching
+            </h5>
+            <ul class="space-y-1.5 text-slate-600 pt-1">
+              <li>• <a href="https://www.proz.com" target="_blank" class="text-purple-600 hover:underline">ProZ.com</a> - Directorio global de agencias y tarifas</li>
+              <li>• <a href="https://www.translatorscafe.com" target="_blank" class="text-purple-600 hover:underline">TranslatorsCafe</a> - Comunidad de traductores independientes</li>
+              <li>• <a href="https://cibt.org" target="_blank" class="text-purple-600 hover:underline">Código de Ética y Buenas Prácticas del Traductor</a></li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 6: GESTOR & VISOR DE EXCEL (.XLSX)     -->
+    <!-- ========================================== -->
+    <div id="section-excel" class="hidden space-y-6">
+
+      <!-- Header & Tools Bar -->
+      <div class="glass-panel glass-panel-mint rounded-3xl p-6 space-y-4">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold">
+              <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5 text-emerald-600"></i>
+              SheetJS Engine Integrado
+            </div>
+            <h2 class="text-xl sm:text-2xl font-heading font-extrabold text-slate-800">
+              Gestor & Visor de Excel (.xlsx / .csv) 📊
+            </h2>
+            <p class="text-xs text-slate-600">
+              Sube tus hojas de cálculo de seguimiento, audita horas, notas de coaching y entregas en una tabla interactiva cute.
+            </p>
+          </div>
+
+          <!-- Excel Action Buttons -->
+          <div class="flex flex-wrap items-center gap-2">
+            <!-- Descargar Plantilla -->
+            <button onclick="app.downloadExcelTemplate()" class="flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-white hover:bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-300 shadow-sm transition-all">
+              <i data-lucide="download" class="w-4 h-4 text-emerald-600"></i>
+              <span>Descargar Plantilla Excel</span>
+            </button>
+
+            <!-- Exportar datos actuales a Excel -->
+            <button onclick="app.exportCurrentDataToExcel()" class="flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-md shadow-emerald-200 transition-all">
+              <i data-lucide="file-up" class="w-4 h-4"></i>
+              <span>Exportar Todo a Excel</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- DRAG AND DROP ZONE -->
+        <div id="excel-dropzone" class="border-2 border-dashed border-emerald-300 hover:border-emerald-500 rounded-3xl p-6 text-center bg-white/70 backdrop-blur transition-all cursor-pointer">
+          <input type="file" id="excel-file-input" accept=".xlsx, .xls, .csv" class="hidden" onchange="app.handleExcelFileUpload(event)">
+          <div onclick="document.getElementById('excel-file-input').click()" class="space-y-2">
+            <div class="w-12 h-12 mx-auto rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center">
+              <i data-lucide="upload-cloud" class="w-6 h-6"></i>
+            </div>
+            <p class="text-xs font-bold text-slate-700">
+              Haz clic para seleccionar o arrastra aquí tu archivo <span class="text-emerald-700 font-extrabold">.xlsx</span>, <span class="text-emerald-700 font-extrabold">.xls</span> o <span class="text-emerald-700 font-extrabold">.csv</span>
+            </p>
+            <p class="text-[11px] text-slate-500">
+              Lectura y análisis 100% privado en tu navegador sin enviar datos a servidores externos.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SPREADSHEET TABLE VIEWER -->
+      <div class="glass-panel rounded-3xl p-6 space-y-4">
+        
+        <!-- Table Control Bar -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-2">
+            <span id="excel-active-filename" class="font-heading font-bold text-sm text-slate-800 flex items-center gap-1.5">
+              <i data-lucide="table" class="w-4 h-4 text-emerald-600"></i>
+              Plantilla_Global_Translators_Coaching.xlsx
+            </span>
+            <span id="excel-rows-count" class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-bold">4 registros</span>
+          </div>
+
+          <!-- Search inside table -->
+          <div class="relative w-full sm:w-64">
+            <i data-lucide="search" class="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400"></i>
+            <input type="text" id="excel-table-search" oninput="app.filterExcelTable()" placeholder="Buscar en la hoja..." class="w-full pl-8 pr-3 py-1.5 bg-slate-50 rounded-xl text-xs border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-300">
+          </div>
+        </div>
+
+        <!-- Rendered Excel Table Container -->
+        <div class="overflow-x-auto max-h-[500px] rounded-2xl border border-slate-200/80">
+          <table id="excel-rendered-table" class="w-full text-left text-xs divide-y divide-slate-100">
+            <!-- Injected by JS -->
+          </table>
+        </div>
+
+        <div class="flex items-center justify-between text-[11px] text-slate-400 pt-2">
+          <span>Vista interactiva estilo pastel • SheetJS</span>
+          <button onclick="app.resetExcelToSample()" class="text-purple-600 hover:underline font-semibold">
+            Restaurar datos de muestra
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 7: KIT DE TRADUCTORA & NOTAS           -->
+    <!-- ========================================== -->
+    <div id="section-toolkit" class="hidden space-y-6">
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Left: Glosario Colaborativo (2 cols) -->
+        <div class="lg:col-span-2 glass-panel rounded-3xl p-6 space-y-4">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div>
+              <h3 class="font-heading font-bold text-lg text-slate-800 flex items-center gap-2">
+                <span>📖 Glosario Terminológico Colaborativo</span>
+              </h3>
+              <p class="text-xs text-slate-500">Términos oficiales aprobados para mantener consistencia en las traducciones.</p>
+            </div>
+            <button onclick="app.openNewGlosarioModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-500 hover:bg-purple-600 text-white text-xs font-semibold shadow-xs">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i> Agregar Término
+            </button>
+          </div>
+
+          <!-- Glossary Search and Filter -->
+          <div class="flex items-center gap-2">
+            <div class="relative flex-1">
+              <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-slate-400"></i>
+              <input type="text" id="glosario-search" oninput="app.renderGlosario()" placeholder="Buscar término origen o meta..." class="w-full pl-9 pr-3 py-2 bg-slate-50 rounded-xl text-xs border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-300">
+            </div>
+            <select id="glosario-filter-campo" onchange="app.renderGlosario()" class="bg-slate-50 rounded-xl text-xs py-2 px-3 border border-slate-200">
+              <option value="">Todos los campos</option>
+              <option value="Jurídico">Jurídico</option>
+              <option value="Médico">Médico</option>
+              <option value="Audiovisual">Audiovisual</option>
+              <option value="Marketing">Marketing</option>
+            </select>
+          </div>
+
+          <!-- Glossary List -->
+          <div id="glosario-list-container" class="space-y-2.5 max-h-[380px] overflow-y-auto pr-1">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Right: Word Counter & Estimator (1 col) -->
+        <div class="space-y-6">
+          
+          <!-- Quick Word Counter -->
+          <div class="glass-panel glass-panel-sky rounded-3xl p-6 space-y-3">
+            <div class="flex items-center gap-2">
+              <i data-lucide="calculator" class="w-5 h-5 text-sky-600"></i>
+              <h3 class="font-heading font-bold text-base text-slate-800">Contador & Estimador</h3>
+            </div>
+            <p class="text-xs text-slate-600">Pega tu texto para estimar palabras, caracteres y horas de trabajo.</p>
+
+            <textarea id="word-counter-input" oninput="app.calculateWords(this.value)" rows="4" placeholder="Pega aquí el texto a traducir..." class="w-full p-3 rounded-2xl bg-white/90 border border-sky-200 text-xs focus:outline-none focus:ring-2 focus:ring-sky-300 resize-none"></textarea>
+
+            <div class="grid grid-cols-2 gap-2 text-center">
+              <div class="bg-white/80 p-2.5 rounded-xl border border-sky-100">
+                <span class="text-[10px] text-sky-700 font-bold block">Palabras</span>
+                <span id="counter-words" class="text-lg font-extrabold text-slate-800">0</span>
+              </div>
+              <div class="bg-white/80 p-2.5 rounded-xl border border-sky-100">
+                <span class="text-[10px] text-sky-700 font-bold block">Caracteres</span>
+                <span id="counter-chars" class="text-lg font-extrabold text-slate-800">0</span>
+              </div>
+            </div>
+
+            <div class="p-2.5 bg-sky-100/70 rounded-xl text-[11px] text-sky-900 space-y-1">
+              <div class="flex justify-between font-medium">
+                <span>Tiempo est. (250 pal/h):</span>
+                <b id="counter-time">0h 0m</b>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sticky Notes Pastel Widget -->
+          <div class="glass-panel rounded-3xl p-6 space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <i data-lucide="sticky-note" class="w-4 h-4 text-pink-500"></i>
+                <h4 class="font-heading font-bold text-sm text-slate-800">Notas Adhesivas</h4>
+              </div>
+              <button onclick="app.addNewStickyNotePrompt()" class="text-xs font-bold text-pink-600 hover:text-pink-800">
+                + Nota
+              </button>
+            </div>
+
+            <div id="sticky-notes-container" class="space-y-3">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ======================================================== -->
+  <!-- MODALS SECTION                                           -->
+  <!-- ======================================================== -->
+
+  <!-- MODAL: NUEVA / EDITAR ENTREGA -->
+  <div id="modal-entrega" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs hidden opacity-0 transition-opacity duration-200">
+    <div class="glass-panel rounded-3xl max-w-lg w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+        <h3 id="modal-entrega-title" class="font-heading font-bold text-lg text-slate-800">Nueva Entrega de Traducción</h3>
+        <button onclick="app.closeModal('modal-entrega')" class="text-slate-400 hover:text-slate-600 p-1 rounded-xl">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="form-entrega" onsubmit="app.saveEntrega(event)" class="space-y-3 text-xs">
+        <input type="hidden" id="entrega-id">
+        
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Título del Proyecto / Encargo *</label>
+          <input type="text" id="entrega-titulo" required placeholder="Ej: Subtitulaje Serie Documental Ep. 4" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-pink-300">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Practicante Asignada *</label>
+            <select id="entrega-practicante-id" required class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+              <!-- Injected by JS -->
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Par de Idiomas *</label>
+            <select id="entrega-par-idiomas" required class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+              <option value="EN ➔ ES">EN ➔ ES</option>
+              <option value="ES ➔ EN">ES ➔ EN</option>
+              <option value="FR ➔ ES">FR ➔ ES</option>
+              <option value="DE ➔ ES">DE ➔ ES</option>
+              <option value="PT ➔ ES">PT ➔ ES</option>
+              <option value="IT ➔ ES">IT ➔ ES</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Categoría / Especialidad</label>
+            <input type="text" id="entrega-categoria" placeholder="Audiovisual, Jurídica, Médica..." class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Prioridad</label>
+            <select id="entrega-prioridad" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+              <option value="Normal">Normal</option>
+              <option value="Urgente">Urgente ⚠️</option>
+              <option value="Express">Express ⚡</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Fecha Límite *</label>
+            <input type="date" id="entrega-fecha" required class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Hora Límite</label>
+            <input type="time" id="entrega-hora" value="18:00" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Estado de Avance</label>
+            <select id="entrega-estado" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+              <option value="pendiente">Por Iniciar</option>
+              <option value="en-progreso">En Traducción</option>
+              <option value="revision">En Revisión / QA</option>
+              <option value="entregado">Entregado ✨</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Progreso (%)</label>
+            <input type="number" id="entrega-progreso" min="0" max="100" value="0" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Enlace al Documento / Carpeta Drive</label>
+          <input type="url" id="entrega-url" placeholder="https://drive.google.com/..." class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Instrucciones o Notas de Estilo</label>
+          <textarea id="entrega-notas" rows="2" placeholder="Terminología clave, limitación de caracteres..." class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200 resize-none"></textarea>
+        </div>
+
+        <div class="pt-3 flex justify-end gap-2 border-t border-slate-100">
+          <button type="button" onclick="app.closeModal('modal-entrega')" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold">Cancelar</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-pink-500 hover:bg-pink-600 text-white font-bold shadow-md shadow-pink-200">Guardar Entrega ✨</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- MODAL: NUEVA PRACTICANTE -->
+  <div id="modal-practicante" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs hidden opacity-0 transition-opacity duration-200">
+    <div class="glass-panel rounded-3xl max-w-lg w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+        <h3 class="font-heading font-bold text-lg text-slate-800">Registrar Nueva Practicante</h3>
+        <button onclick="app.closeModal('modal-practicante')" class="text-slate-400 hover:text-slate-600 p-1 rounded-xl">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="form-practicante" onsubmit="app.savePracticante(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Nombre Completo *</label>
+          <input type="text" id="prac-nombre" required placeholder="Ej: Andrea Gómez" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-300">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Rol / Especialidad *</label>
+          <input type="text" id="prac-rol" required placeholder="Ej: Practicante de Traducción Audiovisual & Doblaje" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Universidad</label>
+            <input type="text" id="prac-universidad" placeholder="Ej: UPC / URP / PUCP" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Ciclo / Semestre</label>
+            <input type="text" id="prac-semestre" placeholder="Ej: 9no Ciclo" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Idiomas (separados por coma)</label>
+          <input type="text" id="prac-idiomas" placeholder="Inglés (C1), Español (Nativo), Alemán (B2)" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">CAT Tools & Software (separados por coma)</label>
+          <input type="text" id="prac-tools" placeholder="Trados Studio, MemoQ, Subtitle Edit" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Horas Actuales</label>
+            <input type="number" id="prac-horas-actuales" value="0" min="0" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Meta de Horas</label>
+            <input type="number" id="prac-horas-meta" value="480" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Enlace a CV (Google Drive / LinkedIn / PDF)</label>
+          <input type="url" id="prac-cv-url" placeholder="https://drive.google.com/..." class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Resumen del Perfil / Bio Breve</label>
+          <textarea id="prac-resumen" rows="2" placeholder="Breve descripción de sus intereses y fortalezas..." class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200 resize-none"></textarea>
+        </div>
+
+        <div class="pt-3 flex justify-end gap-2 border-t border-slate-100">
+          <button type="button" onclick="app.closeModal('modal-practicante')" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold">Cancelar</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold shadow-md shadow-purple-200">Registrar Practicante 🌸</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- MODAL: VER DETALLE / CV DE PRACTICANTE -->
+  <div id="modal-cv-viewer" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs hidden opacity-0 transition-opacity duration-200">
+    <div class="glass-panel rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
+      
+      <!-- Header with Profile -->
+      <div class="flex items-start justify-between pb-4 border-b border-slate-100">
+        <div class="flex items-center gap-4">
+          <img id="cv-modal-avatar" src="" alt="Avatar" class="w-16 h-16 rounded-2xl object-cover ring-4 ring-pink-100 shadow-md">
+          <div>
+            <h3 id="cv-modal-nombre" class="font-heading font-extrabold text-xl text-slate-800">Nombre Practicante</h3>
+            <p id="cv-modal-rol" class="text-xs font-semibold text-purple-700">Rol</p>
+            <p id="cv-modal-universidad" class="text-xs text-slate-500">Universidad</p>
+          </div>
+        </div>
+        <button onclick="app.closeModal('modal-cv-viewer')" class="text-slate-400 hover:text-slate-600 p-1 rounded-xl">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- CV Summary Box -->
+      <div class="space-y-3">
+        <h4 class="font-heading font-bold text-sm text-slate-700 flex items-center gap-1.5">
+          <i data-lucide="file-text" class="w-4 h-4 text-purple-500"></i> Resumen Profesional & Perfil de CV
+        </h4>
+        <div id="cv-modal-resumen" class="bg-purple-50/70 p-4 rounded-2xl text-xs text-slate-700 leading-relaxed border border-purple-100">
+          <!-- Text inserted by JS -->
+        </div>
+      </div>
+
+      <!-- Language and CAT Tools pills -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="space-y-2">
+          <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">Idiomas & Nivel</span>
+          <div id="cv-modal-idiomas" class="flex flex-wrap gap-1.5"></div>
+        </div>
+        <div class="space-y-2">
+          <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">CAT Tools Dominadas</span>
+          <div id="cv-modal-tools" class="flex flex-wrap gap-1.5"></div>
+        </div>
+      </div>
+
+      <!-- Hours progress -->
+      <div class="bg-pink-50/80 p-4 rounded-2xl border border-pink-100 space-y-2">
+        <div class="flex items-center justify-between text-xs font-bold">
+          <span class="text-rose-700">Acreditación de Prácticas Pre-Profesionales</span>
+          <span id="cv-modal-horas-text" class="text-rose-600">0 / 480 hrs</span>
+        </div>
+        <div class="w-full h-2.5 bg-white rounded-full overflow-hidden p-0.5 border border-pink-200">
+          <div id="cv-modal-horas-bar" class="h-full bg-gradient-to-r from-pink-400 to-rose-400 rounded-full transition-all duration-500" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="pt-2 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100">
+        <div class="text-xs text-slate-400">
+          Global Translators Talent Program
+        </div>
+        <div class="flex items-center gap-2">
+          <a id="cv-modal-external-link" href="#" target="_blank" class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all">
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Abrir Documento de CV
+          </a>
+          <button onclick="app.closeModal('modal-cv-viewer')" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold">Cerrar</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- MODAL: NUEVA SESIÓN DE JOB COACHING -->
+  <div id="modal-coaching" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs hidden opacity-0 transition-opacity duration-200">
+    <div class="glass-panel rounded-3xl max-w-lg w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+        <h3 class="font-heading font-bold text-lg text-slate-800">Agendar Sesión de Job Coaching 🎯</h3>
+        <button onclick="app.closeModal('modal-coaching')" class="text-slate-400 hover:text-slate-600 p-1 rounded-xl">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="form-coaching" onsubmit="app.saveCoachingSession(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Practicante *</label>
+          <select id="coaching-practicante-id" required class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+            <!-- Injected by JS -->
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Tipo de Sesión de Coaching *</label>
+          <select id="coaching-tipo" required class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+            <option value="Mock Interview (Entrevista en Inglés)">Mock Interview (Entrevista en Inglés/Francés)</option>
+            <option value="Optimización de CV & Portfolio Formato ATS">Optimización de CV & Portfolio Formato ATS</option>
+            <option value="LinkedIn Pro & Marca Personal">LinkedIn Pro & Marca Personal para Traductoras</option>
+            <option value="Negociación de Tarifas y Transición Profesional">Negociación de Tarifas y Transición Profesional</option>
+            <option value="Preparación para Pruebas Técnicas de Traducción">Preparación para Pruebas Técnicas de Traducción</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Coach / Mentor *</label>
+            <input type="text" id="coaching-coach" required value="Lic. Andrea Paz (Head of Talent)" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Estado</label>
+            <select id="coaching-estado" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+              <option value="programada">Programada</option>
+              <option value="completada">Completada con feedback</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Fecha *</label>
+            <input type="date" id="coaching-fecha" required class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Hora *</label>
+            <input type="time" id="coaching-hora" value="11:00" required class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Enlace de Videollamada (Google Meet / Zoom)</label>
+          <input type="url" id="coaching-enlace" value="https://meet.google.com/gts-coaching" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Objetivo de la Sesión</label>
+          <input type="text" id="coaching-objetivo" placeholder="Ej: Simular preguntas sobre plazos ajustados y CAT tools" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Acuerdos o Tareas Asignadas</label>
+          <textarea id="coaching-acuerdos" rows="2" placeholder="Acciones que la practicante implementará antes de la siguiente sesión..." class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200 resize-none"></textarea>
+        </div>
+
+        <div class="pt-3 flex justify-end gap-2 border-t border-slate-100">
+          <button type="button" onclick="app.closeModal('modal-coaching')" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold">Cancelar</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold shadow-md shadow-purple-200">Agendar Sesión ✨</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- MODAL: NUEVO TÉRMINO GLOSARIO -->
+  <div id="modal-glosario" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs hidden opacity-0 transition-opacity duration-200">
+    <div class="glass-panel rounded-3xl max-w-md w-full p-6 space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+        <h3 class="font-heading font-bold text-lg text-slate-800">Agregar Término al Glosario</h3>
+        <button onclick="app.closeModal('modal-glosario')" class="text-slate-400 hover:text-slate-600 p-1 rounded-xl">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="form-glosario" onsubmit="app.saveGlosarioTerm(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Término en Idioma Origen *</label>
+          <input type="text" id="glo-origen" required placeholder="Ej: Indemnification Clause" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Traducción Aprobada (Meta) *</label>
+          <input type="text" id="glo-meta" required placeholder="Ej: Cláusula de indemnidad / exención de responsabilidad" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Campo / Especialidad</label>
+          <select id="glo-campo" class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
+            <option value="Jurídico">Jurídico</option>
+            <option value="Médico">Médico</option>
+            <option value="Audiovisual">Audiovisual</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Técnico">Técnico</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Notas o Contexto de Uso</label>
+          <textarea id="glo-notas" rows="2" placeholder="Ej: No confundir con fianza bancaria..." class="w-full px-3 py-2 bg-slate-50 rounded-xl border border-slate-200 resize-none"></textarea>
+        </div>
+
+        <div class="pt-3 flex justify-end gap-2 border-t border-slate-100">
+          <button type="button" onclick="app.closeModal('modal-glosario')" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold">Cancelar</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold">Guardar Término</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- MODAL: BACKUP & RESTORE JSON -->
+  <div id="modal-backup" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs hidden opacity-0 transition-opacity duration-200">
+    <div class="glass-panel rounded-3xl max-w-lg w-full p-6 space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+        <h3 class="font-heading font-bold text-lg text-slate-800">Copia de Seguridad de Datos</h3>
+        <button onclick="app.closeModal('modal-backup')" class="text-slate-400 hover:text-slate-600 p-1 rounded-xl">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs text-slate-600">
+        <p>Todos tus cambios se guardan automáticamente en tu navegador. Puedes descargar un respaldo en archivo JSON o restaurar uno previo:</p>
+
+        <div class="grid grid-cols-2 gap-3 pt-2">
+          <button onclick="app.exportBackupJSON()" class="p-3 rounded-2xl bg-purple-100 hover:bg-purple-200 text-purple-800 font-bold flex flex-col items-center gap-1.5 transition-all">
+            <i data-lucide="download" class="w-5 h-5"></i>
+            <span>Exportar Copia JSON</span>
+          </button>
+          
+          <label class="p-3 rounded-2xl bg-pink-100 hover:bg-pink-200 text-pink-800 font-bold flex flex-col items-center gap-1.5 cursor-pointer transition-all">
+            <i data-lucide="upload" class="w-5 h-5"></i>
+            <span>Restaurar Copia JSON</span>
+            <input type="file" accept=".json" onchange="app.importBackupJSON(event)" class="hidden">
+          </label>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 text-center">
+          <button onclick="app.resetAllToDefault()" class="text-rose-500 hover:text-rose-700 text-[11px] font-semibold underline">
+            Restablecer a valores iniciales de demostración
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- MODAL: FIREBASE REALTIME DATABASE CONFIG & MONITOR -->
+  <div id="modal-firebase" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs hidden opacity-0 transition-opacity duration-200">
+    <div class="glass-panel rounded-3xl max-w-lg w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+            🔥
+          </div>
+          <div>
+            <h3 class="font-heading font-bold text-base text-slate-800">Firebase Realtime Database</h3>
+            <p class="text-[11px] text-slate-500 font-medium">Sincronización multi-pantalla simultánea sin recargar</p>
+          </div>
+        </div>
+        <button onclick="app.closeModal('modal-firebase')" class="text-slate-400 hover:text-slate-600 p-1 rounded-xl">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        
+        <!-- Live Status Card -->
+        <div class="p-3.5 rounded-2xl bg-emerald-50/80 border border-emerald-200 flex items-center justify-between">
+          <div class="space-y-0.5">
+            <span class="text-[10px] uppercase font-extrabold text-emerald-700 tracking-wider">Estado de Conexión</span>
+            <div id="firebase-modal-status-text" class="text-xs font-bold text-emerald-950 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              Conectado & Escuchando en Tiempo Real
+            </div>
+            <p id="firebase-modal-db-url" class="text-[10px] text-emerald-700 truncate max-w-xs pt-0.5">
+              Canal: global_translators/entregas
+            </p>
+          </div>
+          <button onclick="app.testFirebaseSync()" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] shadow-xs transition-all">
+            Probar Sync ⚡
+          </button>
+        </div>
+
+        <p class="text-slate-600 leading-relaxed">
+          Cada vez que alguien arrastra una tarjeta en el cronograma, la mueve entre columnas, añade una nueva entrega o interactúa con el calendario, el cambio se transmite vía WebSocket y se refleja al instante en los dispositivos de todo el equipo.
+        </p>
+
+        <!-- Custom Config Form (Accordion) -->
+        <details class="bg-slate-50 rounded-2xl border border-slate-200 p-3 space-y-2">
+          <summary class="font-bold text-purple-700 cursor-pointer select-none">
+            ⚙️ Personalizar Credenciales de Firebase (Opcional)
+          </summary>
+          <div class="space-y-2 pt-2 text-[11px]">
+            <div>
+              <label class="block font-semibold text-slate-700 mb-0.5">Database URL (RTDB):</label>
+              <input type="text" id="fb-input-dburl" placeholder="https://tu-proyecto-default-rtdb.firebaseio.com" class="w-full px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-0.5">Project ID:</label>
+              <input type="text" id="fb-input-projectid" placeholder="mi-proyecto-firebase" class="w-full px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-0.5">API Key:</label>
+              <input type="text" id="fb-input-apikey" placeholder="AIzaSy..." class="w-full px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white">
+            </div>
+            <div class="flex justify-end gap-2 pt-1">
+              <button onclick="app.resetFirebaseConfigToDefault()" class="px-3 py-1 text-slate-500 hover:underline">Restaurar default</button>
+              <button onclick="app.saveCustomFirebaseConfig()" class="px-3 py-1 rounded-lg bg-purple-600 text-white font-bold">Guardar y Reconectar</button>
+            </div>
+          </div>
+        </details>
+
+        <div class="pt-2 flex justify-end">
+          <button onclick="app.closeModal('modal-firebase')" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold">Cerrar</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-xs text-slate-400 border-t border-purple-100/60 mt-12 space-y-2">
+    <p class="font-medium">
+      ✨ <b>Global Translators</b> • Plataforma Virtual de Prácticas Profesionales & Job Coaching
+    </p>
+    <p class="text-[11px]">
+      Diseñado con estética cute pastel para impulsar el talento de las futuras líderes de la traducción internacional.
+    </p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // Inicializar Lucide icons una vez listo el DOM
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+    });
+  </script>
+</body>
+</html>

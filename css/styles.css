@@ -1,0 +1,275 @@
+/* Estilos personalizados para Global Translators Studio - Aesthetic Cute Pastel */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap');
+
+:root {
+  --color-candy-pink: #ffe4e9;
+  --color-candy-pink-deep: #fb7185;
+  --color-lavender-soft: #ede9fe;
+  --color-lavender-deep: #a78bfa;
+  --color-mint-soft: #d1fae5;
+  --color-mint-deep: #34d399;
+  --color-sky-soft: #e0f2fe;
+  --color-sky-deep: #60a5fa;
+  --color-peach-soft: #ffedd5;
+  --color-butter-soft: #fef9c3;
+  --color-warm-bg: #faf7f5;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--color-warm-bg);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(253, 164, 175, 0.18) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(196, 181, 253, 0.22) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(167, 243, 208, 0.18) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(186, 230, 253, 0.20) 0px, transparent 50%);
+  background-attachment: fixed;
+  color: #374151;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .font-heading {
+  font-family: 'Outfit', sans-serif;
+}
+
+.font-handwriting {
+  font-family: 'Caveat', cursive;
+}
+
+/* Glassmorphism Pastel */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 10px 30px -10px rgba(225, 190, 231, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+}
+
+.glass-panel-pink {
+  background: linear-gradient(135deg, rgba(255, 241, 242, 0.85) 0%, rgba(255, 228, 230, 0.7) 100%);
+  border: 1px solid rgba(254, 205, 211, 0.6);
+}
+
+.glass-panel-lavender {
+  background: linear-gradient(135deg, rgba(245, 243, 255, 0.85) 0%, rgba(237, 233, 254, 0.7) 100%);
+  border: 1px solid rgba(221, 214, 254, 0.6);
+}
+
+.glass-panel-mint {
+  background: linear-gradient(135deg, rgba(236, 253, 245, 0.85) 0%, rgba(209, 250, 229, 0.7) 100%);
+  border: 1px solid rgba(167, 243, 208, 0.6);
+}
+
+.glass-panel-sky {
+  background: linear-gradient(135deg, rgba(240, 249, 255, 0.85) 0%, rgba(224, 242, 254, 0.7) 100%);
+  border: 1px solid rgba(186, 230, 253, 0.6);
+}
+
+.glass-panel-peach {
+  background: linear-gradient(135deg, rgba(255, 247, 237, 0.85) 0%, rgba(255, 237, 213, 0.7) 100%);
+  border: 1px solid rgba(254, 215, 170, 0.6);
+}
+
+/* Floating Animations */
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(1deg);
+  }
+}
+
+.animate-float {
+  animation: floatGentle 4s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.04);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* Cute Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(243, 232, 255, 0.4);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(216, 180, 254, 0.7);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(192, 132, 252, 0.9);
+}
+
+/* Custom interactive active tab */
+.nav-tab-active {
+  background: white !important;
+  color: #7c3aed !important;
+  box-shadow: 0 4px 14px 0 rgba(167, 139, 250, 0.3) !important;
+  font-weight: 700;
+}
+
+/* Modal Transitions */
+.modal-overlay {
+  transition: opacity 0.25s ease-in-out;
+}
+.modal-content {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease-in-out;
+}
+
+/* Sticky Note Style */
+.sticky-note {
+  position: relative;
+  transition: all 0.2s ease;
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.05);
+}
+.sticky-note:hover {
+  transform: translateY(-4px) rotate(-0.5deg);
+  box-shadow: 4px 8px 18px rgba(0, 0, 0, 0.08);
+}
+.sticky-note::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.65);
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
+}
+
+/* Badge and Pills */
+.pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* Excel dropzone */
+.dropzone-active {
+  border-color: #8b5cf6 !important;
+  background-color: rgba(245, 243, 255, 0.9) !important;
+  transform: scale(1.01);
+}
+
+/* Hero Potente & Cute Animations */
+.hero-gradient-mesh {
+  background: 
+    radial-gradient(at 10% 10%, rgba(254, 205, 211, 0.8) 0px, transparent 55%),
+    radial-gradient(at 90% 15%, rgba(221, 214, 254, 0.85) 0px, transparent 55%),
+    radial-gradient(at 85% 85%, rgba(167, 243, 208, 0.7) 0px, transparent 55%),
+    radial-gradient(at 15% 85%, rgba(186, 230, 253, 0.75) 0px, transparent 55%),
+    linear-gradient(135deg, #fff1f2 0%, #f5f3ff 50%, #f0fdf4 100%);
+  background-size: 140% 140%;
+  animation: heroMeshMove 12s ease infinite alternate;
+}
+
+@keyframes heroMeshMove {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+.animate-float-slow {
+  animation: floatGentle 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: floatGentle 5s ease-in-out 2s infinite;
+}
+
+.shimmer-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  transform: rotate(30deg);
+  animation: shimmerAnim 4.5s infinite;
+}
+
+@keyframes shimmerAnim {
+  0% {
+    transform: translateX(-100%) rotate(30deg);
+  }
+  20%, 100% {
+    transform: translateX(100%) rotate(30deg);
+  }
+}
+
+.glass-card-tilt {
+  box-shadow: 
+    0 20px 40px -15px rgba(236, 72, 153, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.9) inset;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card-tilt:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 
+    0 25px 50px -12px rgba(168, 85, 247, 0.22),
+    0 0 0 1px rgba(255, 255, 255, 1) inset;
+}
+
+/* Kanban Drag & Drop Styles */
+.kanban-column.kanban-dragover {
+  border-color: #8b5cf6 !important;
+  background-color: rgba(245, 243, 255, 0.95) !important;
+  box-shadow: 0 0 0 3px rgba(196, 181, 253, 0.5) !important;
+  transform: scale(1.015);
+}
+
+.kanban-card {
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.kanban-card:active {
+  cursor: grabbing;
+}
+
+.kanban-card.is-dragging {
+  opacity: 0.4 !important;
+  transform: scale(0.96) rotate(1deg) !important;
+  box-shadow: 0 14px 28px rgba(168, 85, 247, 0.25) !important;
+}
+
