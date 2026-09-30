@@ -70,9 +70,9 @@ class GlobalTranslatorsApp {
           !parsed.entregas.some(e => e.id === "ent-sm-f1") ||
           !parsed.coachingSessions ||
           parsed.coachingSessions.length === 0 ||
-          !parsed.coachingSessions[0].imagen ||
           !parsed.languageCourses ||
-          parsed.languageCourses.length === 0;
+          parsed.languageCourses.length !== 2 ||
+          !parsed.languageCourses.some(l => l.coach && l.coach.includes("Jhonatan"));
 
         if (needsUpdate) {
           this.data.practicantes = JSON.parse(JSON.stringify(window.GT_DATA_INITIAL.practicantes));
@@ -1042,8 +1042,16 @@ class GlobalTranslatorsApp {
     const catBadge = item.categoriaBadge || (isCoaching ? "📄 JOB COACHING" : "🇬🇧 IDIOMAS");
     const accessBadge = item.tipoAcceso || "Acceso Libre";
     const coachName = item.coach || "Melanie Almeyda";
-    const coachRole = item.coachRol || (coachName.includes("Melanie") ? "CEO & Coach" : "Directora & Gestora");
-    const coachInitials = coachName.split(" ").map(w => w[0]).filter(Boolean).slice(0, 2).join("").toUpperCase();
+    const coachRole = item.coachRol || (coachName.includes("Melanie") ? "CEO & Coach" : (coachName.toLowerCase().includes("jhonatan") ? "Docente de Idiomas" : "Facilitador"));
+    let coachInitials = "MA";
+    if (coachName.toLowerCase().includes("jhonatan")) {
+      coachInitials = "JH";
+    } else {
+      coachInitials = coachName.split(" ").map(w => w[0]).filter(Boolean).slice(0, 2).join("").toUpperCase();
+    }
+    const avatarGradient = coachName.toLowerCase().includes("jhonatan") 
+      ? "from-emerald-600 to-teal-600" 
+      : "from-purple-600 to-indigo-600";
 
     // 7 practicantes convocadas
     const avatarsHtml = (isGroup || !isCoaching) ? `
@@ -1106,7 +1114,7 @@ class GlobalTranslatorsApp {
 
             <!-- Facilitator info -->
             <div class="flex items-center gap-2.5">
-              <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 text-white font-black text-[11px] flex items-center justify-center shadow-2xs shrink-0">
+              <div class="w-7 h-7 rounded-full bg-gradient-to-tr ${avatarGradient} text-white font-black text-[11px] flex items-center justify-center shadow-2xs shrink-0">
                 ${coachInitials}
               </div>
               <div class="min-w-0">
@@ -1230,7 +1238,7 @@ class GlobalTranslatorsApp {
           <div class="col-span-full py-12 text-center space-y-2 bg-white/70 rounded-3xl border border-dashed border-slate-200">
             <i data-lucide="search-x" class="w-8 h-8 text-slate-400 mx-auto"></i>
             <p class="text-sm font-bold text-slate-700">No se encontraron clases de idiomas con ese filtro</p>
-            <p class="text-xs text-slate-400">Intenta buscando por "Inglés", "Portugués" o "CAT Tools".</p>
+            <p class="text-xs text-slate-400">Intenta buscando por "Inglés", "Portugués", "Conversacional" o "Jhonatan".</p>
           </div>
         `;
       } else {

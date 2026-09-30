@@ -456,58 +456,41 @@ window.GT_DATA_INITIAL = {
     }
   ],
 
-  // Clases de Inglés & Portugués para las practicantes
+  // Clases de Idiomas: Inglés Conversacional y Portugués desde Cero con el Profesor Jhonatan
   languageCourses: [
     {
       id: "lang-en-1",
-      titulo: "English for Professional Translators: Jurídico & Audiovisual",
-      categoria: "Inglés Técnico",
-      categoriaBadge: "🇬🇧 INGLÉS TÉCNICO",
+      titulo: "INGLÉS / Conversacional",
+      categoria: "Inglés Conversacional",
+      categoriaBadge: "🇬🇧 INGLÉS / CONVERSACIONAL",
       duracion: "60 minutos",
-      horario: "Semanal • En Vivo",
-      coach: "Melanie Almeyda & Katherine Tiburcio",
-      coachRol: "Directora & Gestora",
-      descripcion: "Análisis exhaustivo de terminología jurídica anglosajona, contratos corporativos, traducción audiovisual, modismos dialectales y técnicas para evitar falsos cognados.",
-      modulos: "3 Módulos Prácticos",
-      material: "+ Glosario Bilingüe",
-      tags: ["Legal English", "Audiovisual", "Falsos Amigos", "San Mateo"],
+      horario: "Clases en Vivo • Semanal",
+      coach: "Profesor Jhonatan",
+      coachRol: "Docente de Idiomas",
+      descripcion: "Sesiones interactivas de práctica oral intensiva, fluidez comunicativa, debates y dinámicas de conversación guiada en inglés para el equipo de practicantes.",
+      modulos: "Práctica Oral & Fluidez",
+      material: "+ Guía de Expresiones & Audio",
+      tags: ["Inglés", "Conversacional", "Fluidez", "Speaking"],
       enlaceSala: "https://meet.google.com/cei-stmz-drx",
-      imagen: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800&auto=format&fit=crop&q=80",
-      tipoAcceso: "Acceso Libre"
+      imagen: "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=800&auto=format&fit=crop&q=80",
+      tipoAcceso: "Acceso Libre • En Vivo"
     },
     {
       id: "lang-pt-1",
-      titulo: "Português Profissional & Variantes do Brasil para Tradução",
-      categoria: "Portugués",
-      categoriaBadge: "🇵🇹 PORTUGUÊS AVANÇADO",
+      titulo: "PORTUGUÉS desde Cero",
+      categoria: "Portugués desde Cero",
+      categoriaBadge: "🇧🇷 PORTUGUÉS DESDE CERO",
       duracion: "60 minutos",
-      horario: "Semanal • En Vivo",
-      coach: "Melanie Almeyda & Katherine Tiburcio",
-      coachRol: "Directora & Gestora",
-      descripcion: "Morfosintaxis del portugués brasileño, equivalencias estilísticas en traducción literaria y adaptación de textos andinos e históricos del proyecto San Mateo.",
-      modulos: "3 Módulos Teóricos",
-      material: "+ Guía de Estilo PT",
-      tags: ["Portugués", "Brasil", "Estilo", "San Mateo"],
+      horario: "Clases en Vivo • Semanal",
+      coach: "Profesor Jhonatan",
+      coachRol: "Docente de Idiomas",
+      descripcion: "Curso inicial de portugués estructurado desde cero: fonética, reglas gramaticales básicas, vocabulario cotidiano, conjugaciones y conversación para principiantes.",
+      modulos: "Nivel Inicial (A1)",
+      material: "+ Cuaderno de Ejercicios & Fonética",
+      tags: ["Portugués", "Desde Cero", "Fonética", "Gramática Básica"],
       enlaceSala: "https://meet.google.com/cei-stmz-drx",
       imagen: "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=800&auto=format&fit=crop&q=80",
-      tipoAcceso: "Acceso Libre"
-    },
-    {
-      id: "lang-cat-1",
-      titulo: "Taller de CAT Tools & Post-Edición de Traducción con IA",
-      categoria: "Herramientas CAT & IA",
-      categoriaBadge: "🤖 CAT TOOLS & IA",
-      duracion: "45 minutos",
-      horario: "Taller Intensivo • En Vivo",
-      coach: "Melanie Almeyda",
-      coachRol: "CEO & Coach",
-      descripcion: "Integración de memorias de traducción en Trados Studio y memoQ con motores de IA generativa, prompts para terminología y post-edición humana (MTPE).",
-      modulos: "4 Módulos Prácticos",
-      material: "+ Memorias TMX",
-      tags: ["Trados", "memoQ", "MTPE", "IA Aplicada"],
-      enlaceSala: "https://meet.google.com/cei-stmz-drx",
-      imagen: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&auto=format&fit=crop&q=80",
-      tipoAcceso: "Acceso Libre"
+      tipoAcceso: "Acceso Libre • En Vivo"
     }
   ],
 
