@@ -55,6 +55,21 @@ class GlobalTranslatorsApp {
       try {
         const parsed = JSON.parse(saved);
         this.data = { ...window.GT_DATA_INITIAL, ...parsed };
+
+        // Auto-migración si el navegador tiene en caché datos de prueba anteriores
+        const hasLegacyMocks = !parsed.practicantes || parsed.practicantes.some(p => 
+          p.nombre && (
+            p.nombre.includes("Valentina Morales") || 
+            p.nombre.includes("Camila") || 
+            p.nombre.includes("Lucía Méndez") ||
+            p.nombre.includes("Sofía Castillo")
+          )
+        );
+
+        if (hasLegacyMocks) {
+          this.data.practicantes = JSON.parse(JSON.stringify(window.GT_DATA_INITIAL.practicantes));
+          this.saveState();
+        }
       } catch (e) {
         console.warn("Error leyendo localStorage, usando datos iniciales", e);
         this.data = JSON.parse(JSON.stringify(window.GT_DATA_INITIAL));
@@ -789,7 +804,11 @@ class GlobalTranslatorsApp {
                 </button>
               </div>
               <p class="text-xs font-semibold text-purple-700 leading-tight mt-0.5">${p.rol}</p>
-              <p class="text-[11px] text-slate-500 mt-1">${p.universidad || 'Universidad'} • ${p.semestre || ''}</p>
+              <p class="text-[11px] text-slate-500 mt-1 flex items-center gap-2">
+                <span>${p.universidad || 'UNIFÉ'} • ${p.semestre || ''}</span>
+                <span class="text-slate-300">•</span>
+                <span class="text-slate-500 flex items-center gap-0.5"><i data-lucide="map-pin" class="w-3 h-3 text-emerald-500"></i> ${p.ubicacion || 'Lima'}</span>
+              </p>
             </div>
           </div>
 
@@ -820,6 +839,11 @@ class GlobalTranslatorsApp {
               <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Activa en Turno
             </span>
             <div class="flex items-center gap-2">
+              ${p.cvUrl ? `
+                <a href="${p.cvUrl}" target="_blank" class="px-2.5 py-1.5 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 text-xs font-semibold transition-all flex items-center gap-1" title="Ver CV en PDF">
+                  <i data-lucide="file-down" class="w-3.5 h-3.5"></i> PDF
+                </a>
+              ` : ''}
               <button onclick="app.openCVModal('${p.id}')" class="px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-xs transition-all flex items-center gap-1.5">
                 <i data-lucide="file-badge" class="w-3.5 h-3.5"></i> Ver Perfil & CV
               </button>
@@ -836,31 +860,106 @@ class GlobalTranslatorsApp {
     const p = this.data.practicantes.find(item => item.id === practicanteId);
     if (!p) return;
 
+    // Encabezado básico
     document.getElementById("cv-modal-nombre").textContent = p.nombre;
     document.getElementById("cv-modal-rol").textContent = p.rol;
-    document.getElementById("cv-modal-universidad").textContent = `${p.universidad || ''} • ${p.semestre || ''}`;
+    document.getElementById("cv-modal-universidad").textContent = `${p.universidad || 'UNIFÉ'} • ${p.semestre || ''}`;
     document.getElementById("cv-modal-avatar").src = p.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150";
     document.getElementById("cv-modal-resumen").textContent = p.resumenCv || "Sin resumen registrado.";
 
+    // Barra de Contacto
+    const telEl = document.getElementById("cv-modal-telefono");
+    if (telEl) telEl.textContent = p.telefono || "(+51) 9XX XXX XXX";
+
+    const emailLink = document.getElementById("cv-modal-email-link");
+    if (emailLink) {
+      emailLink.textContent = p.email || "correo@unife.pe";
+      emailLink.href = `mailto:${p.email || ''}`;
+    }
+
+    const ubiEl = document.getElementById("cv-modal-ubicacion");
+    if (ubiEl) ubiEl.textContent = p.ubicacion || "Lima, Perú";
+
+    const inLink = document.getElementById("cv-modal-linkedin-link");
+    if (inLink) {
+      if (p.linkedin) {
+        inLink.href = p.linkedin;
+        inLink.classList.remove("hidden");
+      } else {
+        inLink.classList.add("hidden");
+      }
+    }
+
+    // Experiencia Laboral & Proyectos
+    const expEl = document.getElementById("cv-modal-experiencia");
+    if (expEl) {
+      if (p.experiencia && p.experiencia.length > 0) {
+        expEl.innerHTML = p.experiencia.map(exp => `
+          <div class="p-3 rounded-2xl bg-white/90 border border-slate-100 flex items-start gap-3 shadow-xs">
+            <span class="w-2.5 h-2.5 rounded-full bg-pink-500 mt-1 shrink-0"></span>
+            <p class="text-xs text-slate-700 leading-relaxed">${exp}</p>
+          </div>
+        `).join("");
+      } else {
+        expEl.innerHTML = `<p class="text-xs text-slate-400 italic">Sin experiencia previa listada.</p>`;
+      }
+    }
+
+    // Formación Académica
+    const eduEl = document.getElementById("cv-modal-educacion");
+    if (eduEl) {
+      if (p.educacion && p.educacion.length > 0) {
+        eduEl.innerHTML = p.educacion.map(edu => `
+          <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-100 flex items-center gap-2.5 text-xs text-slate-700 font-medium">
+            <i data-lucide="award" class="w-4 h-4 text-indigo-500 shrink-0"></i>
+            <span>${edu}</span>
+          </div>
+        `).join("");
+      } else {
+        eduEl.innerHTML = `<p class="text-xs text-slate-400 italic">UNIFÉ — Traducción e Interpretación</p>`;
+      }
+    }
+
+    // Idiomas & CAT Tools
+    const idiomasEl = document.getElementById("cv-modal-idiomas");
+    if (idiomasEl) {
+      idiomasEl.innerHTML = (p.idiomas || []).map(i => `<span class="bg-purple-100 text-purple-800 text-xs px-2.5 py-1 rounded-full font-semibold border border-purple-200">${i}</span>`).join("");
+    }
+
+    const toolsEl = document.getElementById("cv-modal-tools");
+    if (toolsEl) {
+      toolsEl.innerHTML = (p.catTools || []).map(t => `<span class="bg-pink-100 text-rose-800 text-xs px-2.5 py-1 rounded-full font-semibold border border-pink-200">${t}</span>`).join("");
+    }
+
+    // Habilidades & Aficiones
+    const habEl = document.getElementById("cv-modal-habilidades");
+    if (habEl) {
+      habEl.innerHTML = (p.habilidades || []).map(h => `<span class="bg-emerald-50 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-semibold border border-emerald-200">${h}</span>`).join("");
+    }
+
+    const aficEl = document.getElementById("cv-modal-aficiones");
+    if (aficEl) {
+      aficEl.innerHTML = (p.aficiones || []).map(a => `<span class="bg-rose-50 text-rose-800 text-xs px-2.5 py-1 rounded-full font-semibold border border-rose-200">${a}</span>`).join("");
+    }
+
+    // Horas y Progreso
     const pct = Math.min(100, Math.round(((p.horasCompletadas || 0) / (p.horasMeta || 480)) * 100));
     document.getElementById("cv-modal-horas-text").textContent = `${p.horasCompletadas || 0} / ${p.horasMeta || 480} hrs (${pct}%)`;
     document.getElementById("cv-modal-horas-bar").style.width = `${pct}%`;
 
-    const idiomasEl = document.getElementById("cv-modal-idiomas");
-    idiomasEl.innerHTML = (p.idiomas || []).map(i => `<span class="bg-purple-100 text-purple-800 text-xs px-2.5 py-1 rounded-full font-semibold">${i}</span>`).join("");
-
-    const toolsEl = document.getElementById("cv-modal-tools");
-    toolsEl.innerHTML = (p.catTools || []).map(t => `<span class="bg-pink-100 text-rose-800 text-xs px-2.5 py-1 rounded-full font-semibold">${t}</span>`).join("");
-
+    // Enlace a PDF
     const extLink = document.getElementById("cv-modal-external-link");
-    if (p.cvUrl) {
-      extLink.href = p.cvUrl;
-      extLink.classList.remove("hidden");
-    } else {
-      extLink.classList.add("hidden");
+    if (extLink) {
+      if (p.cvUrl) {
+        extLink.href = p.cvUrl;
+        extLink.classList.remove("hidden");
+      } else {
+        extLink.classList.add("hidden");
+      }
     }
 
     this.openModal("modal-cv-viewer");
+    if (window.lucide) window.lucide.createIcons();
   }
 
   /* ------------------------------------------------------------- */
@@ -1131,51 +1230,51 @@ class GlobalTranslatorsApp {
     const templateData = [
       {
         "ID_Practicante": "PRAC-001",
-        "Nombre": "Valentina Morales",
-        "Especialidad": "Audiovisual & Subtitulaje",
-        "Idiomas": "EN > ES",
+        "Nombre": "Maria Fernanda Olivares Ramón",
+        "Especialidad": "Audiovisual / Intérprete en Formación",
+        "Idiomas": "ES (Nativo), EN (C1), PT (B2)",
         "Horas_Completadas": 340,
         "Meta_Horas": 480,
-        "Estado_CV": "Aprobado",
+        "Estado_CV": "Aprobado (UNIFÉ)",
         "Proximo_Job_Coaching": "Mock Interview en Inglés",
         "Fecha_Coaching": "2026-10-03",
-        "Notas": "Coordinar entrega de subtítulos documental."
+        "Notas": "Preservando Historias San Mateo - Relatos Orales."
       },
       {
         "ID_Practicante": "PRAC-002",
-        "Nombre": "Camila Navarro",
-        "Especialidad": "Jurídica & Comercial",
-        "Idiomas": "FR > ES",
+        "Nombre": "Celine Lorena Bautista Ramos",
+        "Especialidad": "Textos Especializados & Maquetación",
+        "Idiomas": "ES (Nativo), EN (B2), PT (B2)",
         "Horas_Completadas": 410,
         "Meta_Horas": 480,
-        "Estado_CV": "En Revisión",
-        "Proximo_Job_Coaching": "Portfolio Jurídico",
+        "Estado_CV": "Aprobado (UNIFÉ)",
+        "Proximo_Job_Coaching": "Portfolio Comunifé & ATS PT",
         "Fecha_Coaching": "2026-10-05",
-        "Notas": "Revisión cláusulas arbitrales."
+        "Notas": "Traducción Comunifé y Teleperformance."
       },
       {
         "ID_Practicante": "PRAC-003",
-        "Nombre": "Luciana Reyes",
-        "Especialidad": "Técnica & Médica",
-        "Idiomas": "DE > ES",
-        "Horas_Completadas": 220,
+        "Nombre": "Sophia Camila Cabrera Zarate",
+        "Especialidad": "Traducción Académica / Científica",
+        "Idiomas": "ES (Nativo), EN (C1), FR (B2)",
+        "Horas_Completadas": 390,
         "Meta_Horas": 480,
-        "Estado_CV": "Aprobado",
-        "Proximo_Job_Coaching": "Completada",
+        "Estado_CV": "Aprobado (UNIFÉ)",
+        "Proximo_Job_Coaching": "LinkedIn Pro & Marca Personal",
         "Fecha_Coaching": "2026-09-27",
-        "Notas": "Manual de ventilador pulmonar."
+        "Notas": "Artículos sociopolíticos COVID-19 / Migración."
       },
       {
         "ID_Practicante": "PRAC-004",
-        "Nombre": "Sofía Mendoza",
-        "Especialidad": "Localización Web & UI",
-        "Idiomas": "EN > ES",
-        "Horas_Completadas": 295,
+        "Nombre": "Landys Brunella Gonzales Torres",
+        "Especialidad": "Interpretación Consecutiva & Ferias",
+        "Idiomas": "ES (Nativo), EN (Intermedio), FR (Intermedio)",
+        "Horas_Completadas": 420,
         "Meta_Horas": 480,
-        "Estado_CV": "Pendiente",
-        "Proximo_Job_Coaching": "Tarifas & Freelance",
+        "Estado_CV": "Aprobado (UNIFÉ)",
+        "Proximo_Job_Coaching": "Interpretación Expo Plast Perú",
         "Fecha_Coaching": "2026-10-07",
-        "Notas": "Localización Landing Fintech."
+        "Notas": "Glosario San Mateo y Mediación Intercultural."
       }
     ];
 

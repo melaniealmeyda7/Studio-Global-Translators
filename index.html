@@ -1175,49 +1175,111 @@
 
   <!-- MODAL: VER DETALLE / CV DE PRACTICANTE -->
   <div id="modal-cv-viewer" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs hidden opacity-0 transition-opacity duration-200">
-    <div class="glass-panel rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
+    <div class="glass-panel rounded-3xl max-w-3xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
       
       <!-- Header with Profile -->
       <div class="flex items-start justify-between pb-4 border-b border-slate-100">
         <div class="flex items-center gap-4">
-          <img id="cv-modal-avatar" src="" alt="Avatar" class="w-16 h-16 rounded-2xl object-cover ring-4 ring-pink-100 shadow-md">
+          <img id="cv-modal-avatar" src="" alt="Avatar" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover ring-4 ring-pink-100 shadow-md">
           <div>
-            <h3 id="cv-modal-nombre" class="font-heading font-extrabold text-xl text-slate-800">Nombre Practicante</h3>
-            <p id="cv-modal-rol" class="text-xs font-semibold text-purple-700">Rol</p>
+            <div class="flex flex-wrap items-center gap-2">
+              <h3 id="cv-modal-nombre" class="font-heading font-extrabold text-xl sm:text-2xl text-slate-800">Nombre Practicante</h3>
+              <span class="pill-badge bg-emerald-100 text-emerald-800 text-[10px]">UNIFÉ Verified ✨</span>
+            </div>
+            <p id="cv-modal-rol" class="text-xs sm:text-sm font-semibold text-purple-700">Rol</p>
             <p id="cv-modal-universidad" class="text-xs text-slate-500">Universidad</p>
           </div>
         </div>
-        <button onclick="app.closeModal('modal-cv-viewer')" class="text-slate-400 hover:text-slate-600 p-1 rounded-xl">
+        <button onclick="app.closeModal('modal-cv-viewer')" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-xl hover:bg-slate-100">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
+      <!-- Contact Info Bar -->
+      <div id="cv-modal-contact-bar" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 p-3.5 rounded-2xl bg-slate-50/80 border border-slate-100 text-xs">
+        <div class="flex items-center gap-2 text-slate-600 truncate">
+          <i data-lucide="phone" class="w-4 h-4 text-purple-500 shrink-0"></i>
+          <span id="cv-modal-telefono" class="truncate font-medium">--</span>
+        </div>
+        <div class="flex items-center gap-2 text-slate-600 truncate">
+          <i data-lucide="mail" class="w-4 h-4 text-pink-500 shrink-0"></i>
+          <a id="cv-modal-email-link" href="#" class="truncate font-medium hover:text-purple-600 underline">--</a>
+        </div>
+        <div class="flex items-center gap-2 text-slate-600 truncate">
+          <i data-lucide="map-pin" class="w-4 h-4 text-emerald-500 shrink-0"></i>
+          <span id="cv-modal-ubicacion" class="truncate font-medium">--</span>
+        </div>
+        <div class="flex items-center gap-2 text-slate-600 truncate">
+          <i data-lucide="linkedin" class="w-4 h-4 text-blue-500 shrink-0"></i>
+          <a id="cv-modal-linkedin-link" href="#" target="_blank" class="truncate font-medium hover:text-blue-600 underline">LinkedIn</a>
+        </div>
+      </div>
+
       <!-- CV Summary Box -->
-      <div class="space-y-3">
-        <h4 class="font-heading font-bold text-sm text-slate-700 flex items-center gap-1.5">
-          <i data-lucide="file-text" class="w-4 h-4 text-purple-500"></i> Resumen Profesional & Perfil de CV
+      <div class="space-y-2">
+        <h4 class="font-heading font-bold text-sm text-slate-800 flex items-center gap-1.5">
+          <i data-lucide="sparkles" class="w-4 h-4 text-purple-500"></i> Perfil Profesional & Resumen Ejecutivo
         </h4>
-        <div id="cv-modal-resumen" class="bg-purple-50/70 p-4 rounded-2xl text-xs text-slate-700 leading-relaxed border border-purple-100">
-          <!-- Text inserted by JS -->
+        <div id="cv-modal-resumen" class="bg-purple-50/70 p-4 rounded-2xl text-xs sm:text-sm text-slate-700 leading-relaxed border border-purple-100">
+        </div>
+      </div>
+
+      <!-- Experiencia Laboral & Proyectos -->
+      <div class="space-y-2">
+        <h4 class="font-heading font-bold text-sm text-slate-800 flex items-center gap-1.5">
+          <i data-lucide="briefcase" class="w-4 h-4 text-pink-500"></i> Trayectoria & Experiencia Pre-Profesional
+        </h4>
+        <div id="cv-modal-experiencia" class="space-y-2">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Formación Académica -->
+      <div class="space-y-2">
+        <h4 class="font-heading font-bold text-sm text-slate-800 flex items-center gap-1.5">
+          <i data-lucide="graduation-cap" class="w-4 h-4 text-indigo-500"></i> Formación Académica & Certificaciones
+        </h4>
+        <div id="cv-modal-educacion" class="space-y-1.5">
+          <!-- Rendered by JS -->
         </div>
       </div>
 
       <!-- Language and CAT Tools pills -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div class="space-y-2">
-          <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">Idiomas & Nivel</span>
+          <span class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+            <i data-lucide="languages" class="w-3.5 h-3.5 text-purple-500"></i> Idiomas & Dominio
+          </span>
           <div id="cv-modal-idiomas" class="flex flex-wrap gap-1.5"></div>
         </div>
         <div class="space-y-2">
-          <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">CAT Tools Dominadas</span>
+          <span class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+            <i data-lucide="cpu" class="w-3.5 h-3.5 text-pink-500"></i> CAT Tools & Software
+          </span>
           <div id="cv-modal-tools" class="flex flex-wrap gap-1.5"></div>
+        </div>
+      </div>
+
+      <!-- Habilidades & Aficiones -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="space-y-2">
+          <span class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+            <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-500"></i> Competencias Clave
+          </span>
+          <div id="cv-modal-habilidades" class="flex flex-wrap gap-1.5"></div>
+        </div>
+        <div class="space-y-2">
+          <span class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+            <i data-lucide="heart" class="w-3.5 h-3.5 text-rose-500"></i> Aficiones & Áreas de Interés
+          </span>
+          <div id="cv-modal-aficiones" class="flex flex-wrap gap-1.5"></div>
         </div>
       </div>
 
       <!-- Hours progress -->
       <div class="bg-pink-50/80 p-4 rounded-2xl border border-pink-100 space-y-2">
         <div class="flex items-center justify-between text-xs font-bold">
-          <span class="text-rose-700">Acreditación de Prácticas Pre-Profesionales</span>
+          <span class="text-rose-700">Acreditación de Prácticas Pre-Profesionales (480 hrs)</span>
           <span id="cv-modal-horas-text" class="text-rose-600">0 / 480 hrs</span>
         </div>
         <div class="w-full h-2.5 bg-white rounded-full overflow-hidden p-0.5 border border-pink-200">
@@ -1228,12 +1290,15 @@
       <!-- Actions -->
       <div class="pt-2 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100">
         <div class="text-xs text-slate-400">
-          Global Translators Talent Program
+          Global Translators Talent Program • UNIFÉ
         </div>
         <div class="flex items-center gap-2">
           <a id="cv-modal-external-link" href="#" target="_blank" class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all">
-            <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Abrir Documento de CV
+            <i data-lucide="file-down" class="w-3.5 h-3.5"></i> Ver / Descargar CV Oficial (PDF)
           </a>
+          <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-semibold flex items-center gap-1.5 shadow-xs">
+            <i data-lucide="printer" class="w-3.5 h-3.5"></i> Imprimir Ficha
+          </button>
           <button onclick="app.closeModal('modal-cv-viewer')" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold">Cerrar</button>
         </div>
       </div>

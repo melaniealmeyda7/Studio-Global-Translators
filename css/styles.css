@@ -273,3 +273,34 @@ h1, h2, h3, .font-heading {
   box-shadow: 0 14px 28px rgba(168, 85, 247, 0.25) !important;
 }
 
+/* Print Styles for CV Viewer */
+@media print {
+  body {
+    background: white !important;
+  }
+  body > *:not(#modal-cv-viewer) {
+    display: none !important;
+  }
+  #modal-cv-viewer {
+    position: static !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    display: block !important;
+    opacity: 1 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+  #modal-cv-viewer .glass-panel {
+    border: none !important;
+    box-shadow: none !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 0 !important;
+  }
+  #modal-cv-viewer button,
+  #modal-cv-viewer a {
+    display: none !important;
+  }
+}
+
+
