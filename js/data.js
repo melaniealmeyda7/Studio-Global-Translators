@@ -5,7 +5,7 @@ window.GT_DATA_INITIAL = {
     {
       id: "p1",
       nombre: "Maria Fernanda Olivares Ramón",
-      rol: "Traductora e Intérprete en Formación (EN / PT / ES)",
+      rol: "Practicante de Traducción e Interpretación (EN / PT / ES)",
       universidad: "Universidad Femenina del Sagrado Corazón (UNIFÉ)",
       semestre: "2022 - Actual | 9no - 10mo Ciclo",
       nacionalidad: "Peruana",
@@ -17,10 +17,10 @@ window.GT_DATA_INITIAL = {
       catTools: ["Trados Studio", "Subtitle Edit", "Photoshop", "Pack Office", "Google Drive", "Outlook"],
       horasCompletadas: 340,
       horasMeta: 480,
-      avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=180&auto=format&fit=crop&q=80",
+      avatar: "assets/avatars/avatar_p1.png",
       colorTag: "pink",
       cvUrl: "cvs/CV_Maria_Fernanda_Olivares.pdf",
-      resumenCv: "Traductora e Intérprete en formación con un sólido dominio del inglés y portugués. Me defino como una profesional apasionada, comprometida con la precisión terminológica y la fidelidad cultural en cada proyecto.",
+      resumenCv: "Practicante de Traducción e Interpretación en la UNIFÉ con un sólido dominio del inglés y portugués. Comprometida con la precisión terminológica y la fidelidad cultural en proyectos de archivo, interpretación y subtitulaje.",
       educacion: [
         "2022 - ACTUAL: TRADUCCIÓN E INTERPRETACIÓN — Universidad Femenina del Sagrado Corazón (UNIFÉ)",
         "2021 - 2021: DISEÑO GRÁFICO — CIBERTEC"
@@ -32,7 +32,7 @@ window.GT_DATA_INITIAL = {
         "26/08/2023 – 09/12/2023: AUXILIAR DE APOYO — Biblioteca Municipal de San Borja (Organización de libros, apoyo a estudiantes del centro cultural, orientación en actividades)."
       ],
       aficiones: ["Saxofón", "Lectura", "Diseño Gráfico"],
-      habilidades: ["Precisión terminológica", "Fidelidad cultural", "Subtitulaje (Subtitle Edit)", "Trados Studio", "Interpretación en formación"]
+      habilidades: ["Precisión terminológica", "Fidelidad cultural", "Subtitulaje (Subtitle Edit)", "Trados Studio", "Interpretación de enlace"]
     },
     {
       id: "p2",
@@ -49,10 +49,10 @@ window.GT_DATA_INITIAL = {
       catTools: ["Subtitle Edit", "Maquetación de Documentos", "Pack Office", "Google Drive"],
       horasCompletadas: 410,
       horasMeta: 480,
-      avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=180&auto=format&fit=crop&q=80",
+      avatar: "assets/avatars/avatar_p2.png",
       colorTag: "lavender",
       cvUrl: "cvs/CV_Celine_Lorena_Bautista.pdf",
-      resumenCv: "Estudiante de Traducción e Interpretación, próxima a iniciar el décimo ciclo, con alto sentido de responsabilidad y actitud proactiva. Interesada en adquirir experiencia profesional, fortalecer competencias lingüísticas y asumir nuevos retos en entornos multiculturales.",
+      resumenCv: "Estudiante de Traducción e Interpretación próxima al décimo ciclo en UNIFÉ. Alto sentido de responsabilidad, proactividad y experiencia en maquetación editorial y evaluación lingüística en entornos multiculturales.",
       educacion: [
         "2022 - ACTUAL: TRADUCCIÓN E INTERPRETACIÓN — Universidad Femenina del Sagrado Corazón (UNIFÉ)"
       ],
@@ -80,10 +80,10 @@ window.GT_DATA_INITIAL = {
       catTools: ["SDL Trados", "Subtitle Edit", "Word", "Outlook", "Google Drive"],
       horasCompletadas: 390,
       horasMeta: 480,
-      avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=180&auto=format&fit=crop&q=80",
+      avatar: "assets/avatars/avatar_p3.png",
       colorTag: "mint",
       cvUrl: "cvs/CV_Sophia_Camila_Cabrera.pdf",
-      resumenCv: "Estudiante de último ciclo de Traducción e Interpretación en UNIFÉ. Apasionada por su carrera y dispuesta siempre a comenzar nuevos retos y aprender nuevas tecnologías aplicadas a la traducción profesional y académica.",
+      resumenCv: "Estudiante de último ciclo de Traducción e Interpretación en UNIFÉ. Apasionada por su carrera, con destacada experiencia en traducción académica, edición bilingüe de revistas científicas y uso de SDL Trados.",
       educacion: [
         "2022 - ACTUAL: TRADUCCIÓN E INTERPRETACIÓN — UNIFÉ (Lima, Perú)",
         "2015 - 2022: CURSO AVANZADO DE INGLÉS — Británico (Lima, Perú)"
@@ -111,10 +111,10 @@ window.GT_DATA_INITIAL = {
       catTools: ["Canva", "Subtitle Edit", "Microsoft Office", "Google Drive"],
       horasCompletadas: 420,
       horasMeta: 480,
-      avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=180&auto=format&fit=crop&q=80",
+      avatar: "assets/avatars/avatar_p4.png",
       colorTag: "sky",
       cvUrl: "cvs/CV_Landys_Brunella_Gonzales.pdf",
-      resumenCv: "Estudiante de Traducción e Interpretación en la UNIFÉ. Organizada y comprometida con el cumplimiento de sus funciones académicas y preprofesionales. Habilidades de liderazgo, resiliencia, comunicación asertiva y trabajo en equipo en mediación lingüística e intercultural.",
+      resumenCv: "Estudiante de Traducción e Interpretación en la UNIFÉ. Experiencia destacada como intérprete consecutiva en ferias internacionales (Expo Plast / Pack Perú), traducción de joyería EN-FR y mediación intercultural.",
       educacion: [
         "2022 - ACTUAL: TRADUCCIÓN E INTERPRETACIÓN — Universidad Femenina del Sagrado Corazón (UNIFÉ)"
       ],
@@ -128,6 +128,70 @@ window.GT_DATA_INITIAL = {
       ],
       aficiones: ["Canto", "Danza", "Club de lectura", "Deportes de alto riesgo", "Viajes", "Subtitular", "Películas y series"],
       habilidades: ["Interpretación consecutiva", "Interpretación de enlace", "Traducción inglés-francés / español", "Mediación intercultural", "Liderazgo de equipos"]
+    },
+    {
+      id: "p5",
+      nombre: "Fatima Valentina Gallegos Tornero",
+      rol: "Practicante de Traducción e Interpretación (EN / FR / ES)",
+      universidad: "Universidad Femenina del Sagrado Corazón (UNIFÉ)",
+      semestre: "2022 - Actual | 9no Ciclo",
+      nacionalidad: "Peruana",
+      telefono: "(+51) 992 826 616",
+      email: "fatimavgt2@gmail.com",
+      linkedin: "https://www.linkedin.com/in/fatima-gallegos-1011812a0",
+      ubicacion: "Lima, Perú",
+      idiomas: ["Español (Lengua materna)", "Inglés (C2 - Dominio Eficaz)", "Francés (C1 - Avanzado)"],
+      catTools: ["Trados Studio", "Subtitle Edit", "Microsoft Office", "Google Drive", "Outlook"],
+      horasCompletadas: 360,
+      horasMeta: 480,
+      avatar: "assets/avatars/avatar_p5.png",
+      colorTag: "rose",
+      cvUrl: "cvs/CV_Fatima_Valentina_Gallegos.pdf",
+      resumenCv: "Estudiante del noveno ciclo de la carrera de Traducción e Interpretación en la UNIFÉ. Apasionada por los idiomas y la comunicación, responsable y comprometida. Prioriza la precisión, claridad y calidad en proyectos de enlace y traducción.",
+      educacion: [
+        "2022 - ACTUAL: TRADUCCIÓN E INTERPRETACIÓN DE IDIOMAS — Universidad Femenina del Sagrado Corazón (UNIFÉ) (Lima, Perú)"
+      ],
+      experiencia: [
+        "01/01/2026 – 31/03/2026: ATENCIÓN AL CLIENTE — Cafeteria Sweet Frezze (Atención y entrega de productos en tienda, cocina y estándares de servicio al cliente).",
+        "15/09/2024 – 31/12/2024: CLASES A DOMICILIO — RYS clases a domicilio (Refuerzo escolar para alumnos de primaria, materiales adecuados, docencia bilingüe en inglés A1-A2 y francés A1-B2).",
+        "03/04/2023 – 16/11/2023: AYUDANTE DE PROFESORA Y AUXILIAR (Voluntariado) — Colegio Santiago de Surco N.° 7087 (Certificado por UGEL 07 – Curso UNIFÉ).",
+        "03/04/2023 – 16/11/2023: INTERPRETACIÓN DE ENLACE (Practicante) — Newton College Early Years (Certificado por el Newton College – Prácticas UNIFÉ)."
+      ],
+      aficiones: ["Docencia de idiomas", "Comunicación pedagógica", "Lectura literaria"],
+      habilidades: ["Inglés C2 & Francés C1", "Interpretación de enlace", "Trados Studio", "Subtitle Edit", "Precisión y rigor terminológico"]
+    },
+    {
+      id: "p6",
+      nombre: "Arihana Jelena Altamirano Guevara",
+      rol: "Practicante de Traducción e Interpretación (EN / FR / ES)",
+      universidad: "Universidad Femenina del Sagrado Corazón (UNIFÉ)",
+      semestre: "2022 - Actual | La Molina, Lima",
+      nacionalidad: "Peruana",
+      telefono: "(+51) 942 639 809",
+      email: "aria030910@gmail.com",
+      linkedin: "https://www.linkedin.com/in/arihana-altamirano",
+      ubicacion: "Lima, Perú",
+      idiomas: ["Español (Lengua materna)", "Inglés: Intermedio", "Francés: Básico"],
+      catTools: ["Canva", "Subtitle Edit", "Microsoft Office", "Google Drive", "Outlook", "WhatsApp Business"],
+      horasCompletadas: 380,
+      horasMeta: 480,
+      avatar: "assets/avatars/avatar_p6.png",
+      colorTag: "amber",
+      cvUrl: "cvs/CV_Arihana_Jelena_Altamirano.pdf",
+      resumenCv: "Estudiante de Traducción e Interpretación en la UNIFÉ, apasionada por los idiomas, las culturas y la traducción audiovisual. Experiencia como voluntaria de inglés y asistente de producción corporativa con solvencia comunicativa y trabajo en equipo.",
+      educacion: [
+        "2022 - ACTUAL: TRADUCCIÓN E INTERPRETACIÓN — UNIVERSIDAD FEMENINA DEL SAGRADO CORAZÓN (UNIFÉ)"
+      ],
+      experiencia: [
+        "07/2023 – Esporádicamente a 2026: ASISTENTE DE PRODUCCIÓN EN EVENTOS CORPORATIVOS — Alucina ITL Comunicación Integral S.A.C (Comunicación intercultural, resolución de requerimientos y trabajo bajo presión).",
+        "Abril – Julio 2026: PRÁCTICAS PRE-PROFESIONALES — Revista Comunifé (Traducción de artículos académicos especializados del español al inglés y análisis terminológico).",
+        "05/2026: PRÁCTICAS PRE-PROFESIONALES — Evento de Interpretación en Newton College (Servicio de interpretación de enlace del español al inglés en reunión de padres).",
+        "22 – 23/06/2026: PRÁCTICAS PRE-PROFESIONALES — Evento de Interpretación para University of MARY (Servicio de interpretación de enlace del español al inglés en colegio Alegría Del Señor).",
+        "25 – 27/09/2025: APOYO LOGÍSTICO Y EQUIPO DE ORGANIZACIÓN — Jornada Científica Internacional de Traducción e Interpretación (UNIFÉ).",
+        "09/2023 – 12/2023: VOLUNTARIADO — Profesora de inglés (Clases de inglés completas para 4to y 5to de secundaria y material didáctico)."
+      ],
+      aficiones: ["Canto", "Organizar viajes y viajar", "Doblaje y Subtitulación"],
+      habilidades: ["Traducción audiovisual & subtitulaje", "Interpretación de enlace ES-EN", "Maquetación y diseño en Canva", "Atención intercultural a clientes"]
     }
   ],
 
@@ -243,6 +307,38 @@ window.GT_DATA_INITIAL = {
       palabras: 3400,
       documentoUrl: "https://drive.google.com/file/d/sample-miking-landys",
       notas: "Terminología específica de corte de diamantes y metales preciosos."
+    },
+    {
+      id: "ent-sm-5",
+      titulo: "Preservando Historias San Mateo: Protocolo Terminológico para Intérpretes de Enlace",
+      practicanteId: "p5",
+      practicanteNombre: "Fatima Valentina Gallegos Tornero",
+      parIdiomas: "ES ➔ FR / EN",
+      categoria: "Patrimonio / Enlace",
+      fechaLimite: "2026-10-04",
+      horaLimite: "17:00",
+      prioridad: "Normal",
+      estado: "pendiente",
+      progreso: 40,
+      palabras: 2900,
+      documentoUrl: "https://drive.google.com/sample-san-mateo-guia-interpretes",
+      notas: "Proyecto Preservando Historias San Mateo. Estandarización de términos de enlace cultural y memoria histórica."
+    },
+    {
+      id: "ent-sm-6",
+      titulo: "Preservando Historias San Mateo: Subtitulado y Doblaje Piloto de Testimonios Comunitarios",
+      practicanteId: "p6",
+      practicanteNombre: "Arihana Jelena Altamirano Guevara",
+      parIdiomas: "ES ➔ EN",
+      categoria: "Audiovisual / San Mateo",
+      fechaLimite: "2026-10-06",
+      horaLimite: "15:00",
+      prioridad: "Express",
+      estado: "en-progreso",
+      progreso: 65,
+      palabras: 3100,
+      documentoUrl: "https://drive.google.com/sample-san-mateo-subtitulado-audiovisual",
+      notas: "Proyecto Preservando Historias San Mateo. Sincronización y subtitulaje accesible para archivo sonoro de San Mateo."
     }
   ],
 
@@ -302,6 +398,34 @@ window.GT_DATA_INITIAL = {
       acuerdos: "Practicar speech de 3 minutos sobre comercio exterior e industria ferial.",
       enlaceSala: "https://meet.google.com/gts-coaching-p4",
       calificacion: null
+    },
+    {
+      id: "c5",
+      practicanteId: "p5",
+      practicanteNombre: "Fatima Valentina Gallegos Tornero",
+      tipo: "Mock Interview Internacional & Certificación C2",
+      coach: "Lic. Andrea Paz (Head of Talent)",
+      fecha: "2026-10-09",
+      hora: "10:30",
+      estado: "programada",
+      objetivo: "Preparación para postulaciones en organismos internacionales y agencias de la Unión Europea.",
+      acuerdos: "Simular preguntas técnicas de interpretación de enlace y traducción simultánea.",
+      enlaceSala: "https://meet.google.com/gts-coaching-p5",
+      calificacion: null
+    },
+    {
+      id: "c6",
+      practicanteId: "p6",
+      practicanteNombre: "Arihana Jelena Altamirano Guevara",
+      tipo: "Portafolio Audiovisual & Estrategia en Traducción y Doblaje",
+      coach: "Mg. Fernando Valenzuela",
+      fecha: "2026-10-10",
+      hora: "16:30",
+      estado: "programada",
+      objetivo: "Montaje de demo reel de subtitulado con Subtitle Edit y Canva para agencias de streaming.",
+      acuerdos: "Exportar 2 fragmentos de 45 segundos con subtítulos sincronizados y glosario de términos.",
+      enlaceSala: "https://meet.google.com/gts-coaching-p6",
+      calificacion: null
     }
   ],
 
@@ -331,6 +455,8 @@ window.GT_DATA_INITIAL = {
     { "ID": "PRAC-001", "Practicante": "Maria Fernanda Olivares Ramón", "Especialidad": "Audiovisual / Intérprete", "Idiomas": "ES (Nativo), EN (C1), PT (B2)", "Horas Acumuladas": 340, "Meta Horas": 480, "Estado CV": "Aprobado (UNIFÉ)", "Próximo Coaching": "Mock Interview (03/10)" },
     { "ID": "PRAC-002", "Practicante": "Celine Lorena Bautista Ramos", "Especialidad": "Textos Especializados / Comunifé", "Idiomas": "ES (Nativo), EN (B2), PT (B2)", "Horas Acumuladas": 410, "Meta Horas": 480, "Estado CV": "Aprobado (UNIFÉ)", "Próximo Coaching": "Portfolio Comunifé (05/10)" },
     { "ID": "PRAC-003", "Practicante": "Sophia Camila Cabrera Zarate", "Especialidad": "Traducción Académica / COMUNIFÉ", "Idiomas": "ES (Nativo), EN (C1), FR (B2)", "Horas Acumuladas": 390, "Meta Horas": 480, "Estado CV": "Aprobado (UNIFÉ)", "Próximo Coaching": "Completado (27/09)" },
-    { "ID": "PRAC-004", "Practicante": "Landys Brunella Gonzales Torres", "Especialidad": "Interpretación Consecutiva / Ferias", "Idiomas": "ES (Nativo), EN (Intermedio), FR (Intermedio)", "Horas Acumuladas": 420, "Meta Horas": 480, "Estado CV": "Aprobado (UNIFÉ)", "Próximo Coaching": "Interpretación Ferias (07/10)" }
+    { "ID": "PRAC-004", "Practicante": "Landys Brunella Gonzales Torres", "Especialidad": "Interpretación Consecutiva / Ferias", "Idiomas": "ES (Nativo), EN (Intermedio), FR (Intermedio)", "Horas Acumuladas": 420, "Meta Horas": 480, "Estado CV": "Aprobado (UNIFÉ)", "Próximo Coaching": "Interpretación Ferias (07/10)" },
+    { "ID": "PRAC-005", "Practicante": "Fatima Valentina Gallegos Tornero", "Especialidad": "Interpretación Enlace / EN C2 FR C1", "Idiomas": "ES (Nativo), EN (C2), FR (C1)", "Horas Acumuladas": 360, "Meta Horas": 480, "Estado CV": "Aprobado (UNIFÉ)", "Próximo Coaching": "Mock Interview C2 (09/10)" },
+    { "ID": "PRAC-006", "Practicante": "Arihana Jelena Altamirano Guevara", "Especialidad": "Audiovisual & Eventos Corporativos", "Idiomas": "ES (Nativo), EN (Intermedio), FR (Básico)", "Horas Acumuladas": 380, "Meta Horas": 480, "Estado CV": "Aprobado (UNIFÉ)", "Próximo Coaching": "Portfolio Subtitulado (10/10)" }
   ]
 };

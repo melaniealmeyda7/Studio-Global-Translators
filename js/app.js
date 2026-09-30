@@ -3,7 +3,7 @@
 
 class GlobalTranslatorsApp {
   constructor() {
-    this.storageKey = "GT_STUDIO_STORAGE_V1";
+    this.storageKey = "GT_STUDIO_STORAGE_V2";
     this.firebaseConfigKey = "GT_FIREBASE_CONFIG_V1";
     this.currentTab = "overview";
     this.cronogramaView = "kanban"; // 'kanban' | 'list'
@@ -56,18 +56,22 @@ class GlobalTranslatorsApp {
         const parsed = JSON.parse(saved);
         this.data = { ...window.GT_DATA_INITIAL, ...parsed };
 
-        // Auto-migración si el navegador tiene en caché datos de prueba anteriores
-        const hasLegacyMocks = !parsed.practicantes || parsed.practicantes.some(p => 
-          p.nombre && (
+        // Auto-migración si el almacenamiento local tiene menos de 6 practicantes, fotos random de unsplash o nombres antiguos
+        const needsUpdate = !parsed.practicantes || 
+          parsed.practicantes.length < 6 || 
+          parsed.practicantes.some(p => p.avatar && p.avatar.includes("unsplash.com")) ||
+          parsed.practicantes.some(p => p.nombre && (
             p.nombre.includes("Valentina Morales") || 
             p.nombre.includes("Camila") || 
             p.nombre.includes("Lucía Méndez") ||
             p.nombre.includes("Sofía Castillo")
-          )
-        );
+          ));
 
-        if (hasLegacyMocks) {
+        if (needsUpdate) {
           this.data.practicantes = JSON.parse(JSON.stringify(window.GT_DATA_INITIAL.practicantes));
+          this.data.entregas = JSON.parse(JSON.stringify(window.GT_DATA_INITIAL.entregas));
+          this.data.coachingSessions = JSON.parse(JSON.stringify(window.GT_DATA_INITIAL.coachingSessions));
+          this.data.excelTemplateData = JSON.parse(JSON.stringify(window.GT_DATA_INITIAL.excelTemplateData));
           this.saveState();
         }
       } catch (e) {
@@ -795,7 +799,7 @@ class GlobalTranslatorsApp {
       return `
         <div class="glass-panel p-5 sm:p-6 rounded-3xl space-y-4 border border-white/90 hover:shadow-md transition-all">
           <div class="flex items-start gap-4">
-            <img src="${p.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'}" alt="${p.nombre}" class="w-16 h-16 rounded-2xl object-cover ring-2 ring-purple-200 shadow-sm shrink-0">
+            <img src="${p.avatar || 'assets/avatars/avatar_p3.png'}" alt="${p.nombre}" class="w-16 h-16 rounded-2xl object-cover ring-2 ring-purple-200 shadow-sm shrink-0">
             <div class="flex-1 min-w-0">
               <div class="flex items-center justify-between">
                 <h4 class="font-heading font-extrabold text-base text-slate-800 truncate">${p.nombre}</h4>
@@ -864,7 +868,7 @@ class GlobalTranslatorsApp {
     document.getElementById("cv-modal-nombre").textContent = p.nombre;
     document.getElementById("cv-modal-rol").textContent = p.rol;
     document.getElementById("cv-modal-universidad").textContent = `${p.universidad || 'UNIFÉ'} • ${p.semestre || ''}`;
-    document.getElementById("cv-modal-avatar").src = p.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150";
+    document.getElementById("cv-modal-avatar").src = p.avatar || "assets/avatars/avatar_p3.png";
     document.getElementById("cv-modal-resumen").textContent = p.resumenCv || "Sin resumen registrado.";
 
     // Barra de Contacto
@@ -1275,6 +1279,30 @@ class GlobalTranslatorsApp {
         "Proximo_Job_Coaching": "Interpretación Expo Plast Perú",
         "Fecha_Coaching": "2026-10-07",
         "Notas": "Glosario San Mateo y Mediación Intercultural."
+      },
+      {
+        "ID_Practicante": "PRAC-005",
+        "Nombre": "Fatima Valentina Gallegos Tornero",
+        "Especialidad": "Interpretación Enlace / EN C2 FR C1",
+        "Idiomas": "ES (Nativo), EN (C2), FR (C1)",
+        "Horas_Completadas": 360,
+        "Meta_Horas": 480,
+        "Estado_CV": "Aprobado (UNIFÉ)",
+        "Proximo_Job_Coaching": "Mock Interview C2 (09/10)",
+        "Fecha_Coaching": "2026-10-09",
+        "Notas": "Preservando Historias San Mateo - Protocolo Terminológico."
+      },
+      {
+        "ID_Practicante": "PRAC-006",
+        "Nombre": "Arihana Jelena Altamirano Guevara",
+        "Especialidad": "Audiovisual & Eventos Corporativos",
+        "Idiomas": "ES (Nativo), EN (Intermedio), FR (Básico)",
+        "Horas_Completadas": 380,
+        "Meta_Horas": 480,
+        "Estado_CV": "Aprobado (UNIFÉ)",
+        "Proximo_Job_Coaching": "Portfolio Subtitulado (10/10)",
+        "Fecha_Coaching": "2026-10-10",
+        "Notas": "Preservando Historias San Mateo - Subtitulado Testimonios."
       }
     ];
 
@@ -1666,10 +1694,12 @@ class GlobalTranslatorsApp {
     const toolsStr = document.getElementById("prac-tools").value;
 
     const avatars = [
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
-      "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150",
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150",
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150"
+      "assets/avatars/avatar_p1.png",
+      "assets/avatars/avatar_p2.png",
+      "assets/avatars/avatar_p3.png",
+      "assets/avatars/avatar_p4.png",
+      "assets/avatars/avatar_p5.png",
+      "assets/avatars/avatar_p6.png"
     ];
     const randAvatar = avatars[Math.floor(Math.random() * avatars.length)];
 
