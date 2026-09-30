@@ -205,8 +205,8 @@
         </button>
 
         <button onclick="app.switchTab('calendario')" class="nav-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-purple-700 hover:bg-purple-50 transition-all" data-tab="calendario">
-          <i data-lucide="calendar-heart" class="w-4 h-4"></i>
-          <span>Calendario Cute</span>
+          <i data-lucide="calendar" class="w-4 h-4"></i>
+          <span>Calendario</span>
         </button>
 
         <button onclick="app.switchTab('practicantes')" class="nav-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-purple-700 hover:bg-purple-50 transition-all" data-tab="practicantes">
@@ -803,7 +803,7 @@
 
 
     <!-- ========================================== -->
-    <!-- TAB 3: CALENDARIO INTERACTIVO CUTE         -->
+    <!-- TAB 3: CALENDARIO INTERACTIVO              -->
     <!-- ========================================== -->
     <div id="section-calendario" class="hidden space-y-6">
 
@@ -898,6 +898,40 @@
 
         </div>
 
+      </div>
+
+      <!-- CRONOGRAMA & SEGUIMIENTO EN VIVO (GOOGLE SHEETS EXCEL) -->
+      <div class="glass-panel rounded-3xl p-5 sm:p-6 space-y-4 border border-purple-200/80 shadow-md">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-purple-100">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-200 shadow-2xs">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5 text-emerald-600"></i>
+              Google Sheets • Sincronización en Tiempo Real
+            </div>
+            <h3 class="text-lg font-heading font-extrabold text-slate-800 mt-1 flex items-center gap-2">
+              <span>Cronograma & Seguimiento en Vivo 📊</span>
+            </h3>
+            <p class="text-xs text-slate-600 mt-0.5">
+              Consulta en tiempo real la hoja de cálculo oficial de avances, entregas y cronograma del proyecto <b>Preservando Historias — San Mateo</b>.
+            </p>
+          </div>
+
+          <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTrrjP-3KphZRvLdV2yj_XalCYIDreCUBedRPXL5cjUWjllvGviL94B-H63BE7OjR3j3xqwVxY_GcX9/pubhtml?gid=1367681965&single=true" target="_blank" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-white hover:bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-300 shadow-2xs transition-all shrink-0">
+            <i data-lucide="external-link" class="w-3.5 h-3.5 text-emerald-600"></i>
+            <span>Abrir en Pantalla Completa</span>
+          </a>
+        </div>
+
+        <!-- Visor del Excel / Google Sheet en tiempo real -->
+        <div class="w-full bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-inner">
+          <iframe 
+            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTrrjP-3KphZRvLdV2yj_XalCYIDreCUBedRPXL5cjUWjllvGviL94B-H63BE7OjR3j3xqwVxY_GcX9/pubhtml?gid=1367681965&amp;single=true&amp;widget=true&amp;headers=false"
+            class="w-full h-[600px] border-0"
+            loading="lazy"
+            title="Cronograma y Entregas en Tiempo Real">
+          </iframe>
+        </div>
       </div>
 
     </div>
@@ -1308,7 +1342,7 @@
               Gestor & Visor de Excel (.xlsx / .csv) 📊
             </h2>
             <p class="text-xs text-slate-600">
-              Sube tus hojas de cálculo de seguimiento, audita horas, notas de coaching y entregas en una tabla interactiva cute.
+              Sube tus hojas de cálculo de seguimiento, audita entregas y notas de coaching en una tabla interactiva en tiempo real.
             </p>
           </div>
 
