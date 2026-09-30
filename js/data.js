@@ -419,5 +419,14 @@ window.GT_DATA_INITIAL = {
     { "ID": "PRAC-004", "Practicante": "Landys Brunella Gonzales Torres", "Especialidad": "Interpretación Consecutiva / Ferias", "Idiomas": "ES (Nativo), EN (Intermedio), FR (Intermedio)", "Horas Acumuladas": 420, "Meta Horas": 480, "Estado CV": "Aprobado (UNIFÉ)", "Próximo Coaching": "Grupal: 30/09 (09:30 am)" },
     { "ID": "PRAC-005", "Practicante": "Fatima Valentina Gallegos Tornero", "Especialidad": "Interpretación Enlace / EN C2 FR C1", "Idiomas": "ES (Nativo), EN (C2), FR (C1)", "Horas Acumuladas": 360, "Meta Horas": 480, "Estado CV": "Aprobado (UNIFÉ)", "Próximo Coaching": "Grupal: 30/09 (09:30 am)" },
     { "ID": "PRAC-006", "Practicante": "Arihana Jelena Altamirano Guevara", "Especialidad": "Audiovisual & Eventos Corporativos", "Idiomas": "ES (Nativo), EN (Intermedio), FR (Básico)", "Horas Acumuladas": 380, "Meta Horas": 480, "Estado CV": "Aprobado (UNIFÉ)", "Próximo Coaching": "Grupal: 30/09 (09:30 am)" }
-  ]
+  ],
+
+  meetRoom: {
+    enlace: "https://meet.google.com/ejp-yxsy-ufw",
+    codigo: "ejp-yxsy-ufw",
+    nombre: "Sala Abierta Meet • Equipo & Gestoría",
+    descripcion: "Espacio virtual permanente de Google Meet para sesiones de coworking, consultas en vivo con la gestora y co-traducción en equipo.",
+    estado: "disponible_24_7",
+    objetivoPrincipal: "Coworking colaborativo, resolución inmediata de dudas y seguimiento con la gestora."
+  }
 };

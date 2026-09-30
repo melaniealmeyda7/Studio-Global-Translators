@@ -153,7 +153,7 @@ class GlobalTranslatorsApp {
     this.currentTab = tabId;
 
     // Hide all tab sections
-    const tabs = ["overview", "cronograma", "calendario", "practicantes", "coaching", "excel", "toolkit"];
+    const tabs = ["overview", "cronograma", "calendario", "practicantes", "coaching", "meet", "excel", "toolkit"];
     tabs.forEach(t => {
       const sec = document.getElementById(`section-${t}`);
       if (sec) sec.classList.add("hidden");
@@ -185,6 +185,42 @@ class GlobalTranslatorsApp {
       window.lucide.createIcons();
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  copyMeetLink(url) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(() => {
+        this.showToast("¡Enlace de Google Meet copiado! ✨ (ejp-yxsy-ufw)", "success");
+      }).catch(() => {
+        prompt("Copia el enlace de Google Meet:", url);
+      });
+    } else {
+      prompt("Copia el enlace de Google Meet:", url);
+    }
+  }
+
+  showToast(msg, type = "info") {
+    const container = document.getElementById("toast-container");
+    if (!container) return;
+    const toast = document.createElement("div");
+    const bgClass = type === "success" 
+      ? "bg-emerald-600 text-white border-emerald-500 shadow-emerald-200" 
+      : "bg-slate-800 text-white border-slate-700";
+
+    toast.className = `pointer-events-auto px-4 py-3 rounded-2xl text-xs font-bold shadow-lg border flex items-center gap-2 transform transition-all duration-300 opacity-0 translate-y-2 ${bgClass}`;
+    toast.innerHTML = `<span>${msg}</span>`;
+    container.appendChild(toast);
+
+    setTimeout(() => {
+      toast.classList.remove("opacity-0", "translate-y-2");
+    }, 10);
+
+    setTimeout(() => {
+      toast.classList.add("opacity-0", "translate-y-2");
+      setTimeout(() => {
+        toast.remove();
+      }, 300);
+    }, 3200);
   }
 
   /* ------------------------------------------------------------- */

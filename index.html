@@ -97,6 +97,13 @@
           </span>
         </button>
 
+        <!-- Sala Abierta Meet Quick Button -->
+        <a href="https://meet.google.com/ejp-yxsy-ufw" target="_blank" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all shadow-xs" title="Sala Abierta permanente de Google Meet (ejp-yxsy-ufw) para el equipo y su gestora">
+          <i data-lucide="video" class="w-3.5 h-3.5"></i>
+          <span>Sala Abierta Meet</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-200 animate-ping"></span>
+        </a>
+
         <!-- Backup Data Modal Trigger -->
         <button onclick="app.openBackupModal()" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs transition-colors" title="Exportar / Importar Datos">
           <i data-lucide="database" class="w-4 h-4"></i>
@@ -145,9 +152,17 @@
         </button>
 
         <button onclick="app.switchTab('coaching')" class="nav-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-purple-700 hover:bg-purple-50 transition-all" data-tab="coaching">
-          <i data-lucide="target" class="w-4 h-4 text-rose-500"></i>
+          <i data-lucide="target" class="w-4 h-4 text-purple-600"></i>
           <span>Job Coaching & Empleabilidad</span>
-          <span class="bg-rose-100 text-rose-700 text-[10px] px-1.5 py-0.2 rounded-full font-bold">Nuevo ✨</span>
+          <span class="bg-purple-100 text-purple-700 text-[10px] px-1.5 py-0.2 rounded-full font-bold">Grupal 🎯</span>
+        </button>
+
+        <button onclick="app.switchTab('meet')" class="nav-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-emerald-700 hover:bg-emerald-50 transition-all" data-tab="meet">
+          <i data-lucide="video" class="w-4 h-4 text-emerald-600"></i>
+          <span>Sala Abierta Meet</span>
+          <span class="bg-emerald-100 text-emerald-700 text-[10px] px-1.5 py-0.2 rounded-full font-bold flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> 24/7 💬
+          </span>
         </button>
 
         <button onclick="app.switchTab('excel')" class="nav-tab flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-purple-700 hover:bg-purple-50 transition-all" data-tab="excel">
@@ -408,6 +423,41 @@
             <button onclick="app.switchTab('coaching')" class="w-full py-2.5 rounded-2xl bg-white text-purple-700 hover:bg-purple-50 text-xs font-bold border border-purple-200 shadow-sm flex items-center justify-center gap-1.5 transition-all">
               <i data-lucide="calendar" class="w-3.5 h-3.5"></i> Ver Agenda de Coaching
             </button>
+          </div>
+
+          <!-- Sala Abierta Meet Card (Overview) -->
+          <div class="glass-panel glass-panel-mint rounded-3xl p-6 space-y-3.5 border-2 border-emerald-200/80 shadow-xs relative overflow-hidden">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white flex items-center justify-center shadow-xs">
+                  <i data-lucide="video" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <h3 class="font-heading font-extrabold text-base text-slate-800">Sala Abierta Meet 💬</h3>
+                  <span class="text-[10px] text-emerald-700 font-bold flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span> Equipo UNIFÉ & Gestora
+                  </span>
+                </div>
+              </div>
+              <span class="pill-badge bg-emerald-100 text-emerald-800 text-[10px] font-black">24/7 Abierta</span>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Sala permanente para que las practicantes se reúnan en equipo a co-traducir, resolver dudas de inmediato o coordinar en vivo con su gestora.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-2 pt-1">
+              <a href="https://meet.google.com/ejp-yxsy-ufw" target="_blank" class="flex-1 py-2.5 px-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs font-bold shadow-md shadow-emerald-200 flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="video" class="w-4 h-4"></i> Entrar a la Sala
+              </a>
+              <button onclick="app.copyMeetLink('https://meet.google.com/ejp-yxsy-ufw')" class="py-2.5 px-3 rounded-2xl bg-white hover:bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-200 shadow-2xs flex items-center justify-center gap-1 transition-all" title="Copiar enlace de Google Meet">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar
+              </button>
+            </div>
+            <div class="flex items-center justify-between text-[11px] text-slate-400 font-mono pt-1 border-t border-emerald-100">
+              <span>Código: <b>ejp-yxsy-ufw</b></span>
+              <button onclick="app.switchTab('meet')" class="text-emerald-700 font-bold hover:underline font-sans flex items-center gap-1 text-[11px]">
+                Ver apartado completo <i data-lucide="arrow-right" class="w-3 h-3"></i>
+              </button>
+            </div>
           </div>
 
           <!-- Excel Hub Quick Card -->
@@ -801,6 +851,251 @@
               <li>• <a href="https://www.translatorscafe.com" target="_blank" class="text-purple-600 hover:underline">TranslatorsCafe</a> - Comunidad de traductores independientes</li>
               <li>• <a href="https://cibt.org" target="_blank" class="text-purple-600 hover:underline">Código de Ética y Buenas Prácticas del Traductor</a></li>
             </ul>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- TAB: SALA ABIERTA MEET • EQUIPO & GESTORA  -->
+    <!-- ========================================== -->
+    <div id="section-meet" class="hidden space-y-6">
+
+      <!-- Hero Banner -->
+      <div class="glass-panel glass-panel-mint rounded-3xl p-6 sm:p-8 space-y-4 relative overflow-hidden border-2 border-emerald-200/80">
+        <div class="max-w-3xl space-y-2.5">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white text-emerald-800 text-xs font-bold shadow-xs">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+            <i data-lucide="video" class="w-3.5 h-3.5 text-emerald-600"></i>
+            Espacio Permanente de Conexión Virtual • 24/7
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-slate-800">
+            Sala Abierta Meet • Coworking & Gestoría 💬
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Bienvenidas a la sala de Google Meet oficial de <b>Global Translators</b>. Un espacio siempre abierto para que las practicantes de UNIFÉ se reúnan a trabajar en equipo, co-traducir proyectos en tiempo real, sincronizar avances con su gestora o resolver consultas de terminología y herramientas CAT de inmediato.
+          </p>
+        </div>
+
+        <!-- Primary Action Bar -->
+        <div class="pt-2 flex flex-wrap items-center gap-3">
+          <a href="https://meet.google.com/ejp-yxsy-ufw" target="_blank" class="flex items-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs sm:text-sm font-bold shadow-lg shadow-emerald-200 hover:shadow-xl transition-all transform hover:-translate-y-0.5">
+            <i data-lucide="video" class="w-4 h-4"></i>
+            <span>Unirse a la Sala de Google Meet</span>
+          </a>
+
+          <button onclick="app.copyMeetLink('https://meet.google.com/ejp-yxsy-ufw')" class="flex items-center gap-2 px-4 py-3 rounded-2xl bg-white hover:bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-300 shadow-xs transition-all">
+            <i data-lucide="copy" class="w-4 h-4"></i>
+            <span>Copiar Enlace (meet.google.com/ejp-yxsy-ufw)</span>
+          </button>
+
+          <button onclick="app.switchTab('coaching')" class="flex items-center gap-2 px-4 py-3 rounded-2xl bg-purple-50 hover:bg-purple-100 text-purple-700 text-xs font-bold border border-purple-200 shadow-xs transition-all">
+            <i data-lucide="calendar" class="w-4 h-4"></i>
+            <span>Ver Job Coaching Grupal</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3 CANALES DE USO DE LA SALA -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Canal 1: Gestoría -->
+        <div class="glass-panel rounded-3xl p-6 space-y-3 hover:border-emerald-200 transition-all border border-slate-100">
+          <div class="w-10 h-10 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center shadow-2xs">
+            <i data-lucide="message-square-heart" class="w-5 h-5"></i>
+          </div>
+          <div class="flex items-center justify-between">
+            <h3 class="font-heading font-bold text-base text-slate-800">Consultas con su Gestora</h3>
+            <span class="pill-badge bg-emerald-100 text-emerald-800 text-[10px] font-bold">Acompañamiento</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Espacio para resolver dudas puntuales de gestión, revisión de traducciones del proyecto <b>Preservando Historias San Mateo</b>, validación de horas prácticas y criterios de acreditación universitaria.
+          </p>
+          <ul class="text-[11px] text-slate-500 space-y-1.5 pt-1 border-t border-slate-100">
+            <li class="flex items-center gap-1.5">• <span>Revisión de glosarios y lineamientos</span></li>
+            <li class="flex items-center gap-1.5">• <span>Feedback editorial y control de calidad</span></li>
+            <li class="flex items-center gap-1.5">• <span>Soporte administrativo y coordinación</span></li>
+          </ul>
+        </div>
+
+        <!-- Canal 2: Coworking de Equipo -->
+        <div class="glass-panel rounded-3xl p-6 space-y-3 hover:border-teal-200 transition-all border border-slate-100">
+          <div class="w-10 h-10 rounded-2xl bg-teal-100 text-teal-700 flex items-center justify-center shadow-2xs">
+            <i data-lucide="users" class="w-5 h-5"></i>
+          </div>
+          <div class="flex items-center justify-between">
+            <h3 class="font-heading font-bold text-base text-slate-800">Coworking & Co-Traducción</h3>
+            <span class="pill-badge bg-teal-100 text-teal-800 text-[10px] font-bold">Equipo UNIFÉ</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Las 6 practicantes pueden conectarse libremente para traducir en vivo, compartir pantalla de <b>Subtitle Edit</b> o <b>Trados Studio</b>, dividirse archivos extensos y realizar revisión cruzada por pares (Peer Review).
+          </p>
+          <ul class="text-[11px] text-slate-500 space-y-1.5 pt-1 border-t border-slate-100">
+            <li class="flex items-center gap-1.5">• <span>Sincronización de tiempos y subtítulos</span></li>
+            <li class="flex items-center gap-1.5">• <span>Discusión de elecciones terminológicas</span></li>
+            <li class="flex items-center gap-1.5">• <span>Ambiente colaborativo y de apoyo mutuo</span></li>
+          </ul>
+        </div>
+
+        <!-- Canal 3: Standup & Sincronización Rápida -->
+        <div class="glass-panel rounded-3xl p-6 space-y-3 hover:border-purple-200 transition-all border border-slate-100">
+          <div class="w-10 h-10 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center shadow-2xs">
+            <i data-lucide="zap" class="w-5 h-5"></i>
+          </div>
+          <div class="flex items-center justify-between">
+            <h3 class="font-heading font-bold text-base text-slate-800">Reuniones de Alineamiento</h3>
+            <span class="pill-badge bg-purple-100 text-purple-800 text-[10px] font-bold">15 min Sprint</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Punto de encuentro para reuniones ágiles de sincronización de entregas, desbloqueo de tareas y coordinación de plazos ante fechas límites del cronograma.
+          </p>
+          <ul class="text-[11px] text-slate-500 space-y-1.5 pt-1 border-t border-slate-100">
+            <li class="flex items-center gap-1.5">• <span>Check-in semanal de estado de entregas</span></li>
+            <li class="flex items-center gap-1.5">• <span>Distribución de nuevos lotes de audio/video</span></li>
+            <li class="flex items-center gap-1.5">• <span>Resolución rápida de cuellos de botella</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- TWO COLUMNS: SALA DETAILS & DIRECTORY OF PARTICIPANTS -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- Left 2 Cols: Tarjeta de Ficha Técnica & Protocolo -->
+        <div class="lg:col-span-2 glass-panel rounded-3xl p-6 space-y-5">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <h3 class="font-heading font-bold text-lg text-slate-800">Detalles de la Sala de Google Meet</h3>
+            </div>
+            <span class="text-xs text-emerald-800 font-bold bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
+              Sala Oficial Permanente
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 space-y-1">
+              <span class="text-[11px] font-semibold text-slate-400 uppercase">Enlace Completo</span>
+              <div class="font-bold text-slate-800 break-all select-all font-mono text-[11px] text-emerald-700">
+                https://meet.google.com/ejp-yxsy-ufw
+              </div>
+            </div>
+
+            <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 space-y-1">
+              <span class="text-[11px] font-semibold text-slate-400 uppercase">Código de Sala</span>
+              <div class="font-black text-slate-800 font-mono text-sm">
+                ejp-yxsy-ufw
+              </div>
+            </div>
+
+            <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 space-y-1">
+              <span class="text-[11px] font-semibold text-slate-400 uppercase">Disponibilidad</span>
+              <div class="font-bold text-slate-700 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                Abierta 24/7 (Sin caducidad)
+              </div>
+            </div>
+
+            <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 space-y-1">
+              <span class="text-[11px] font-semibold text-slate-400 uppercase">Convocadas</span>
+              <div class="font-bold text-slate-700">
+                6 Practicantes UNIFÉ + Gestora
+              </div>
+            </div>
+          </div>
+
+          <!-- Protocolo de Convivencia Cute -->
+          <div class="bg-gradient-to-r from-emerald-50/60 to-teal-50/50 p-4 rounded-2xl border border-emerald-100 space-y-2 text-xs">
+            <h4 class="font-bold text-emerald-900 flex items-center gap-2">
+              <i data-lucide="sparkles" class="w-4 h-4 text-emerald-600"></i> Buenas Prácticas para la Sala Abierta
+            </h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-600 text-[11px]">
+              <div>• <b>Identificación</b>: Entra con tu cuenta institucional o con tu nombre completo.</div>
+              <div>• <b>Micrófono</b>: Siléncialo mientras estés en coworking si hay ruido ambiental.</div>
+              <div>• <b>Compartir pantalla</b>: Si tienes dudas en Subtitle Edit o Trados, comparte tu ventana.</div>
+              <div>• <b>Chat de texto</b>: Úsalo para dejar links de glosarios o notas a la gestora.</div>
+            </div>
+          </div>
+
+          <!-- Join Button Callout -->
+          <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 p-4 bg-emerald-600 text-white rounded-2xl shadow-sm">
+            <div class="space-y-0.5">
+              <h5 class="font-bold text-sm">¿Lista para iniciar sesión con el equipo o la gestora?</h5>
+              <p class="text-xs text-emerald-100">Haz clic para abrir Google Meet en una nueva pestaña.</p>
+            </div>
+            <a href="https://meet.google.com/ejp-yxsy-ufw" target="_blank" class="px-4 py-2.5 rounded-xl bg-white text-emerald-800 hover:bg-emerald-50 font-bold text-xs shadow-xs transition-all flex items-center gap-1.5 shrink-0">
+              <i data-lucide="video" class="w-4 h-4"></i> Entrar a la Sala Abierta
+            </a>
+          </div>
+        </div>
+
+        <!-- Right 1 Col: Directorio de Practicantes Convocadas -->
+        <div class="space-y-4">
+          
+          <div class="glass-panel glass-panel-mint rounded-3xl p-6 space-y-4">
+            <div class="flex items-center justify-between pb-2 border-b border-emerald-200">
+              <div class="flex items-center gap-2">
+                <i data-lucide="users" class="w-4 h-4 text-emerald-700"></i>
+                <h4 class="font-heading font-bold text-base text-slate-800">Equipo Convocado</h4>
+              </div>
+              <span class="text-[11px] font-bold text-emerald-800 bg-white px-2.5 py-0.5 rounded-full shadow-2xs">6 Practicantes</span>
+            </div>
+
+            <p class="text-xs text-slate-600">Integrantes del estudio de traducción autorizadas para uso de la sala:</p>
+
+            <div class="space-y-2.5">
+              <div class="flex items-center gap-2.5 p-2 bg-white/80 rounded-2xl border border-emerald-100">
+                <img src="assets/avatars/avatar_p1.png" alt="Maria Fernanda" class="w-8 h-8 rounded-full object-cover ring-2 ring-emerald-200">
+                <div class="flex-1 min-w-0">
+                  <h6 class="text-xs font-bold text-slate-800 truncate">Maria Fernanda Olivares</h6>
+                  <p class="text-[10px] text-slate-500">Audiovisual • Subtitle Edit</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2.5 p-2 bg-white/80 rounded-2xl border border-emerald-100">
+                <img src="assets/avatars/avatar_p2.png" alt="Celine Lorena" class="w-8 h-8 rounded-full object-cover ring-2 ring-emerald-200">
+                <div class="flex-1 min-w-0">
+                  <h6 class="text-xs font-bold text-slate-800 truncate">Celine Lorena Bautista</h6>
+                  <p class="text-[10px] text-slate-500">Textos Especializados • Comunifé</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2.5 p-2 bg-white/80 rounded-2xl border border-emerald-100">
+                <img src="assets/avatars/avatar_p3.png" alt="Sophia Camila" class="w-8 h-8 rounded-full object-cover ring-2 ring-emerald-200">
+                <div class="flex-1 min-w-0">
+                  <h6 class="text-xs font-bold text-slate-800 truncate">Sophia Camila Cabrera</h6>
+                  <p class="text-[10px] text-slate-500">Traducción Académica • Trados</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2.5 p-2 bg-white/80 rounded-2xl border border-emerald-100">
+                <img src="assets/avatars/avatar_p4.png" alt="Landys Brunella" class="w-8 h-8 rounded-full object-cover ring-2 ring-emerald-200">
+                <div class="flex-1 min-w-0">
+                  <h6 class="text-xs font-bold text-slate-800 truncate">Landys Brunella Gonzales</h6>
+                  <p class="text-[10px] text-slate-500">Interpretación Consecutiva</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2.5 p-2 bg-white/80 rounded-2xl border border-emerald-100">
+                <img src="assets/avatars/avatar_p5.png" alt="Fatima Valentina" class="w-8 h-8 rounded-full object-cover ring-2 ring-emerald-200">
+                <div class="flex-1 min-w-0">
+                  <h6 class="text-xs font-bold text-slate-800 truncate">Fatima Valentina Gallegos</h6>
+                  <p class="text-[10px] text-slate-500">Interpretación de Enlace (EN C2/FR C1)</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2.5 p-2 bg-white/80 rounded-2xl border border-emerald-100">
+                <img src="assets/avatars/avatar_p6.png" alt="Arihana Jelena" class="w-8 h-8 rounded-full object-cover ring-2 ring-emerald-200">
+                <div class="flex-1 min-w-0">
+                  <h6 class="text-xs font-bold text-slate-800 truncate">Arihana Jelena Altamirano</h6>
+                  <p class="text-[10px] text-slate-500">Audiovisual & Doblaje</p>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -1551,6 +1846,9 @@
       Diseñado con estética cute pastel para impulsar el talento de las futuras líderes de la traducción internacional.
     </p>
   </footer>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 pointer-events-none flex flex-col gap-2"></div>
 
   <!-- Scripts -->
   <script src="js/data.js"></script>
