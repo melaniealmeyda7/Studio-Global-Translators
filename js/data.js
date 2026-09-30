@@ -270,7 +270,7 @@ window.GT_DATA_INITIAL = {
       progreso: 65,
       palabras: 7500,
       documentoUrl: "https://drive.google.com/sample-san-mateo-fase-3-bloque-a",
-      notas: "Fase 3 del Cronograma Oficial. División de bloques (45,000 palabras mín.) y alimentación constante de términos en el glosario bilingüe."
+      notas: "Fase 3 del Cronograma Oficial. División de bloques de trabajo y alimentación constante de términos en el glosario bilingüe."
     },
     {
       id: "ent-sm-f3-b",
@@ -436,8 +436,8 @@ window.GT_DATA_INITIAL = {
   ],
 
   roadmapSteps: [
-    { id: "r1", titulo: "Sesión 1: Inducción Profesional, CV & Formato ATS", desc: "Diseño y estructura de CV bilingüe sin tablas en formato ATS, optimizado para selección internacional.", hecho: true },
-    { id: "r2", titulo: "Sesión 2: Optimización de LinkedIn", desc: "Titular estratégico de traducción/interpretación, extracto bilingüe con keywords y red de contactos.", hecho: true },
+    { id: "r1", titulo: "Sesión 1: Inducción Profesional, CV & Formato ATS", desc: "Diseño y estructura de CV bilingüe sin tablas en formato ATS, optimizado para selección internacional.", hecho: false },
+    { id: "r2", titulo: "Sesión 2: Optimización de LinkedIn", desc: "Titular estratégico de traducción/interpretación, extracto bilingüe con keywords y red de contactos.", hecho: false },
     { id: "r3", titulo: "Sesión 3: Portafolio Profesional + IA", desc: "Montaje de portafolio con muestras autorizadas y flujo de trabajo asistido éticamente con IA.", hecho: false }
   ],
 
@@ -450,7 +450,7 @@ window.GT_DATA_INITIAL = {
   ],
 
   stickyNotes: [
-    { id: "n1", color: "pink", texto: "🌸 Preservando Historias San Mateo: 45,000 palabras mínimo distribuidas en las 6 fases de trabajo." },
+    { id: "n1", color: "pink", texto: "🌸 Preservando Historias San Mateo: 6 fases informativas de trabajo coordinadas por Melanie Almeyda y Katherine Tiburcio." },
     { id: "n2", color: "lavender", texto: "💜 Responsables del Proyecto: Melanie Almeyda y Katherine Tiburcio (ONG PRESERVANDO & POLYGLOT MAP)." },
     { id: "n3", color: "mint", texto: "🌿 Sesiones de Job Coaching los miércoles 9:30 AM vía meet.google.com/cei-stmz-drx con Melanie Almeyda." }
   ],

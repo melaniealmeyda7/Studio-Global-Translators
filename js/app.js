@@ -3,7 +3,7 @@
 
 class GlobalTranslatorsApp {
   constructor() {
-    this.storageKey = "GT_STUDIO_STORAGE_V6";
+    this.storageKey = "GT_STUDIO_STORAGE_V7";
     this.firebaseConfigKey = "GT_FIREBASE_CONFIG_V1";
     this.currentTab = "overview";
     this.cronogramaView = "kanban"; // 'kanban' | 'list'
@@ -1085,19 +1085,20 @@ class GlobalTranslatorsApp {
       }
     }
 
-    // Render roadmap steps
+    // Render roadmap steps (Modo Informativo - Sin tachar)
     const roadmapContainer = document.getElementById("roadmap-steps-container");
     if (roadmapContainer) {
-      const completedCount = this.data.roadmapSteps.filter(s => s.hecho).length;
       const badge = document.getElementById("roadmap-progress-badge");
-      if (badge) badge.textContent = `${completedCount}/${this.data.roadmapSteps.length}`;
+      if (badge) badge.textContent = `${this.data.roadmapSteps.length} Hitos`;
 
-      roadmapContainer.innerHTML = this.data.roadmapSteps.map(step => `
-        <div onclick="app.toggleRoadmapStep('${step.id}')" class="flex items-start gap-2.5 p-2.5 rounded-2xl border transition-all cursor-pointer ${step.hecho ? 'bg-emerald-50/70 border-emerald-200' : 'bg-white/80 border-slate-100 hover:border-pink-200'}">
-          <input type="checkbox" ${step.hecho ? 'checked' : ''} class="mt-1 rounded text-purple-600 focus:ring-purple-400 pointer-events-none">
-          <div class="flex-1">
-            <h5 class="text-xs font-bold ${step.hecho ? 'line-through text-slate-400' : 'text-slate-800'}">${step.titulo}</h5>
-            <p class="text-[11px] text-slate-500 leading-tight">${step.desc}</p>
+      roadmapContainer.innerHTML = this.data.roadmapSteps.map((step, idx) => `
+        <div class="flex items-start gap-3 p-3 rounded-2xl border border-pink-100 bg-white/90 shadow-2xs transition-all">
+          <div class="w-6 h-6 rounded-xl bg-gradient-to-tr from-pink-400 to-purple-500 text-white flex items-center justify-center text-xs font-black shrink-0 mt-0.5 shadow-2xs">
+            ${idx + 1}
+          </div>
+          <div class="flex-1 min-w-0">
+            <h5 class="text-xs font-bold text-slate-800 leading-snug">${step.titulo}</h5>
+            <p class="text-[11px] text-slate-500 leading-relaxed mt-0.5">${step.desc}</p>
           </div>
         </div>
       `).join("");
@@ -1107,12 +1108,7 @@ class GlobalTranslatorsApp {
   }
 
   toggleRoadmapStep(stepId) {
-    const s = this.data.roadmapSteps.find(item => item.id === stepId);
-    if (s) {
-      s.hecho = !s.hecho;
-      this.saveState();
-      this.renderCoaching();
-    }
+    // Modo informativo: no se tachan los pasos
   }
 
   completeCoachingSession(id) {
