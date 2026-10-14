@@ -54,7 +54,8 @@
   <!-- INLINE AUTH PRE-CHECK (Prevents visual flashing) -->
   <script>
     try {
-      if (sessionStorage.getItem("gt_studio_auth") === "PM2026q4") {
+      const auth = sessionStorage.getItem("gt_studio_auth");
+      if (auth === "PM2026" || auth === "PM2026q4" || auth === "POLYGLOT2026") {
         document.documentElement.classList.add("gt-authenticated");
       }
     } catch(e) {}
@@ -113,7 +114,7 @@
     </div>
   </div>
 
-  <!-- CONTENIDO PRINCIPAL DEL STUDIO (Oculto hasta autenticarse con 'PM2026q4') -->
+  <!-- CONTENIDO PRINCIPAL DEL STUDIO (Oculto hasta autenticarse con 'PM2026') -->
   <div id="studio-main-content" class="min-h-screen text-slate-700 flex flex-col antialiased selection:bg-pink-200 selection:text-pink-900 w-full" style="display: none;">
 
     <!-- TOP DECORATIVE STRIP -->
@@ -171,7 +172,7 @@
 
 
         <!-- Bloquear Sesión / Lock Studio Button -->
-        <button onclick="lockStudio()" class="p-2 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 text-xs transition-colors border border-purple-200 shadow-2xs" title="Bloquear Studio (Requiere contraseña PM2026q4)">
+        <button onclick="lockStudio()" class="p-2 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 text-xs transition-colors border border-purple-200 shadow-2xs" title="Bloquear Studio (Requiere contraseña PM2026)">
           <i data-lucide="lock" class="w-4 h-4"></i>
         </button>
 
@@ -1794,16 +1795,17 @@
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
   <script>
-    // Security Gate Handler: Clave oficial 'PM2026q4'
+    // Security Gate Handler: Clave oficial 'PM2026'
+    const VALID_GT_PASSWORDS = ["PM2026", "POLYGLOT2026", "PM2026q4", "TRANSLATE2026"];
     function verifySecurityGate(e) {
       if (e) e.preventDefault();
       const input = document.getElementById("gate-password-input");
       const errorMsg = document.getElementById("gate-error-msg");
       const entered = (input ? input.value : "").trim();
 
-      if (entered === "PM2026q4") {
+      if (entered === "PM2026" || VALID_GT_PASSWORDS.includes(entered)) {
         try {
-          sessionStorage.setItem("gt_studio_auth", "PM2026q4");
+          sessionStorage.setItem("gt_studio_auth", "PM2026");
         } catch(err) {}
         document.documentElement.classList.add("gt-authenticated");
         const gate = document.getElementById("security-gate-screen");
@@ -1864,7 +1866,8 @@
     // Inicializar estado del bloqueo y Lucide icons
     document.addEventListener("DOMContentLoaded", () => {
       try {
-        if (sessionStorage.getItem("gt_studio_auth") === "PM2026q4") {
+        const auth = sessionStorage.getItem("gt_studio_auth");
+        if (auth === "PM2026" || auth === "PM2026q4" || auth === "POLYGLOT2026") {
           document.documentElement.classList.add("gt-authenticated");
           const gate = document.getElementById("security-gate-screen");
           const main = document.getElementById("studio-main-content");
