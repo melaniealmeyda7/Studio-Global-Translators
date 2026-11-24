@@ -2257,15 +2257,19 @@ class GlobalTranslatorsApp {
   initFolderLinks() {
     const defaults = {
       fase1: "https://drive.google.com/drive/folders/sample-san-mateo-fase-1-analisis",
-      fase2: "https://drive.google.com/drive/folders/sample-san-mateo-fase-2-investigacion",
-      fase3: "https://drive.google.com/drive/folders/sample-san-mateo-fase-3-traduccion"
+      fase2: "https://drive.google.com/drive/folders/1mUklgMWXlF20P8IumYXop1yD3cNyWWp6?usp=sharing",
+      fase3: "https://drive.google.com/drive/folders/1jA4oqw9VbDJCcUOU2R3GpyhZQTzetFV2?usp=sharing"
     };
     
     ['fase1', 'fase2', 'fase3'].forEach(key => {
-      const saved = localStorage.getItem(`folder_link_${key}`) || defaults[key];
+      let saved = localStorage.getItem(`folder_link_${key}`);
+      if (saved && saved.includes('sample-san-mateo')) {
+        saved = null;
+        localStorage.removeItem(`folder_link_${key}`);
+      }
       const linkEl = document.getElementById(`link-entregable-${key}`);
       if (linkEl) {
-        linkEl.href = saved;
+        linkEl.href = saved || defaults[key];
       }
     });
   }
